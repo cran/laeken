@@ -1,0 +1,101 @@
+\name{rmpg}
+\alias{rmpg}
+\title{Relative median at-risk-of-poverty gap}
+\description{
+  Estimate the relative median at-risk-of-poverty gap, which is defined as the 
+  relative difference between the median equivalized disposable income of 
+  persons below the at-risk-of-poverty threshold and the at-risk-of-poverty 
+  threshold itself (expressed as a percentage of the at-risk-of-poverty 
+  threshold).
+}
+\usage{
+rmpg(inc, weights = NULL, sort = NULL, years = NULL, 
+     breakdown = NULL, design = NULL, data = NULL, 
+     var = NULL, alpha = 0.05, na.rm = FALSE, \dots)
+}
+\arguments{
+  \item{inc}{either a numeric vector giving the equivalized disposable income, 
+    or (if \code{data} is not \code{NULL}) a character string, an integer or a 
+    logical vector specifying the corresponding column of \code{data}.}
+  \item{weights}{optional; either a numeric vector giving the personal sample 
+    weights, or (if \code{data} is not \code{NULL}) a character string, an 
+    integer or a logical vector specifying the corresponding column of 
+    \code{data}.}
+  \item{sort}{optional; either a numeric vector giving the personal IDs to be 
+    used as tie-breakers for sorting, or (if \code{data} is not \code{NULL}) a 
+    character string, an integer or a logical vector specifying the 
+    corresponding column of \code{data}.}
+  \item{years}{optional; either a numeric vector giving the different years of 
+    the survey, or (if \code{data} is not \code{NULL}) a character string, 
+    an integer or a logical vector specifying the corresponding column of 
+    \code{data}.  If supplied, values are computed for each year.}
+  \item{breakdown}{optional; either a numeric vector giving different strata, 
+    or (if \code{data} is not \code{NULL}) a character string, an integer or a 
+    logical vector specifying the corresponding column of \code{data}.  If 
+    supplied, the values for each stratum are computed in addition to the 
+    overall value.  Note that the same (overall) threshold is used for all 
+    strata.}
+  \item{design}{optional and only used if \code{var} is not \code{NULL}; either 
+    an integer vector or factor giving different strata for stratified sampling 
+    designs, or (if \code{data} is not \code{NULL}) a character string, an 
+    integer or a logical vector specifying the corresponding column of 
+    \code{data}.}
+  \item{data}{an optional \code{data.frame}.}
+  \item{var}{a character string specifying the type of variance estimation to 
+    be used, or \code{NULL} to omit variance estimation.  See 
+    \code{\link{variance}} for possible values.}
+  \item{alpha}{numeric; if \code{var} is not \code{NULL}, this gives the 
+    significance level to be used for computing the confidence interval 
+    (i.e., the confidence level is \eqn{1 - }\code{alpha}).}
+  \item{na.rm}{a logical indicating whether missing values should be removed.}
+  \item{\dots}{if \code{var} is not \code{NULL}, additional arguments to be 
+    passed to \code{\link{variance}}.}
+}
+\details{
+  The implementation strictly follows the Eurostat definition.
+}
+\value{
+  A list of class \code{"rmpg"} (which inherits from the class 
+  \code{"indicator"}) with the following components:
+  \item{value}{a numeric vector containing the overall value(s).}
+  \item{valueByStratum}{a \code{data.frame} containing the values by stratum, 
+    or \code{NULL}.}
+  \item{varMethod}{a character string specifying the type of variance 
+    estimation used, or \code{NULL} if variance estimation was omitted.}
+  \item{var}{a numeric vector containing the variance estimate(s), or 
+    \code{NULL}.}
+  \item{varByStratum}{a \code{data.frame} containing the variance estimates by 
+    stratum, or \code{NULL}.}
+  \item{ci}{a numeric vector or matrix containing the lower and upper endpoints 
+    of the confidence interval(s), or \code{NULL}.}
+  \item{ciByStratum}{a \code{data.frame} containing the lower and upper 
+    endpoints of the confidence intervals by stratum, or \code{NULL}.}
+  \item{alpha}{a numeric value giving the significance level used for computing 
+    the confidence interval(s) (i.e., the confidence level is 
+    \eqn{1 - }\code{alpha}), or \code{NULL}.}
+  \item{years}{a numeric vector containing the different years of the survey.}
+  \item{strata}{a character vector containing the different strata of the 
+    breakdown.}
+  \item{threshold}{a numeric vector containing the at-risk-of-poverty 
+    threshold(s).}
+}
+\references{
+Working group on Statistics on Income and Living Conditions (2004) Common 
+cross-sectional EU indicators based on EU-SILC; the gender pay gap. 
+\emph{EU-SILC 131-rev/04}, Eurostat.
+}
+\author{Andreas Alfons}
+\seealso{
+\code{\link{arpt}}, \code{\link{variance}}
+}
+\examples{
+data(eusilc)
+
+# overall value
+rmpg("eqIncome", weights = "rb050", data = eusilc)
+
+# values by region
+rmpg("eqIncome", weights = "rb050", 
+    breakdown = "db040", data = eusilc)
+}
+\keyword{survey}

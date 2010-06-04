@@ -1,0 +1,73 @@
+\name{eqInc}
+\alias{eqInc}
+\title{Equivalized disposable income}
+\description{
+  Compute the equivalized disposable income from household and personal income 
+  variables.
+}
+\usage{
+eqInc(hid, hplus, hminus, pplus, pminus, 
+      eqSS, year = NULL, data = NULL)
+}
+\arguments{
+  \item{hid}{if \code{data=NULL}, a vector containing the household ID.  
+    Otherwise a character string specifying the column of \code{data} that 
+    contains the household ID.}
+  \item{hplus}{if \code{data=NULL}, a \code{data.frame} containing the 
+    household income components that have to be added.  Otherwise a character 
+    vector specifying the columns of \code{data} that contain these income 
+    components.}
+  \item{hminus}{if \code{data=NULL}, a \code{data.frame} containing the 
+    household income components that have to be subtracted.  Otherwise a 
+    character vector specifying the columns of \code{data} that contain these 
+    income components.}
+  \item{pplus}{if \code{data=NULL}, a \code{data.frame} containing the 
+    personal income components that have to be added.  Otherwise a character 
+    vector specifying the columns of \code{data} that contain these income 
+    components.}
+  \item{pminus}{if \code{data=NULL}, a \code{data.frame} containing the 
+    personal income components that have to be subtracted.  Otherwise a 
+    character vector specifying the columns of \code{data} that contain these 
+    income components.}
+  \item{eqSS}{if \code{data=NULL}, a vector containing the equivalized 
+    household size.  Otherwise a character string specifying the column of 
+    \code{data} that contains the equivalized household size.  See 
+    \code{\link{eqSS}} for more details.}
+  \item{year}{if \code{data=NULL}, a vector containing the year of the 
+    survey.  Otherwise a character string specifying the column of 
+    \code{data} that contains the year.}
+  \item{data}{a \code{data.frame} containing EU-SILC survey data, or 
+    \code{NULL}.}
+}
+\details{
+  All income components should already be imputed, otherwise \code{NA}s are 
+  simply removed before the calculations.
+}
+\value{
+  A numeric vector containing the equivalized disposable income for every 
+  individual in \code{data}.
+}
+\references{
+Working group on Statistics on Income and Living Conditions (2004) Common 
+cross-sectional EU indicators based on EU-SILC; the gender pay gap. 
+\emph{EU-SILC 131-rev/04}, Eurostat.
+}
+\author{Andreas Alfons}
+\seealso{\code{\link{eqSS}}}
+\examples{
+data(eusilc)
+
+# compute a simplified version of the equivalized disposable income
+# (household income components are not yet available in the data)
+pplus <- c("py010n", "py050n", "py090n", "py100n", 
+    "py110n", "py120n", "py130n", "py140n")
+eqIncome <- eqInc("db030", character(), character(), 
+    pplus, character(), "eqSS", data=eusilc)
+
+# combine with household ID
+tmp <- data.frame(db030=eusilc$db030, eqIncome=eqIncome)
+
+# show the first 12 rows
+head(tmp, 12)
+}
+\keyword{survey}

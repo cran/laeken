@@ -1,0 +1,50 @@
+\name{incMedian}
+\alias{incMedian}
+\title{Weighted median income}
+\description{
+  Compute the weighted median income.
+}
+\usage{
+incMedian(inc, weights = NULL, sort = NULL, 
+          years = NULL, data = NULL, na.rm = FALSE)
+}
+\arguments{
+  \item{inc}{either a numeric vector giving the (equivalized disposable) income, 
+    or (if \code{data} is not \code{NULL}) a character string, an integer or a 
+    logical vector specifying the corresponding column of \code{data}.}
+  \item{weights}{optional; either a numeric vector giving the personal sample 
+    weights, or (if \code{data} is not \code{NULL}) a character string, an 
+    integer or a logical vector specifying the corresponding column of 
+    \code{data}.}
+  \item{sort}{optional; either a numeric vector giving the personal IDs to be 
+    used as tie-breakers for sorting, or (if \code{data} is not \code{NULL}) a 
+    character string, an integer or a logical vector specifying the 
+    corresponding column of \code{data}.}
+  \item{years}{optional; either a numeric vector giving the different years of 
+    the survey, or (if \code{data} is not \code{NULL}) a character string, 
+    an integer or a logical vector specifying the corresponding column of 
+    \code{data}.  If supplied, values are computed for each year.}
+  \item{data}{an optional \code{data.frame}.}
+  \item{na.rm}{a logical indicating whether missing values should be removed.}
+}
+\details{
+  The implementation strictly follows the Eurostat definition.
+}
+\value{
+  A numeric vector containing the value(s) of the weighted median income is 
+  returned. 
+}
+\references{
+Working group on Statistics on Income and Living Conditions (2004) Common 
+cross-sectional EU indicators based on EU-SILC; the gender pay gap. 
+\emph{EU-SILC 131-rev/04}, Eurostat.
+}
+\author{Andreas Alfons}
+\seealso{
+\code{\link{arpt}}, \code{\link{weightedMedian}}
+}
+\examples{
+data(eusilc)
+incMedian("eqIncome", weights = "rb050", data = eusilc)
+}
+\keyword{survey}

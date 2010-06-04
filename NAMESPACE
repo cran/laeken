@@ -1,0 +1,54 @@
+import(stats, utils)
+importFrom(boot, boot, boot.ci)
+
+export(
+    arpr,
+    arpt,
+    calibWeights,
+    eqInc,
+    eqSS,
+    fitPareto,
+    gini,
+    incMedian,
+    incQuintile,
+    is.indicator,
+    is.arpr,
+    is.qsr,
+    is.rmpg,
+    is.gini,
+    is.indicator,
+    bootVar,
+    meanExcessPlot,
+    minAMSE,
+    paretoQPlot,
+    qsr,
+    rmpg,
+    thetaHill,
+    thetaISE,
+    thetaLS,
+    thetaQQ,
+    thetaMoment,
+    thetaPDC,
+    thetaTM,
+    thetaWML,
+    variance,
+    weightedMedian,
+    weightedQuantile
+)
+
+## register methods for S3 generics defined in this package
+# bootstrap variance
+S3method(bootVar, indicator)
+
+## register methods for existing S3 generics
+# print
+S3method(print, indicator)
+S3method(print, arpr)
+S3method(print, rmpg)
+S3method(print, minAMSE)
+## plot
+#S3method(plot, arpr)
+# subset
+S3method(subset, indicator)
+S3method(subset, arpr)
+S3method(subset, rmpg)

@@ -1,0 +1,47 @@
+\name{eqSS}
+\alias{eqSS}
+\title{Equivalized household size}
+\description{
+  Compute the equivalized household size according to the modified OECD scale 
+  adopted in 1994.
+}
+\usage{
+eqSS(hid, age, year = NULL, data = NULL)
+}
+\arguments{
+  \item{hid}{if \code{data=NULL}, a vector containing the household ID.  
+    Otherwise a character string specifying the column of \code{data} that 
+    contains the household ID.}
+  \item{age}{if \code{data=NULL}, a vector containing the age of the 
+    individuals.  Otherwise a character string specifying the column of 
+    \code{data} that contains the age.}
+  \item{year}{if \code{data=NULL}, a vector containing the year of the 
+    survey.  Otherwise a character string specifying the column of 
+    \code{data} that contains the year.}
+  \item{data}{a \code{data.frame} containing EU-SILC survey data, or 
+    \code{NULL}.}
+}
+\value{
+  A numeric vector containing the equivalized household size for every 
+  observation in \code{data}.
+}
+\references{
+Working group on Statistics on Income and Living Conditions (2004) Common 
+cross-sectional EU indicators based on EU-SILC; the gender pay gap. 
+\emph{EU-SILC 131-rev/04}, Eurostat.
+}
+\author{Andreas Alfons}
+\seealso{\code{\link{eqInc}}}
+\examples{
+data(eusilc)
+
+# calculate equivalized household size
+eqSS <- eqSS("db030", "age", data=eusilc)
+
+# combine with household ID
+tmp <- data.frame(db030=eusilc$db030, eqSS=eqSS)
+
+# show the first 12 rows
+head(tmp, 12)
+}
+\keyword{survey}

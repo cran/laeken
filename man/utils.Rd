@@ -1,0 +1,109 @@
+\name{utils}
+\alias{is.indicator}
+\alias{is.arpr}
+\alias{is.qsr}
+\alias{is.rmpg}
+\alias{is.gini}
+\alias{print.indicator}
+\alias{print.arpr}
+\alias{print.rmpg}
+\alias{subset.indicator}
+\alias{subset.arpr}
+\alias{subset.rmpg}
+\title{Utility functions for Laeken indicators}
+\description{
+  Test for class, print and take subsets of Laeken indicators.
+}
+\usage{
+is.indicator(x)
+
+is.arpr(x)
+
+is.qsr(x)
+
+is.rmpg(x)
+
+is.gini(x)
+
+\method{print}{indicator}(x, \dots)
+
+\method{print}{arpr}(x, \dots)
+
+\method{print}{rmpg}(x, \dots)
+
+\method{subset}{indicator}(x, years = NULL, strata = NULL, \dots)
+
+\method{subset}{arpr}(x, years = NULL, strata = NULL, \dots)
+
+\method{subset}{rmpg}(x, years = NULL, strata = NULL, \dots)
+}
+\arguments{
+  \item{x}{for \code{is.xyz}, any object to be tested.  The \code{print} and 
+    \code{subset} methods are called by the generic functions if an object of 
+    the respective class is supplied.}
+  \item{years}{an optional numeric vector giving the years to be extracted.}
+  \item{strata}{an optional vector giving the strata of the breakdown to be 
+    extracted.}
+  \item{\dots}{additional arguments to be passed to and from methods.}
+}
+\value{
+  \code{is.indicator} returns \code{TRUE} if \code{x} inherits from class 
+  \code{"indicator"} and \code{FALSE} otherwise.
+  
+  \code{is.arpr} returns \code{TRUE} if \code{x} inherits from class 
+  \code{"arpr"} and \code{FALSE} otherwise.
+  
+  \code{is.qsr} returns \code{TRUE} if \code{x} inherits from class 
+  \code{"qsr"} and \code{FALSE} otherwise.
+  
+  \code{is.rmpg} returns \code{TRUE} if \code{x} inherits from class 
+  \code{"rmpg"} and \code{FALSE} otherwise.
+  
+  \code{is.gini} returns \code{TRUE} if \code{x} inherits from class 
+  \code{"gini"} and \code{FALSE} otherwise.
+  
+  \code{print.indicator}, \code{print.arpr} and \code{print.rmpg} return 
+  \code{x} invisibly.
+  
+  \code{subset.indicator}, \code{subset.arpr} and \code{subset.rmpg} return a 
+  subset of \code{x} of the same class. 
+}
+\seealso{
+\code{\link{arpr}}, \code{\link{qsr}}, \code{\link{rmpg}}, \code{\link{gini}}
+}
+\examples{
+data(eusilc)
+
+# at-risk-of-poverty rate
+a <- arpr("eqIncome", weights = "rb050", 
+    breakdown = "db040", data = eusilc)
+print(a)
+is.arpr(a)
+is.indicator(a)
+subset(a, strata = c("Lower Austria", "Vienna"))
+
+# quintile share ratio
+q <- qsr("eqIncome", weights = "rb050", 
+    breakdown = "db040", data = eusilc)
+print(q)
+is.qsr(q)
+is.indicator(q)
+subset(q, strata = c("Lower Austria", "Vienna"))
+
+# relative median at-risk-of-poverty gap
+r <- rmpg("eqIncome", weights = "rb050", 
+    breakdown = "db040", data = eusilc)
+print(r)
+is.rmpg(r)
+is.indicator(r)
+subset(r, strata = c("Lower Austria", "Vienna"))
+
+# Gini coefficient
+g <- gini("eqIncome", weights = "rb050", 
+    breakdown = "db040", data = eusilc)
+print(g)
+is.gini(g)
+is.indicator(g)
+subset(g, strata = c("Lower Austria", "Vienna"))
+}
+\keyword{survey}
