@@ -339,7 +339,7 @@ getFunByYear <- function(byStratum, calibrate, fun) {
     } else {
         if(calibrate) {
             # ---------- no breakdown by stratum, calibration ----------
-            function(y, x, R, p, X, totals, ys, rs, alpha, ciType, na.rm, ...) {
+            function(y, x, R, design, p, X, totals, ys, rs, alpha, ciType, na.rm, ...) {
                 i <- x$year == y
                 x <- x[i, , drop=FALSE]
                 X <- X[i, , drop=FALSE]
@@ -356,7 +356,7 @@ getFunByYear <- function(byStratum, calibrate, fun) {
             }
         } else {
             # ---------- no breakdown by stratum, no calibration ----------
-            function(y, x, R, p, X, totals, ys, rs, alpha, ciType, na.rm, ...) {
+            function(y, x, R, design, p, X, totals, ys, rs, alpha, ciType, na.rm, ...) {
                 i <- x$year == y
                 x <- x[i, , drop=FALSE]
                 design <- design[i]
