@@ -12,8 +12,8 @@ Calculate Laeken indicators for measuring social cohesion and apply Pareto tail 
 \tabular{ll}{
 Package: \tab laeken\cr
 Type: \tab Package\cr
-Version: \tab 0.1.1\cr
-Date: \tab 2010-06-23\cr
+Version: \tab 0.1.2\cr
+Date: \tab 2010-08-09\cr
 Depends: \tab boot, MASS\cr
 License: \tab GPL (>= 2)\cr
 }

@@ -89,7 +89,7 @@ thetaWML <- function(x, k, weight = c("residuals", "probability"),
             # derivative of weight function
             dw <- ifelse(w == 1, 0, (-const)*y*hsig / (theta*y + hy)^2)
             # bias correction
-            bcorr <- sum(w*dlogf*deltaF)/sum((dw*dlogf + w*d2logf) * deltaF)
+            bcorr <- -sum(w*dlogf*deltaF)/sum((dw*dlogf + w*d2logf) * deltaF)
     } else {
             cp1 <- 1-p1
             cp2 <- 1-p2

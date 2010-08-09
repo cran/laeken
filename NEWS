@@ -1,3 +1,9 @@
+Changes in laeken version 0.1.2
+    
+    + Bugfix in 'thetaWML' for bias correction term with weight function based 
+      on standardized residuals.
+
+
 Changes in laeken version 0.1.1
     
     + Bugfix in 'bootVar' in case of breakdown by year and stratum.
