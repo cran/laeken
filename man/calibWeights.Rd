@@ -41,6 +41,11 @@ The final sample weights need to be computed by multiplying the resulting
 \value{
 A numeric vector containing the \emph{g}-weights.
 }
+\note{
+  This is a faster implementation of parts of \code{\link[sampling]{calib}} 
+  from package \code{sampling}.  Note that the default calibration method is 
+  raking and that the truncated linear method is not yet implemented.
+}
 \references{
 Deville, J.-C. and \enc{Särndal}{Saerndal}, C.-E. (1992) Calibration estimators 
 in survey sampling. \emph{Journal of the American Statistical Association}, 
@@ -51,11 +56,6 @@ Generalized raking procedures in survey sampling. \emph{Journal of the American
 Statistical Association}, \bold{88}(423), 1013--1020.
 }
 \author{Andreas Alfons}
-\note{
-  This is a faster implementation of parts \code{\link[sampling]{calib}} from 
-  package \code{sampling}.  Note that the default calibration method is 
-  raking and that the truncated linear method is not yet implemented.
-}
 \seealso{
 \code{\link{bootVar}}
 }
