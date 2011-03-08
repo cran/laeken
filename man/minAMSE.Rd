@@ -71,7 +71,7 @@ Statistics}, \bold{34}(4), 639--658.
 }
 \author{Josef Holzer and Andreas Alfons}
 \seealso{
-  \code{\link{fitPareto}}, \code{\link{thetaHill}}
+  \code{\link{thetaHill}}
 }
 \examples{
 data(eusilc)

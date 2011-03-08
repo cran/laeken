@@ -14,7 +14,8 @@ calibWeights(X, d, totals, q = NULL,
           eps = .Machine$double.eps)
 }
 \arguments{
-  \item{X}{a matrix of calibration variables.}
+  \item{X}{a matrix of binary calibration variables (see 
+    \code{\link{calibVars}}).}
   \item{d}{a numeric vector giving the initial sample weights.}
   \item{totals}{a numeric vector of population totals corresponding to the 
     calibration variables in \code{X}.}
@@ -57,18 +58,18 @@ Statistical Association}, \bold{88}(423), 1013--1020.
 }
 \author{Andreas Alfons}
 \seealso{
-\code{\link{bootVar}}
+\code{\link{calibVars}}, \code{\link{bootVar}}
 }
 \examples{
 data(eusilc)
-# define auxiliary 0-1 variables for genders
-aux <- cbind(as.numeric(eusilc$rb090 == "male"), 
-    as.numeric(eusilc$rb090 == "female"))
+# construct auxiliary 0/1 variables for genders
+aux <- calibVars(eusilc$rb090)
 # population totals
 totals <- c(3990798, 4191431)
 # compute g-weights
 g <- calibWeights(aux, eusilc$rb050, totals)
 # compute final weights
 weights <- g * eusilc$rb050
+summary(weights)
 }
 \keyword{survey}

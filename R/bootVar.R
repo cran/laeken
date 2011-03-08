@@ -7,7 +7,7 @@
 bootVar <- function(inc, weights = NULL, years = NULL, 
         breakdown = NULL, design = NULL, data = NULL, indicator, 
         R = 100, bootType = c("calibrate", "naive"), X, 
-        totals, ciType = c("perc", "norm", "basic"),
+        totals = NULL, ciType = c("perc", "norm", "basic"),
         # type "stud" and "bca" are currently not allowed
         alpha = 0.05, seed = NULL, na.rm = FALSE, ...) {
     UseMethod("bootVar", indicator)
@@ -18,7 +18,7 @@ bootVar <- function(inc, weights = NULL, years = NULL,
 bootVar.indicator <- function(inc, weights = NULL, years = NULL, 
         breakdown = NULL, design = NULL, data = NULL, indicator, 
         R = 100, bootType = c("calibrate", "naive"), X, 
-        totals, ciType = c("perc", "norm", "basic"),
+        totals = NULL, ciType = c("perc", "norm", "basic"),
         # type "stud" and "bca" are currently not allowed
         alpha = 0.05, seed = NULL, na.rm = FALSE, ...) {
     ## initializations
@@ -84,7 +84,23 @@ bootVar.indicator <- function(inc, weights = NULL, years = NULL,
         X <- as.matrix(X)
 #        if(!is.numeric(X)) stop("'X' must be a numeric matrix")
         if(nrow(X) != n) stop("'X' must have ", n, " rows")
-        if(byYear) totals <- as.matrix(totals)
+        if(is.null(totals)) {
+            # compute totals from original data with Horvitz-Thompson estimator
+            if(byYear) {
+                totals <- lapply(ys, 
+                    function(y) {
+                        # extract current year from calibration variables and 
+                        # weights
+                        i <- years == y
+                        X <- X[i, , drop=FALSE]
+                        weights <- weights[i]
+                        # compute totals for current year
+                        apply(X, 2, function(i) sum(i*weights))
+                    })
+                totals <- do.call(rbind, totals)  # form matrix of totals
+                rownames(totals) <- ys  # use years as rownames for totals
+            } else totals <- apply(X, 2, function(i) sum(i*weights))
+        } else if(byYear) totals <- as.matrix(totals)
         if(!is.numeric(totals)) stop("'totals' must be of type numeric")
     } else {
         X <- NULL

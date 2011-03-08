@@ -6,35 +6,73 @@ The Pareto quantile plot is a graphical method for inspecting the parameters of
 a Pareto distribution.
 }
 \usage{
-paretoQPlot(x, \dots)
+paretoQPlot(x, w = NULL, xlab = NULL, ylab = NULL, 
+            interactive = TRUE, \dots)
 }
 \arguments{
   \item{x}{a numeric vector.}
+  \item{w}{an optional numeric vector giving sample weights.}
+  \item{xlab, ylab}{axis labels.}
+  \item{interactive}{a logical indicating whether the threshold (scale 
+    parameter) can be selected interactively by clicking on points.  
+    Information on the selected threshold is then printed on the \R console.}
   \item{\dots}{additional arguments to be passed to 
     \code{\link[graphics]{plot.default}}.}
 }
 \details{
-The logarithms of the observed values are plotted against the corresponding 
-theoretical quantiles of the standard exponential distribution.  If the tail 
-of the data follows a Pareto distribution, these observations form (almost) a 
-straight line.  The leftmost point of a fitted line can thus be used as an 
-estimate of the scale parameter. The slope of the fitted line is in turn an 
-estimate of \eqn{\frac{1}{\theta}}{1/theta}, the reciprocal of the shape 
-parameter.
+If the Pareto model holds, there exists a linear relationship between the 
+lograrithms of the observed values and the quantiles of the standard 
+exponential distribution, since the logarithm of a Pareto distributed random 
+variable follows an exponential distribution.  Hence the logarithms of the 
+observed values are plotted against the corresponding theoretical quantiles.  
+If the tail of the data follows a Pareto distribution, these observations form 
+almost a straight line.  The leftmost point of a fitted line can thus be used 
+as an estimate of the threshold (scale parameter). The slope of the fitted line 
+is in turn an estimate of \eqn{\frac{1}{\theta}}{1/theta}, the reciprocal of 
+the shape parameter.
+
+The interactive selection of the threshold (scale parameter) is implemented 
+using \code{\link[graphics]{identify}}.  For the usual 
+\code{\link[grDevices]{X11}} device, the selection process is thus terminated 
+by pressing any mouse button other than the first.  For the 
+\code{\link[grDevices]{quartz}} device (on Mac OS X systems), the process is 
+terminated either by a secondary click (usually second mouse button or 
+\code{Ctrl}-click) or by pressing the \code{ESC} key.
 }
+\value{
+If \code{interactive} is \code{TRUE}, the last selection for the threshold is 
+returned invisibly as an object of class \code{"paretoScale"}, which consists 
+of the following components:
+\item{x0}{the selected threshold (scale parameter).}
+\item{k}{the number of observations in the tail (i.e., larger than the 
+  threshold).}
+}
+\note{
+  The functionality to account for sample weights and to select the threshold 
+  (scale parameter) interactively was introduced in version 0.2.  Also starting 
+  with version 0.2, a logarithmic y-axis is now used to display the axis labels 
+  in the scale of the original values.
+}
+\author{Andreas Alfons and Josef Holzer}
 \references{
 Beirlant, J., Vynckier, P. and Teugels, J.L. (1996) Tail index estimation, 
 Pareto quantile plots, and regression diagnostics. \emph{Journal of the 
 American Statistical Association}, \bold{91}(436), 1659--1667.
 }
-\author{Josef Holzer and Andreas Alfons}
 \seealso{
-  \code{\link{minAMSE}}, \code{\link{meanExcessPlot}}
+  \code{\link{minAMSE}}, \code{\link{paretoScale}}, 
+  \code{\link{meanExcessPlot}}, \code{\link[graphics]{identify}}
 }
 \examples{
 data(eusilc)
 # equivalized disposable income is equal for each household
 # member, therefore only one household member is taken
-paretoQPlot(eusilc$eqIncome[!duplicated(eusilc$db030)])
+eusilc <- eusilc[!duplicated(eusilc$db030),]
+
+# with sample weights
+paretoQPlot(eusilc$eqIncome, w = eusilc$db090)
+
+# without sample weights
+paretoQPlot(eusilc$eqIncome)
 }
 \keyword{hplot}

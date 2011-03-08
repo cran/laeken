@@ -1,14 +1,54 @@
-Changes in laeken version 0.1.3
+Changes in laeken version 0.2
+
+    + Functions for fitting a Pareto distribution now have an additional 
+      argument 'x0' to specify threshold directly instead of using number of 
+      observations 'k' in the tail.
     
+    + In the graphical exploration of the data using 'meanExcessPlot' or 
+      'paretoQPlot', sample weights can now be considered and the threshold 
+      (scale parameter) can be selected interactively.
+    
+    + Function 'paretoQPlot' now simply uses logarithmic y-axis to show the 
+      labels in the scale of the original values.
+    
+    + Changed default axis labels in 'paretoQPlot'.
+    
+    + Sample weights can now be considered when fitting a Pareto distribution 
+      using 'thetaHill', 'thetaISE' or 'thetaPDC'.
+    
+    + New function 'calibVars' for convenient construction of binary variables 
+      for calibration.
+    
+    + New functions 'paretoTail', 'replaceTail', 'replaceOut' and 'calibOut' 
+      for improved methodology for Pareto tail modeling with a common interface.
+    
+    + Row names of the example data 'eusilc' are now given by 1 to the number 
+      of rows.
+    
+    + New wrapper function 'weightedMean' for the (weighted) mean.
+    
+    + New function 'paretoScale' for estimating the threshold for Pareto tail 
+      modeling.
+    
+    + Totals for calibrated bootstrap variance are now by default computed from 
+      the original data using the Horvitz-Thompson estimator.
+    
+    + Added package vignettes 'laeken-standard', 'laeken-pareto' and 
+      'laeken-variance'.
+
+
+
+Changes in laeken version 0.1.3
+
     + Minimal changes in help file for 'calibWeights'.
 
 
 Changes in laeken version 0.1.2
-    
+
     + Bugfix in 'thetaWML' for bias correction term with weight function based 
       on standardized residuals.
 
 
 Changes in laeken version 0.1.1
-    
+
     + Bugfix in 'bootVar' in case of breakdown by year and stratum.

@@ -6,16 +6,32 @@
   (LS) approach.
 }
 \usage{
-thetaLS(x, k)
+thetaLS(x, k = NULL, x0 = NULL)
 }
 \arguments{
   \item{x}{a numeric vector.}
   \item{k}{the number of observations in the upper tail to which the Pareto 
     distribution is fitted.}
+  \item{x0}{the threshold (scale parameter) above which the Pareto distribution 
+    is fitted.}
+}
+\details{
+  The arguments \code{k} and \code{x0} of course correspond with each other.  
+  If \code{k} is supplied, the threshold \code{x0} is estimated with the 
+  \eqn{n - k} largest value in \code{x}, where \eqn{n} is the number of 
+  observations.  On the other hand, if the threshold \code{x0} is supplied, 
+  \code{k} is given by the number of observations in \code{x} larger than 
+  \code{x0}.  Therefore, either \code{k} or \code{x0} needs to be supplied.  
+  If both are supplied, only \code{k} is used (mainly for back compatibility).
 }
 \value{
   The estimated shape parameter.
 }
+\note{
+  The argument \code{x0} for the threshold (scale parameter) of the Pareto 
+  distribution was introduced in version 0.2.  
+}
+\author{Andreas Alfons and Josef Holzer}
 \references{
 Brazauskas, V. and Serfling, R. (2000) Robust estimation of tail parameters 
 for two-parameter Pareto and exponential models via generalized quantile 
@@ -25,14 +41,22 @@ Brazauskas, V. and Serfling, R. (2000) Robust and efficient estimation of the
 tail index of a single-parameter Pareto distribution. \emph{North American 
 Actuarial Journal}, \bold{4}(4), 12--27.
 }
-\author{Josef Holzer and Andreas Alfons}
 \seealso{
-  \code{\link{fitPareto}}
+  \code{\link{paretoTail}}, \code{\link{fitPareto}}
 }
 \examples{
 data(eusilc)
 # equivalized disposable income is equal for each household
 # member, therefore only one household member is taken
-thetaLS(eusilc$eqIncome[!duplicated(eusilc$db030)], k = 75)
+eusilc <- eusilc[!duplicated(eusilc$db030),]
+
+# estimate threshold
+ts <- paretoScale(eusilc$eqIncome, w = eusilc$db090)
+
+# using number of observations in tail
+thetaLS(eusilc$eqIncome, k = ts$k)
+
+# using threshold
+thetaLS(eusilc$eqIncome, x0 = ts$x0)
 }
 \keyword{manip}

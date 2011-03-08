@@ -4,11 +4,13 @@ importFrom(boot, boot, boot.ci)
 export(
     arpr,
     arpt,
+    calibVars,
     calibWeights,
     eqInc,
     eqSS,
     fitPareto,
     gini,
+    incMean,
     incMedian,
     incQuintile,
     is.indicator,
@@ -21,7 +23,12 @@ export(
     meanExcessPlot,
     minAMSE,
     paretoQPlot,
+    paretoScale,
+    paretoTail,
     qsr,
+    replaceOut,
+    replaceTail,
+    reweightOut,
     rmpg,
     thetaHill,
     thetaISE,
@@ -32,6 +39,7 @@ export(
     thetaTM,
     thetaWML,
     variance,
+    weightedMean,
     weightedMedian,
     weightedQuantile
 )
@@ -39,6 +47,12 @@ export(
 ## register methods for S3 generics defined in this package
 # bootstrap variance
 S3method(bootVar, indicator)
+S3method(calibVars, default)
+S3method(calibVars, matrix)
+S3method(calibVars, data.frame)
+#S3method(replaceOut, paretoTail)
+S3method(replaceTail, paretoTail)
+S3method(reweightOut, paretoTail)
 
 ## register methods for existing S3 generics
 # print
@@ -46,6 +60,8 @@ S3method(print, indicator)
 S3method(print, arpr)
 S3method(print, rmpg)
 S3method(print, minAMSE)
+S3method(print, paretoScale)
+S3method(print, paretoTail)
 ## plot
 #S3method(plot, arpr)
 # subset

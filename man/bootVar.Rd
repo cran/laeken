@@ -1,14 +1,17 @@
 \name{bootVar}
 \alias{bootVar}
-\title{Bootstrap variance and confidence intervals of Laeken indicators}
+\title{
+  Bootstrap variance and confidence intervals of indicators on social exclusion 
+  and poverty
+}
 \description{
-  Compute variance and confidence interval estimates of Laeken indicators based 
-  on bootstrap resampling.
+  Compute variance and confidence interval estimates of indicators on social 
+  exclusion and poverty based on bootstrap resampling.
 }
 \usage{
 bootVar(inc, weights = NULL, years = NULL, breakdown = NULL, 
         design = NULL, data = NULL, indicator, R = 100, 
-        bootType = c("calibrate", "naive"), X, totals, 
+        bootType = c("calibrate", "naive"), X, totals = NULL, 
         ciType = c("perc", "norm", "basic"),
         alpha = 0.05, seed = NULL, na.rm = FALSE, ...)
 }
@@ -49,7 +52,9 @@ bootVar(inc, weights = NULL, years = NULL, breakdown = NULL,
   \item{totals}{numeric; if \code{bootType} is \code{"calibrate"}, this gives 
     the population totals.  If \code{years} is \code{NULL}, a vector should be 
     supplied, otherwise a matrix in which each row contains the population 
-    totals of the respective year.}
+    totals of the respective year.  If this is \code{NULL} (the default), the 
+    population totals are computed from the sample weights using the 
+    Horvitz-Thompson estimator.}
   \item{ciType}{a character string specifying the type of confidence interval(s) 
     to be computed.  Possible values are \code{"perc"}, \code{"norm"} and 
     \code{"basic"} (see \code{\link[boot]{boot.ci}}).}
@@ -86,17 +91,8 @@ bootVar("eqIncome", weights = "rb050", design = "db040",
     data = eusilc, indicator = a, bootType = "naive", seed = 123)
 
 ## bootstrap with calibration
-# define auxiliary 0-1 variables for regions
-aux <- sapply(levels(eusilc$db040), 
-    function(l, x) as.numeric(x == l), 
-    x = eusilc$db040)
-# retrieve population totals from underlying sample
-totals <- sapply(levels(eusilc$db040), 
-    function(l, x, w) sum(w[x == l]), 
-    x = eusilc$db040, w = eusilc$rb050)
-# bootstrap variance
 bootVar("eqIncome", weights = "rb050", design = "db040", 
-    data = eusilc, indicator = a, X = aux, totals = totals, 
+    data = eusilc, indicator = a, X = calibVars(eusilc$db040), 
     seed = 123)
 }
 \keyword{survey}

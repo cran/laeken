@@ -1,0 +1,20 @@
+# ------------------------------------------
+# Authors: Andreas Alfons and Matthias Templ
+#          Vienna University of Technology
+# ------------------------------------------
+
+# weighted mean
+weightedMean <- function(x, weights = NULL, na.rm = FALSE) {
+    # initializations
+    if (!is.numeric(x)) stop("'x' must be a numeric vector")
+    if (is.null(weights)) mean(x, na.rm=na.rm)
+    else {
+        n <- length(x)
+        if (!is.numeric(weights)) stop("'weights' must be a numeric vector")
+        else if (length(weights) != n) {
+            stop("'weights' must have the same length as 'x'")
+        } else if (!all(is.finite(weights))) stop("missing or infinite weights")
+        if (any(weights < 0)) warning("negative weights")
+        weighted.mean(x, weights, na.rm=na.rm)
+    }
+}

@@ -10,9 +10,10 @@
 \alias{subset.indicator}
 \alias{subset.arpr}
 \alias{subset.rmpg}
-\title{Utility functions for Laeken indicators}
+\title{Utility functions for indicators on social exclusion and poverty}
 \description{
-  Test for class, print and take subsets of Laeken indicators.
+  Test for class, print and take subsets of indicators on social exclusion and 
+  poverty.
 }
 \usage{
 is.indicator(x)

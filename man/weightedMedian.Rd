@@ -26,7 +26,7 @@ Working group on Statistics on Income and Living Conditions (2004) Common
 cross-sectional EU indicators based on EU-SILC; the gender pay gap. 
 \emph{EU-SILC 131-rev/04}, Eurostat.
 }
-\author{Andreas Alfons}
+\author{Andreas Alfons and Matthias Templ}
 \seealso{
 \code{\link{arpt}}, \code{\link{incMedian}}, \code{\link{weightedQuantile}}
 }

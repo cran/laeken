@@ -183,3 +183,13 @@ subset.rmpg <- function(x, years = NULL, strata = NULL, ...) {
     # return result
     return(x)
 }
+
+
+## other utility functions
+
+# get argument names of a function
+argNames <- function(fun, removeDots = TRUE) {
+    nam <- names(formals(fun))
+    if(removeDots) nam <- setdiff(nam, "...")
+    nam
+}

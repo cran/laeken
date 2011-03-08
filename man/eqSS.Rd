@@ -38,10 +38,10 @@ data(eusilc)
 # calculate equivalized household size
 eqSS <- eqSS("db030", "age", data=eusilc)
 
-# combine with household ID
-tmp <- data.frame(db030=eusilc$db030, eqSS=eqSS)
+# combine with household ID and household size
+tmp <- cbind(eusilc[, c("db030", "hsize")], eqSS)
 
-# show the first 12 rows
-head(tmp, 12)
+# show the first 8 rows
+head(tmp, 8)
 }
 \keyword{survey}
