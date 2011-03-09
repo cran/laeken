@@ -6,14 +6,14 @@
 Estimation of indicators on social exclusion and poverty
 }
 \description{
-Estimation of indicators on social exclusion and poverty and Pareto tail modeling for empirical income distributions (including graphical tools).
+Estimation of indicators on social exclusion and poverty, as well as Pareto tail modeling for empirical income distributions (including graphical tools).
 }
 \details{
 \tabular{ll}{
 Package: \tab laeken\cr
 Type: \tab Package\cr
-Version: \tab 0.2\cr
-Date: \tab 2011-03-08\cr
+Version: \tab 0.2.1\cr
+Date: \tab 2011-03-09\cr
 Depends: \tab boot, MASS\cr
 License: \tab GPL (>= 2)\cr
 }

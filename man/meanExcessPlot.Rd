@@ -28,10 +28,9 @@ The leftmost point of a fitted line can thus be used as an estimate of the
 threshold (scale parameter).
 
 The interactive selection of the threshold (scale parameter) is implemented 
-using \code{\link[graphics]{identify}}.  For the usual 
-\code{\link[grDevices]{X11}} device, the selection process is thus terminated 
-by pressing any mouse button other than the first.  For the 
-\code{\link[grDevices]{quartz}} device (on Mac OS X systems), the process is 
+using \code{\link[graphics]{identify}}.  For the usual \code{X11} device, the 
+selection process is thus terminated by pressing any mouse button other than 
+the first.  For the \code{quartz} device (on Mac OS X systems), the process is 
 terminated either by a secondary click (usually second mouse button or 
 \code{Ctrl}-click) or by pressing the \code{ESC} key.
 }
