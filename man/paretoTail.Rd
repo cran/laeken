@@ -73,7 +73,7 @@ paretoTail(x, k = NULL, x0 = NULL, method = "thetaPDC",
 }
 \author{Andreas Alfons}
 \seealso{
-  \code{\link{reweightOut}}, \code{\link{replaceOut}}, 
+  \code{\link{reweightOut}}, \code{\link{shrinkOut}}, \code{\link{replaceOut}}, 
   \code{\link{replaceTail}}, \code{\link{fitPareto}}
   
   \code{\link{thetaPDC}}, \code{\link{thetaWML}}, \code{\link{thetaHill}}, 
@@ -101,6 +101,10 @@ fit <- paretoTail(eusilc$eqIncome, k = ts$k,
 # calibration of outliers
 w <- reweightOut(fit, calibVars(eusilc$db040))
 gini(eusilc$eqIncome, w)
+
+# winsorization of outliers
+eqIncome <- shrinkOut(fit)
+gini(eqIncome, weights = eusilc$rb050)
 
 # replacement of outliers
 eqIncome <- replaceOut(fit)

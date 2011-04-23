@@ -32,7 +32,7 @@ replaceOut(x, \dots)
 }
 \author{Andreas Alfons}
 \seealso{
-  \code{\link{paretoTail}}, \code{\link{reweightOut}} 
+  \code{\link{paretoTail}}, \code{\link{reweightOut}}, \code{\link{shrinkOut}} 
 }
 \examples{
 data(eusilc)

@@ -35,7 +35,7 @@ reweightOut(x, \dots)
 }
 \author{Andreas Alfons}
 \seealso{
-  \code{\link{paretoTail}}, \code{\link{replaceOut}}, 
+  \code{\link{paretoTail}}, \code{\link{shrinkOut}} , \code{\link{replaceOut}}, 
   \code{\link{replaceTail}}
 }
 \examples{

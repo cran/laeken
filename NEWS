@@ -1,3 +1,9 @@
+Changes in laeken version 0.2.2
+
+    + New function 'shrinkOut' for Pareto tail modeling to shrink outliers to 
+      the theoretical quantile used for outlier detection.
+
+
 Changes in laeken version 0.2.1
 
     + Fixed help files for 'meanExcessPlot' and 'paretoQPlot' on Microsoft 
@@ -27,7 +33,7 @@ Changes in laeken version 0.2
     + New function 'calibVars' for convenient construction of binary variables 
       for calibration.
     
-    + New functions 'paretoTail', 'replaceTail', 'replaceOut' and 'calibOut' 
+    + New functions 'paretoTail', 'replaceTail', 'replaceOut' and 'reweightOut' 
       for improved methodology for Pareto tail modeling with a common interface.
     
     + Row names of the example data 'eusilc' are now given by 1 to the number 

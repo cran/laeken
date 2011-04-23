@@ -30,6 +30,7 @@ export(
     replaceTail,
     reweightOut,
     rmpg,
+    shrinkOut,
     thetaHill,
     thetaISE,
     thetaLS,
@@ -53,6 +54,7 @@ S3method(calibVars, data.frame)
 #S3method(replaceOut, paretoTail)
 S3method(replaceTail, paretoTail)
 S3method(reweightOut, paretoTail)
+S3method(shrinkOut, paretoTail)
 
 ## register methods for existing S3 generics
 # print

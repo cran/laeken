@@ -77,7 +77,7 @@ paretoTail <- function(x, k = NULL, x0 = NULL, method = "thetaPDC",
     if(!is.numeric(alpha) || length(alpha) == 0 || alpha < 0 || alpha > 1) {
         stop("'alpha' must be a numeric value in [0,1]")
     } else alpha <- alpha[1]
-    q <- qpareto(1-alpha, x0, theta)
+    q <- qpareto(1-alpha, x0, theta)  # quantile of the Pareto distribution
     if(haveGroups) {
         out <- which(xx[(n-k+1):n] > q)
         out <- tail[out]
@@ -98,9 +98,9 @@ replaceTail <- function(x, ...) UseMethod("replaceTail")
 replaceTail.paretoTail <- function(x, all = TRUE, ...) {
     which <- if(isTRUE(all)) x$tail else x$out
     k <- length(which)  # number of observations to be replaced
-    new <- sort(rpareto(k, x$x0, x$theta))
     res <- x$x
     if(k > 0) {
+        new <- sort(rpareto(k, x$x0, x$theta))
         groups <- x$groups
         if(is.null(groups)) res[which] <- new
         else {
@@ -150,7 +150,10 @@ replaceOut <- function(x, ...) {
 reweightOut <- function(x, ...) UseMethod("reweightOut")
 
 reweightOut.paretoTail <- function(x, X, w = NULL, ...) {
-    # set weights of outliers to one and calibrate other observations
+    # in case of sample weights, set weights of outliers to one and calibrate 
+    # other observations
+    # otherwise, set weights of outliers to zero and weights of other 
+    # observations to one
     out <- x$out
     n <- length(x$x)  # number of observations
     if(is.null(x$w)) {
@@ -178,6 +181,22 @@ reweightOut.paretoTail <- function(x, X, w = NULL, ...) {
         }
     }
     w
+}
+
+
+shrinkOut <- function(x, ...) UseMethod("shrinkOut")
+
+shrinkOut.paretoTail <- function(x, ...) {
+    # winsorize outliers in the upper tail
+    out <- x$out
+    res <- x$x
+    if(length(out) > 0) {  # nonrepresentative outliers
+        new <- qpareto(1-x$alpha, x$x0, x$theta)  # quantile of the Pareto distribution
+        groups <- x$groups
+        if(!is.null(groups)) out <- which(groups %in% out)
+        res[out] <- new
+    }
+    res
 }
 
 

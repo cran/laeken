@@ -46,9 +46,12 @@
 \setlength{\footnotesep}{11pt}
 \footnotetext[1]{
   \begin{tabular}[t]{l}
-  Department of Statistics and Probability Theory, Vienna University of 
-  Technology\\
-  E-mail: \href{mailto:alfons@statistik.tuwien.ac.at}{alfons@statistik.tuwien.ac.at}
+%  Department of Statistics and Probability Theory, Vienna University of 
+%  Technology\\
+%  E-mail: \href{mailto:alfons@statistik.tuwien.ac.at}{alfons@statistik.tuwien.ac.at}
+  ORSTAT Research Center, Faculty of Business and Economics, Katholieke 
+  Universiteit Leuven\\
+  E-mail: \href{mailto:andreas.alfons@econ.kuleuven.be}{andreas.alfons@econ.kuleuven.be}
   \end{tabular}
 }
 \footnotetext[2]{
@@ -80,7 +83,7 @@ options(prompt="R> ")
 @
 
 %% specify folder and name for Sweave graphics
-\SweaveOpts{prefix.string=figures-pareto/fig}
+%\SweaveOpts{prefix.string=figures-pareto/fig}
 
 
 \paragraph{Abstract}

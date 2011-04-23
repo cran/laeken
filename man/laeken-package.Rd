@@ -12,8 +12,8 @@ Estimation of indicators on social exclusion and poverty, as well as Pareto tail
 \tabular{ll}{
 Package: \tab laeken\cr
 Type: \tab Package\cr
-Version: \tab 0.2.1\cr
-Date: \tab 2011-03-09\cr
+Version: \tab 0.2.2\cr
+Date: \tab 2011-04-23\cr
 Depends: \tab boot, MASS\cr
 License: \tab GPL (>= 2)\cr
 }
@@ -51,6 +51,7 @@ qsr                     Quintile share ratio
 replaceTail             Replace observations under a Pareto model
 reweightOut             Reweight outliers in the Pareto model
 rmpg                    Relative median at-risk-of-poverty gap
+shrinkOut               Shrink outliers in the Pareto model
 thetaHill               Hill estimator
 thetaISE                Integrated squared error (ISE) estimator
 thetaLS                 Least squares (LS) estimator
@@ -76,6 +77,6 @@ Further information is available in the following vignettes:
 \author{
 Andreas Alfons, Josef Holzer and Matthias Templ
 
-Maintainer: Andreas Alfons, \email{alfons@statistik.tuwien.ac.at}
+Maintainer: Andreas Alfons <andreas.alfons@econ.kuleuven.be>
 }
 \keyword{package}
