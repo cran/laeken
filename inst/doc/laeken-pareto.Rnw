@@ -588,7 +588,7 @@ In the case of sample weights, the \emph{weighted Hill} (wHill) estimator is
 given by generalizing Equation~(\ref{eq:Hill}) to
 \begin{equation} \label{eq:wHill}
 \hat{\theta}_{\mathrm{wHill}} = \frac{\sum_{i = 1}^{k} w_{n-k+i}}{\sum_{i =
-1}^{k} w_{n-k+i} \left( \log x_{n-k+i} - k \log x_{n-k} \right)} .
+1}^{k} w_{n-k+i} \left( \log x_{n-k+i} - \log x_{n-k} \right)} .
 \end{equation}
 
 Package \pkg{laeken} provides the function \code{thetaHill()} to compute the 

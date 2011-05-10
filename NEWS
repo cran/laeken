@@ -1,3 +1,9 @@
+Changes in laeken version 0.2.3
+
+    + Corrected mistake in formula for weighted Hill estimator in vignette 
+      'laeken-pareto'.
+
+
 Changes in laeken version 0.2.2
 
     + New function 'shrinkOut' for Pareto tail modeling to shrink outliers to 
