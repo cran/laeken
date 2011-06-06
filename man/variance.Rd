@@ -11,7 +11,7 @@
 \usage{
 variance(inc, weights = NULL, years = NULL, breakdown = NULL, 
          design = NULL, data = NULL, indicator, alpha = 0.05, 
-         na.rm = FALSE, type = "bootstrap", \dots)
+         na.rm = FALSE, type = "bootstrap", gender = NULL, method = "mean", \dots)
 }
 \arguments{
   \item{inc}{either a numeric vector giving the equivalized disposable income, 
@@ -46,6 +46,10 @@ variance(inc, weights = NULL, years = NULL, breakdown = NULL,
     to be used.  Currently, only \code{"bootstrap"} is implemented for 
     variance estimation based on bootstrap resampling (see 
     \code{\link{bootVar}}).}
+  \item{gender}{either a numeric vector giving the gender, 
+    or (if \code{data} is not \code{NULL}) a character string, an integer or a 
+    logical vector specifying the corresponding column of \code{data}.}
+  \item{method}{mean or median. If weights are provided, the weighted mean or weighted median is estimated.}
   \item{\dots}{additional arguments to be passed to \code{\link{bootVar}}.}
 }
 \details{

@@ -12,8 +12,8 @@ Estimation of indicators on social exclusion and poverty, as well as Pareto tail
 \tabular{ll}{
 Package: \tab laeken\cr
 Type: \tab Package\cr
-Version: \tab 0.2.3\cr
-Date: \tab 2011-05-10\cr
+Version: \tab 0.3\cr
+Date: \tab 2011-06-06\cr
 Depends: \tab boot, MASS\cr
 License: \tab GPL (>= 2)\cr
 }
@@ -33,6 +33,7 @@ eusilc                  Synthetic EU-SILC survey data
 fitPareto               Fit income distribution models with the Pareto
                         distribution
 gini                    Gini coefficient
+gpg                     Gender pay (wage) gap.
 incMean                 Weighted mean income
 incMedian               Weighted median income
 incQuintile             Weighted income quintile

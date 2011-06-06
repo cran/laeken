@@ -4,6 +4,7 @@
 \alias{is.qsr}
 \alias{is.rmpg}
 \alias{is.gini}
+\alias{is.gpg}
 \alias{print.indicator}
 \alias{print.arpr}
 \alias{print.rmpg}
@@ -25,6 +26,8 @@ is.qsr(x)
 is.rmpg(x)
 
 is.gini(x)
+
+is.gpg(x)
 
 \method{print}{indicator}(x, \dots)
 
@@ -63,6 +66,9 @@ is.gini(x)
   \code{is.gini} returns \code{TRUE} if \code{x} inherits from class 
   \code{"gini"} and \code{FALSE} otherwise.
   
+  \code{is.gini} returns \code{TRUE} if \code{x} inherits from class 
+  \code{"gini"} and \code{FALSE} otherwise.
+  
   \code{print.indicator}, \code{print.arpr} and \code{print.rmpg} return 
   \code{x} invisibly.
   
@@ -70,7 +76,7 @@ is.gini(x)
   subset of \code{x} of the same class. 
 }
 \seealso{
-\code{\link{arpr}}, \code{\link{qsr}}, \code{\link{rmpg}}, \code{\link{gini}}
+\code{\link{arpr}}, \code{\link{qsr}}, \code{\link{rmpg}}, \code{\link{gini}}, \code{\link{gpg}}
 }
 \examples{
 data(eusilc)

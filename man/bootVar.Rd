@@ -13,7 +13,8 @@ bootVar(inc, weights = NULL, years = NULL, breakdown = NULL,
         design = NULL, data = NULL, indicator, R = 100, 
         bootType = c("calibrate", "naive"), X, totals = NULL, 
         ciType = c("perc", "norm", "basic"),
-        alpha = 0.05, seed = NULL, na.rm = FALSE, ...)
+        alpha = 0.05, seed = NULL, na.rm = FALSE, 
+        gender = NULL, method = "mean", ...)
 }
 \arguments{
   \item{inc}{either a numeric vector giving the equivalized disposable income, 
@@ -65,6 +66,10 @@ bootVar(inc, weights = NULL, years = NULL, breakdown = NULL,
     number generator, or an integer vector containing the state of the random 
     number generator to be restored.}
   \item{na.rm}{a logical indicating whether missing values should be removed.}
+  \item{gender}{either a numeric vector giving the gender, 
+    or (if \code{data} is not \code{NULL}) a character string, an integer or a 
+    logical vector specifying the corresponding column of \code{data}.}
+  \item{method}{mean or median. If weights are provided, the weighted mean or weighted median is estimated.}
   \item{\dots}{if \code{bootType} is \code{"calibrate"}, additional arguments 
     to be passed to \code{\link{calibWeights}}.}
 }

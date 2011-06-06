@@ -1,3 +1,11 @@
+Changes in laeken version 0.3
+
+    + New function 'gpg' for estimating the gender pay (wage) gap.
+    
+    + Fixed function 'bootVar' for package 'boot' >= 1.3-1.
+
+
+
 Changes in laeken version 0.2.3
 
     + Corrected mistake in formula for weighted Hill estimator in vignette 

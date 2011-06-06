@@ -8,46 +8,53 @@
 ## constructors
 # class "indicator"
 constructIndicator <- function(value, valueByStratum = NULL, 
-        varMethod = NULL, var = NULL, varByStratum = NULL, ci = NULL, 
-        ciByStratum = NULL, alpha = NULL, years = NULL, strata = NULL) {
-    # construct and assign class
-    x <- list(value=value, valueByStratum=valueByStratum, varMethod=varMethod, 
-        var=var, varByStratum=varByStratum, ci=ci, ciByStratum=ciByStratum, 
-        alpha=alpha, years=years, strata=strata)
-    class(x) <- "indicator"
-    # return object
-    return(x)
+		varMethod = NULL, var = NULL, varByStratum = NULL, ci = NULL, 
+		ciByStratum = NULL, alpha = NULL, years = NULL, strata = NULL) {
+	# construct and assign class
+	x <- list(value=value, valueByStratum=valueByStratum, varMethod=varMethod, 
+			var=var, varByStratum=varByStratum, ci=ci, ciByStratum=ciByStratum, 
+			alpha=alpha, years=years, strata=strata)
+	class(x) <- "indicator"
+	# return object
+	return(x)
 }
 
 # class "arpr"
 constructArpr <- function(..., p = 0.6, threshold) {
-    x <- constructIndicator(...)     # call constructor of superclass
-    x$p <- p                         # set specific
-    x$threshold <- threshold         # attributes
-    class(x) <- c("arpr", class(x))  # assign class
-    return(x)                        # return result
+	x <- constructIndicator(...)     # call constructor of superclass
+	x$p <- p                         # set specific
+	x$threshold <- threshold         # attributes
+	class(x) <- c("arpr", class(x))  # assign class
+	return(x)                        # return result
 }
 
 # class "qsr"
 constructQsr <- function(...) {
-    x <- constructIndicator(...)    # call constructor of superclass
-    class(x) <- c("qsr", class(x))  # assign class
-    return(x)                       # return result
+	x <- constructIndicator(...)    # call constructor of superclass
+	class(x) <- c("qsr", class(x))  # assign class
+	return(x)                       # return result
+}
+
+# class "gpg"
+constructGpg <- function(...) {
+	x <- constructIndicator(...)    # call constructor of superclass
+	class(x) <- c("gpg", class(x))  # assign class
+	return(x)                       # return result
 }
 
 # class "rmrpg"
 constructRmpg <- function(..., threshold) {
-    x <- constructIndicator(...)     # call constructor of superclass
-    x$threshold <- threshold         # set specific attributes
-    class(x) <- c("rmpg", class(x))  # assign class
-    return(x)                        # return result
+	x <- constructIndicator(...)     # call constructor of superclass
+	x$threshold <- threshold         # set specific attributes
+	class(x) <- c("rmpg", class(x))  # assign class
+	return(x)                        # return result
 }
 
 # class "gini"
 constructGini <- function(...) {
-    x <- constructIndicator(...)    # call constructor of superclass
-    class(x) <- c("gini", class(x))  # assign class
-    return(x)                       # return result
+	x <- constructIndicator(...)    # call constructor of superclass
+	class(x) <- c("gini", class(x))  # assign class
+	return(x)                       # return result
 }
 
 
@@ -57,131 +64,131 @@ is.arpr <- function(x) inherits(x, "arpr")
 is.qsr <- function(x) inherits(x, "qsr")
 is.rmpg <- function(x) inherits(x, "rmpg")
 is.gini <- function(x) inherits(x, "gini")
-
+is.gpg <- function(x) inherits(x, "gpg")
 
 ## print
 # class "indicator"
 print.indicator <- function(x, ...) {
-    cat("Value:\n")
-    print(x$value, ...)
-    if(!is.null(x$var)) {
-        cat("\nVariance:\n")
-        print(x$var, ...)
-    }
-    if(!is.null(x$ci)) {
-        cat("\nConfidence interval:\n")
-        print(x$ci, ...)
-    }
-    if(!is.null(x$valueByStratum)) {
-        cat("\nValue by stratum:\n")
-        print(x$valueByStratum, ...)
-    }
-    if(!is.null(x$varByStratum)) {
-        cat("\nVariance by stratum:\n")
-        print(x$varByStratum, ...)
-    }
-    if(!is.null(x$varByStratum)) {
-        cat("\nConfidence interval by stratum:\n")
-        print(x$ciByStratum, ...)
-    }
-    invisible(x)
+	cat("Value:\n")
+	print(x$value, ...)
+	if(!is.null(x$var)) {
+		cat("\nVariance:\n")
+		print(x$var, ...)
+	}
+	if(!is.null(x$ci)) {
+		cat("\nConfidence interval:\n")
+		print(x$ci, ...)
+	}
+	if(!is.null(x$valueByStratum)) {
+		cat("\nValue by stratum:\n")
+		print(x$valueByStratum, ...)
+	}
+	if(!is.null(x$varByStratum)) {
+		cat("\nVariance by stratum:\n")
+		print(x$varByStratum, ...)
+	}
+	if(!is.null(x$varByStratum)) {
+		cat("\nConfidence interval by stratum:\n")
+		print(x$ciByStratum, ...)
+	}
+	invisible(x)
 }
 
 # class "arpr"
 print.arpr <- function(x, ...) {
-    print.indicator(x, ...)
-    cat("\nThreshold:\n")
-    print(x$threshold, ...)
-    invisible(x)
+	print.indicator(x, ...)
+	cat("\nThreshold:\n")
+	print(x$threshold, ...)
+	invisible(x)
 }
 
 # class "rmpg"
 print.rmpg <- function(x, ...) {
-    print.indicator(x, ...)
-    cat("\nThreshold:\n")
-    print(x$threshold, ...)
-    invisible(x)
+	print.indicator(x, ...)
+	cat("\nThreshold:\n")
+	print(x$threshold, ...)
+	invisible(x)
 }
 
 # class "minAMSE"
 print.minAMSE <- function(x, ...) {
-    cat("Optimal k:\n")
-    print(x$kopt, ...)
-    cat("\nScale parameter:\n")
-    print(x$x0, ...)
-    cat("\nShape parameter:\n")
-    print(x$theta, ...)
-    invisible(x)
+	cat("Optimal k:\n")
+	print(x$kopt, ...)
+	cat("\nScale parameter:\n")
+	print(x$x0, ...)
+	cat("\nShape parameter:\n")
+	print(x$theta, ...)
+	invisible(x)
 }
 
 
 ## subsets of indicators
 # class "indicator"
 subset.indicator <- function(x, years = NULL, strata = NULL, ...) {
-    # initializations
-    haveYears <- length(x$years) > 1
-    haveVar <- !is.null(x$varMethod)
-    haveStrata <- length(x$strata) > 1
-    subsetYears <- haveYears && !is.null(years)
-    subsetStrata <- haveStrata && !is.null(strata)
-    # error handling
-    if(subsetYears && !is.numeric(years)) {
-        stop("'years' must be of type numeric")
-    }
-    if(subsetStrata && !is.character(strata)) {
-        stop("'years' must be of type character")
-    }
-    # extract years from overall values (if available and requested)
-    if(subsetYears) {
-        ys <- as.character(years)
-        x$value <- x$value[ys]
-        if(haveVar) {
-            x$var <- x$var[ys]
-            x$ci <- x$ci[ys, , drop=FALSE]
-        }
-        x$years <- years  #set new years
-    }   
-    # extract strata from overall values (if available and requested)
-    if(subsetStrata || (haveStrata && subsetYears)) {
-        n <- nrow(x$valueByStratum)
-        if(subsetStrata) keepStrata <- x$valueByStratum$stratum %in% strata
-        else keepStrata <- rep.int(TRUE, n)
-        if(subsetYears) keepYears <- x$valueByStratum$year %in% years
-        else keepYears <- rep.int(TRUE, n)
-        keep <- keepStrata & keepYears
-        x$valueByStratum <- x$valueByStratum[keep, , drop=FALSE]
-        if(haveVar) {
-            x$varByStratum <- x$varByStratum[keep, , drop=FALSE]
-            x$ciByStratum <- x$ciByStratum[keep, , drop=FALSE]
-        }
-        x$strata <- strata  # set new strata
-    }
-    # return result
-    return(x)
+	# initializations
+	haveYears <- length(x$years) > 1
+	haveVar <- !is.null(x$varMethod)
+	haveStrata <- length(x$strata) > 1
+	subsetYears <- haveYears && !is.null(years)
+	subsetStrata <- haveStrata && !is.null(strata)
+	# error handling
+	if(subsetYears && !is.numeric(years)) {
+		stop("'years' must be of type numeric")
+	}
+	if(subsetStrata && !is.character(strata)) {
+		stop("'years' must be of type character")
+	}
+	# extract years from overall values (if available and requested)
+	if(subsetYears) {
+		ys <- as.character(years)
+		x$value <- x$value[ys]
+		if(haveVar) {
+			x$var <- x$var[ys]
+			x$ci <- x$ci[ys, , drop=FALSE]
+		}
+		x$years <- years  #set new years
+	}   
+	# extract strata from overall values (if available and requested)
+	if(subsetStrata || (haveStrata && subsetYears)) {
+		n <- nrow(x$valueByStratum)
+		if(subsetStrata) keepStrata <- x$valueByStratum$stratum %in% strata
+		else keepStrata <- rep.int(TRUE, n)
+		if(subsetYears) keepYears <- x$valueByStratum$year %in% years
+		else keepYears <- rep.int(TRUE, n)
+		keep <- keepStrata & keepYears
+		x$valueByStratum <- x$valueByStratum[keep, , drop=FALSE]
+		if(haveVar) {
+			x$varByStratum <- x$varByStratum[keep, , drop=FALSE]
+			x$ciByStratum <- x$ciByStratum[keep, , drop=FALSE]
+		}
+		x$strata <- strata  # set new strata
+	}
+	# return result
+	return(x)
 }
 
 # class "arpr"
 subset.arpr <- function(x, years = NULL, strata = NULL, ...) {
-    haveYear <- length(x$years) > 1
-    x <- subset.indicator(x, years, strata, ...)  # call method for superclass
-    # subset threshold (if requested and available for multiple years)
-    if(haveYear && !is.null(years)) {
-        x$threshold <- x$threshold[as.character(years)]
-    }
-    # return result
-    return(x)
+	haveYear <- length(x$years) > 1
+	x <- subset.indicator(x, years, strata, ...)  # call method for superclass
+	# subset threshold (if requested and available for multiple years)
+	if(haveYear && !is.null(years)) {
+		x$threshold <- x$threshold[as.character(years)]
+	}
+	# return result
+	return(x)
 }
 
 # class "rmpg"
 subset.rmpg <- function(x, years = NULL, strata = NULL, ...) {
-    haveYear <- length(x$years) > 1
-    x <- subset.indicator(x, years, strata, ...)  # call method for superclass
-    # subset threshold (if requested and available for multiple years)
-    if(haveYear && !is.null(years)) {
-        x$threshold <- x$threshold[as.character(years)]
-    }
-    # return result
-    return(x)
+	haveYear <- length(x$years) > 1
+	x <- subset.indicator(x, years, strata, ...)  # call method for superclass
+	# subset threshold (if requested and available for multiple years)
+	if(haveYear && !is.null(years)) {
+		x$threshold <- x$threshold[as.character(years)]
+	}
+	# return result
+	return(x)
 }
 
 
@@ -189,7 +196,7 @@ subset.rmpg <- function(x, years = NULL, strata = NULL, ...) {
 
 # get argument names of a function
 argNames <- function(fun, removeDots = TRUE) {
-    nam <- names(formals(fun))
-    if(removeDots) nam <- setdiff(nam, "...")
-    nam
+	nam <- names(formals(fun))
+	if(removeDots) nam <- setdiff(nam, "...")
+	nam
 }
