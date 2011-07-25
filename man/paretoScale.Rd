@@ -6,7 +6,9 @@
   for Pareto tail modeling.
 }
 \usage{
-paretoScale(x, w = NULL, groups = NULL, method = "vanKerm", na.rm = FALSE)
+paretoScale(x, w = NULL, groups = NULL, method = "VanKerm", 
+            center = c("mean", "median"), probs = c(0.97, 0.98), 
+            na.rm = FALSE)
 }
 \arguments{
   \item{x}{a numeric vector.}
@@ -17,11 +19,28 @@ paretoScale(x, w = NULL, groups = NULL, method = "vanKerm", na.rm = FALSE)
     the values of every first group member to appear are used for estimating 
     the threshold (scale parameter).}
   \item{method}{a character string specifying the estimation method.  If 
-    \code{"vanKerm"}, van Kerm's method is used, which is a rule of thumb 
+    \code{"VanKerm"}, Van Kerm's method is used, which is a rule of thumb 
     specifically designed for the equivalized disposable income in EU-SILC data 
     (currently the only method implemented).}
+  \item{center}{a character string specifying the estimation method for the 
+    center of the distribution.  Possible values are \code{"mean"} for the 
+    weighted mean and \code{"median"} for the weighted median.  This is used if 
+    \code{method} is \code{"VanKerm"} (currently the only method implemented).}
+  \item{probs}{a numeric vector of length two giving probabilities to be used 
+    for computing weighted quantiles of the distribution.  Values should be 
+    close to 1 such that the quantiles correspond to the upper tail.  This is 
+    used if \code{method} is \code{"VanKerm"} (currently the only method 
+    implemented).}
   \item{na.rm}{a logical indicating whether missing values in \code{x} should 
     be omitted.}
+}
+\details{
+Van Kerm's Formula is given by 
+\deqn{\min(\max(2.5 \bar{x}, q(0.98), q(0.97))),}{min(max(2.5 m(x), q(0.98)), q(0.97)),}
+where \eqn{\bar{x}}{m(x)} denotes the weighted mean and \eqn{q(.)} 
+denotes weighted quantiles.  This function allows to compute generalizations of 
+Van Kerm's formula, where the mean can be replaced by the median and different 
+quantiles can be used.
 }
 \value{
 An object of class \code{"paretoScale"}, which consists of the following 

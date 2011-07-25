@@ -4,7 +4,8 @@
 # ---------------------------------------
 
 paretoScale <- function(x, w = NULL, groups = NULL, 
-        method = "vanKerm", na.rm = FALSE) {
+        method = "VanKerm", center = c("mean", "median"), 
+		probs = c(0.97, 0.98), na.rm = FALSE) {
     ## initializations
     if(!is.numeric(x) || length(x) == 0) stop("'x' must be a numeric vector")
     useW <- !is.null(w)
@@ -24,11 +25,19 @@ paretoScale <- function(x, w = NULL, groups = NULL,
         x <- x[unique]
         if(useW) w <- w[unique]
     }
-    method <- match.arg(method)  # only van Kerm's method currently implemented
+#	method <- match.arg(method)  # only van Kerm's method currently implemented
+	center <- match.arg(center)
+	probs <- rep(probs, length.out=2)
     na.rm <- isTRUE(na.rm)
     # estimate threshold with van Kerm's method
-    mu <- weightedMean(x, w, na.rm=na.rm)
-    q <- weightedQuantile(x, w, probs=c(0.97, 0.98), na.rm=na.rm)
+    if(center == "mean") {
+		mu <- weightedMean(x, w, na.rm=na.rm)
+		q <- weightedQuantile(x, w, probs=probs, na.rm=na.rm)
+	} else {
+		q <- weightedQuantile(x, w, probs=c(0.5, probs), na.rm=na.rm)
+		mu <- q[1]
+		q <- q[-1]
+	}
     x0 <- max(min(2.5*mu, q[2]), q[1])
     res <- list(x0=x0, k=length(which(x > x0)))
     class(res) <- "paretoScale"
