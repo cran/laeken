@@ -35,7 +35,7 @@ paretoScale(x, w = NULL, groups = NULL, method = "VanKerm",
     be omitted.}
 }
 \details{
-Van Kerm's Formula is given by 
+Van Kerm's formula is given by 
 \deqn{\min(\max(2.5 \bar{x}, q(0.98), q(0.97))),}{min(max(2.5 m(x), q(0.98)), q(0.97)),}
 where \eqn{\bar{x}}{m(x)} denotes the weighted mean and \eqn{q(.)} 
 denotes weighted quantiles.  This function allows to compute generalizations of 

@@ -60,19 +60,19 @@ gpg <- function(inc, gender = NULL, method = c("mean", "median"),
         ys <- sort(unique(years))  # unique years
         gc <- function(y, inc, weights, sort, years, na.rm) {
             i <- years == y
-            gpgCoeff(inc[i], gender[i], method, weights[i], sort[i], na.rm=na.rm)
+            genderGap(inc[i], gender[i], method, weights[i], sort[i], na.rm=na.rm)
         }
         value <- sapply(ys, gc, inc=inc, weights=weights, 
             sort=sort, years=years, na.rm=na.rm)
         names(value) <- ys  # use years as names
     } else {
         ys <- NULL
-        value <- gpgCoeff(inc, gender, method, weights, sort, na.rm=na.rm)
+        value <- genderGap(inc, gender, method, weights, sort, na.rm=na.rm)
     }
     # GPG by stratum (if requested)
     if(byStratum) {
         gcR <- function(i, inc, weights, sort, na.rm) {
-            gpgCoeff(inc[i], gender[i], method, weights[i], sort[i], na.rm=na.rm)
+            genderGap(inc[i], gender[i], method, weights[i], sort[i], na.rm=na.rm)
         }
         valueByStratum <- aggregate(1:n, 
             if(byYear) list(year=years, stratum=breakdown) else list(stratum=breakdown), 
@@ -94,10 +94,11 @@ gpg <- function(inc, gender = NULL, method = c("mean", "median"),
 }
 
 ## workhorse
-gpgCoeff <- function(x, gend, method = 'mean', weights = NULL, sort = NULL, na.rm = FALSE) {
-	
-	if(is.null(gend)) stop("'gender' must be supplied")
-	
+genderGap <- function(x, gend, method = 'mean', weights = NULL, 
+        sort = NULL, na.rm = FALSE) {
+    
+    if(is.null(gend)) stop("'gender' must be supplied")
+    
     # initializations
     if(isTRUE(na.rm)){
         indices <- !is.na(x)
@@ -109,24 +110,24 @@ gpgCoeff <- function(x, gend, method = 'mean', weights = NULL, sort = NULL, na.r
     
     male <- levels(gend)[1]
     female <- levels(gend)[2]
-
-
+    
+    
     if(is.null(weights)) weights <- rep.int(1, length(x))  # equal weights
-
-     incgendmale <- x[gend=="male"]
-	 incgendmaleWeights <- weights[gend=="male"]
-	 incgendfemale <- x[gend=="female"]
-	 incgendfemaleWeights <- weights[gend=="female"]
-
-  
+    
+    incgendmale <- x[gend=="male"]
+    incgendmaleWeights <- weights[gend=="male"]
+    incgendfemale <- x[gend=="female"]
+    incgendfemaleWeights <- weights[gend=="female"]
+    
+    
     if(method == 'mean') {
-	    wM <- weighted.mean(x=incgendmale, w=incgendmaleWeights)
-		wF <- weighted.mean(x=incgendfemale, w=incgendfemaleWeights)
-		return((wM - wF) / wM)
-		
+        wM <- weighted.mean(x=incgendmale, w=incgendmaleWeights)
+        wF <- weighted.mean(x=incgendfemale, w=incgendfemaleWeights)
+        return((wM - wF) / wM)
+        
     } else {
-	    wM <- weightedMedian(incgendmale, incgendmaleWeights)
-		wF <- weightedMedian(incgendfemale, incgendfemaleWeights)
-		return((wM - wF)/wM)
-	}
+        wM <- weightedMedian(incgendmale, incgendmaleWeights)
+        wF <- weightedMedian(incgendfemale, incgendfemaleWeights)
+        return((wM - wF)/wM)
+    }
 }

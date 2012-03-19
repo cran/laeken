@@ -47,7 +47,7 @@
 %  Department of Statistics and Probability Theory, Vienna University of 
 %  Technology\\
 %  E-mail: \href{mailto:alfons@statistik.tuwien.ac.at}{alfons@statistik.tuwien.ac.at}
-  ORSTAT Research Center, Faculty of Business and Economics, K.U.Leuven\\
+  ORSTAT Research Center, Faculty of Business and Economics, KU Leuven\\
   E-mail: \href{mailto:andreas.alfons@econ.kuleuven.be}{andreas.alfons@econ.kuleuven.be}
   \end{tabular}
 }
@@ -229,7 +229,6 @@ strata. To ensure reproducibility of the results, the seed of the random number
 generator is set.
 <<>>=
 a <- arpr("eqIncome", weights = "rb050", data = eusilc)
-## naive bootstrap
 variance("eqIncome", weights = "rb050", design = "db040", 
     data = eusilc, indicator = a, bootType = "naive", seed = 123)
 @
@@ -241,7 +240,6 @@ below produces variance and confidence interval estimates for each NUTS2 region
 in addition to the overall values.
 <<>>=
 b <- arpr("eqIncome", weights = "rb050", breakdown = "db040", data = eusilc)
-## naive bootstrap
 variance("eqIncome", weights = "rb050", breakdown = "db040", design = "db040", 
     data = eusilc, indicator = b, bootType = "naive", seed = 123)
 @
@@ -313,7 +311,6 @@ of the original sample. This follows the assumption that those weights are
 already calibrated on the supplied auxiliary variables.
 % -----
 <<>>=
-## bootstrap with calibration
 variance("eqIncome", weights = "rb050", design = "db040", 
     data = eusilc, indicator = a, X = calibVars(eusilc$db040), 
     seed = 123)

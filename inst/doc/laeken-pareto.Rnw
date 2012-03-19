@@ -49,7 +49,7 @@
 %  Department of Statistics and Probability Theory, Vienna University of 
 %  Technology\\
 %  E-mail: \href{mailto:alfons@statistik.tuwien.ac.at}{alfons@statistik.tuwien.ac.at}
-  ORSTAT Research Center, Faculty of Business and Economics, K.U.Leuven\\
+  ORSTAT Research Center, Faculty of Business and Economics, KU Leuven\\
   E-mail: \href{mailto:andreas.alfons@econ.kuleuven.be}{andreas.alfons@econ.kuleuven.be}
   \end{tabular}
 }
@@ -369,8 +369,6 @@ will be used in Sections~\ref{sec:threshold} and~\ref{sec:shape} to estimate the
 parameters of the Pareto distribution.
 
 <<>>=
-# equivalized disposable income is equal for each household
-# member, therefore only one household member is taken
 eusilcH <- eusilc[!duplicated(eusilc$db030), c("eqIncome", "db090")]
 @
 
@@ -496,7 +494,6 @@ clearly visible.
 \begin{center}
 \setkeys{Gin}{width=.75\textwidth}
 <<fig=TRUE, width=5.5, height=5.5>>=
-# with sample weights
 paretoQPlot(eusilcH$eqIncome, w = eusilcH$db090)
 @
 \caption{Pareto Quantile plot for the example data \code{eusilc} on the 
@@ -545,7 +542,6 @@ cannot be determined exactly.
 \begin{center}
 \setkeys{Gin}{width=.75\textwidth}
 <<fig=TRUE, width=5.5, height=5.5>>=
-# with sample weights
 meanExcessPlot(eusilcH$eqIncome, w = eusilcH$db090)
 @
 \caption{Mean excess plot for the example data \code{eusilc} on the household 
@@ -599,9 +595,7 @@ largest observations (first command) and the threshold (second command) as
 computed with van Kerm's rule of thumb in Section~\ref{sec:vanKerm}.
 
 <<>>=
-# using number of observations in tail
 thetaHill(eusilcH$eqIncome, k = ts$k, w = eusilcH$db090)
-# using threshold
 thetaHill(eusilcH$eqIncome, x0 = ts$x0, w = eusilcH$db090)
 @
 
@@ -680,9 +674,7 @@ sample weights in the example data are not equal, the following example is only
 included to demonstrate the use of the function.
 
 <<>>=
-# using number of observations in tail
 thetaWML(eusilcH$eqIncome, k = ts$k)
-# using threshold
 thetaWML(eusilcH$eqIncome, x0 = ts$x0)
 @
 
@@ -729,9 +721,7 @@ specify either the number of observations in the tail or the threshold, and
 sample weights can be supplied via the argument \code{w}.
 
 <<>>=
-# using number of observations in tail
 thetaISE(eusilcH$eqIncome, k = ts$k, w = eusilcH$db090)
-# using threshold
 thetaISE(eusilcH$eqIncome, x0 = ts$x0, w = eusilcH$db090)
 @
 
@@ -773,9 +763,7 @@ specify either the number of observations in the tail via the argument
 supplied using the argument \code{w}.
 
 <<>>=
-# using number of observations in tail
 thetaPDC(eusilcH$eqIncome, k = ts$k, w = eusilcH$db090)
-# using threshold
 thetaPDC(eusilcH$eqIncome, x0 = ts$x0, w = eusilcH$db090)
 @
 
@@ -815,7 +803,6 @@ command, the Gini coefficient is estimated according to the Eurostat definition
 to show that even a single outlier can completely distort the results for the 
 standard estimation (see Section~\ref{sec:Gini} for the original value).
 <<>>=
-## gini coefficient without Pareto tail modeling
 gini("eqIncome", weights = "rb050", data = eusilc)
 @
 
@@ -828,7 +815,6 @@ level rather than the individual level. In addition, the PDC is used by default
 to estimate the shape parameter. Other estimators can be specified via the 
 \code{method} argument.
 <<>>=
-## gini coefficient with Pareto tail modeling
 fit <- paretoTail(eusilc$eqIncome, k = ts$k, 
     w = eusilc$db090, groups = eusilc$db030)
 @
@@ -841,7 +827,6 @@ binary variables, as required by the calibration function \code{calibWeights()},
 which is called internally. These recalibrated weights are then simply used to 
 estimate the Gini coefficient with function \code{gini()}.
 <<>>=
-# calibration of outliers
 w <- reweightOut(fit, calibVars(eusilc$db040))
 gini(eusilc$eqIncome, w)
 @
@@ -852,7 +837,6 @@ flagged as outliers, the seed of the random number generator is set first for
 reproducibility of the results. The returned vector of incomes is then supplied 
 to \code{gini()} to estimate the Gini coefficient.
 <<>>=
-# replacement of outliers
 set.seed(1234)
 eqIncome <- replaceOut(fit)
 gini(eqIncome, weights = eusilc$rb050)
@@ -861,7 +845,6 @@ gini(eqIncome, weights = eusilc$rb050)
 Similarly, the function \code{replaceTail()} is available for the RT approach. 
 Again, the seed of the random number generator is set beforehand.
 <<>>=
-# replacement of whole tail
 set.seed(1234)
 eqIncome <- replaceTail(fit)
 gini(eqIncome, weights = eusilc$rb050)

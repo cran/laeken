@@ -12,9 +12,9 @@ Estimation of indicators on social exclusion and poverty, as well as Pareto tail
 \tabular{ll}{
 Package: \tab laeken\cr
 Type: \tab Package\cr
-Version: \tab 0.3.1\cr
-Date: \tab 2011-07-25\cr
-Depends: \tab boot, MASS\cr
+Version: \tab 0.3.2\cr
+Date: \tab 2012-03-19\cr
+Depends: \tab R (>= 2.10.0), boot, MASS\cr
 License: \tab GPL (>= 2)\cr
 }
 

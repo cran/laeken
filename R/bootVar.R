@@ -3,6 +3,7 @@
 #         Vienna University of Technology
 # ---------------------------------------
 
+## TODO: support estimators based on semiparametric outlier detection
 ## FIXME: do not use 'p' as argument name for function passed to 'boot'
 
 ## generic function
@@ -295,16 +296,16 @@ getFun.gini <- function(indicator, byStratum) {
 getFun.gpg <- function(indicator, byStratum) {
 	if(byStratum) {
 		function(x, p, rs, na.rm) {
-			value <- gpgCoeff(x$inc, x$gender, x$method[1], x$weight, na.rm=na.rm)
+			value <- genderGap(x$inc, x$gender, x$method[1], x$weight, na.rm=na.rm)
 			valueByStratum <- sapply(rs, function(r, x, t) {
 						i <- x$stratum == r
-						gpgCoeff(x$inc[i], x$gender[i], x$method[1], x$weight[i], na.rm=na.rm)
+                        genderGap(x$inc[i], x$gender[i], x$method[1], x$weight[i], na.rm=na.rm)
 					}, x=x)
 			c(value, valueByStratum)
 		}
 	} else {
 		function(x, p, rs, na.rm) {
-			gpgCoeff(x$inc, x$gender, x$method[1], x$weight, na.rm=na.rm)
+            genderGap(x$inc, x$gender, x$method[1], x$weight, na.rm=na.rm)
 		}
 	}
 }
