@@ -3,6 +3,56 @@
 #          Vienna University of Technology
 # ----------------------------------------
 
+#' Moment estimator
+#' 
+#' Estimate the shape parameter of a Pareto distribution based on moments.
+#' 
+#' The arguments \code{k} and \code{x0} of course correspond with each other.
+#' If \code{k} is supplied, the threshold \code{x0} is estimated with the \eqn{n
+#' - k} largest value in \code{x}, where \eqn{n} is the number of observations.
+#' On the other hand, if the threshold \code{x0} is supplied, \code{k} is given
+#' by the number of observations in \code{x} larger than \code{x0}.  Therefore,
+#' either \code{k} or \code{x0} needs to be supplied.  If both are supplied,
+#' only \code{k} is used (mainly for back compatibility).
+#' 
+#' @param x a numeric vector.
+#' @param k the number of observations in the upper tail to which the Pareto
+#' distribution is fitted.
+#' @param x0 the threshold (scale parameter) above which the Pareto distribution
+#' is fitted.
+#' 
+#' @return The estimated shape parameter.
+#' 
+#' @note The argument \code{x0} for the threshold (scale parameter) of the
+#' Pareto distribution was introduced in version 0.2.
+#' 
+#' @author Andreas Alfons and Josef Holzer
+#' 
+#' @seealso \code{\link{paretoTail}}, \code{\link{fitPareto}}
+#' 
+#' @references Dekkers, A.L.M., Einmahl, J.H.J. and de Haan, L. (1989) A moment
+#' estimator for the index of an extreme-value distribution. \emph{The Annals of
+#' Statistics}, \bold{17}(4), 1833--1855.
+#' 
+#' @keywords manip
+#' 
+#' @examples
+#' data(eusilc)
+#' # equivalized disposable income is equal for each household
+#' # member, therefore only one household member is taken
+#' eusilc <- eusilc[!duplicated(eusilc$db030),]
+#' 
+#' # estimate threshold
+#' ts <- paretoScale(eusilc$eqIncome, w = eusilc$db090)
+#' 
+#' # using number of observations in tail
+#' thetaMoment(eusilc$eqIncome, k = ts$k)
+#' 
+#' # using threshold
+#' thetaMoment(eusilc$eqIncome, x0 = ts$x0)
+#' 
+#' @export
+
 thetaMoment <- function(x, k = NULL, x0 = NULL) {
     ## initializations
     if(!is.numeric(x) || length(x) == 0) stop("'x' must be a numeric vector")

@@ -1,74 +1,60 @@
-import(stats, utils)
-importFrom(boot, boot, boot.ci)
-
-export(
-    arpr,
-    arpt,
-    calibVars,
-    calibWeights,
-    eqInc,
-    eqSS,
-    fitPareto,
-    gini,
-    gpg,
-    incMean,
-    incMedian,
-    incQuintile,
-    is.indicator,
-    is.arpr,
-    is.qsr,
-    is.rmpg,
-    is.gini,
-    is.indicator,
-    is.gpg,
-    bootVar,
-    meanExcessPlot,
-    minAMSE,
-    paretoQPlot,
-    paretoScale,
-    paretoTail,
-    qsr,
-    replaceOut,
-    replaceTail,
-    reweightOut,
-    rmpg,
-    shrinkOut,
-    thetaHill,
-    thetaISE,
-    thetaLS,
-    thetaQQ,
-    thetaMoment,
-    thetaPDC,
-    thetaTM,
-    thetaWML,
-    variance,
-    weightedMean,
-    weightedMedian,
-    weightedQuantile
-)
-
-## register methods for S3 generics defined in this package
-# bootstrap variance
-S3method(bootVar, indicator)
-S3method(calibVars, default)
-S3method(calibVars, matrix)
-S3method(calibVars, data.frame)
-#S3method(replaceOut, paretoTail)
-S3method(replaceTail, paretoTail)
-S3method(reweightOut, paretoTail)
-S3method(shrinkOut, paretoTail)
-
-## register methods for existing S3 generics
-# print
-S3method(print, indicator)
-S3method(print, arpr)
-S3method(print, rmpg)
-S3method(print, minAMSE)
-S3method(print, paretoScale)
-S3method(print, paretoTail)
-## plot
-#S3method(plot, arpr)
-# subset
-S3method(subset, indicator)
-S3method(subset, arpr)
-S3method(subset, rmpg)
+S3method(bootVar,indicator)
+S3method(calibVars,data.frame)
+S3method(calibVars,default)
+S3method(calibVars,matrix)
+S3method(plot,paretoTail)
+S3method(print,arpr)
+S3method(print,indicator)
+S3method(print,minAMSE)
+S3method(print,paretoScale)
+S3method(print,paretoTail)
+S3method(print,rmpg)
+S3method(replaceTail,paretoTail)
+S3method(reweightOut,paretoTail)
+S3method(shrinkOut,paretoTail)
+S3method(subset,arpr)
+S3method(subset,indicator)
+S3method(subset,rmpg)
+export(arpr)
+export(arpt)
+export(bootVar)
+export(calibVars)
+export(calibWeights)
+export(eqInc)
+export(eqSS)
+export(fitPareto)
+export(gini)
+export(gpg)
+export(incMean)
+export(incMedian)
+export(incQuintile)
+export(is.arpr)
+export(is.gini)
+export(is.gpg)
+export(is.indicator)
+export(is.qsr)
+export(is.rmpg)
+export(meanExcessPlot)
+export(minAMSE)
+export(paretoQPlot)
+export(paretoScale)
+export(paretoTail)
+export(qsr)
+export(replaceOut)
+export(replaceTail)
+export(reweightOut)
+export(rmpg)
+export(shrinkOut)
+export(thetaHill)
+export(thetaISE)
+export(thetaLS)
+export(thetaMoment)
+export(thetaPDC)
+export(thetaQQ)
+export(thetaTM)
+export(thetaWML)
+export(variance)
+export(weightedMean)
+export(weightedMedian)
+export(weightedQuantile)
+import(boot)

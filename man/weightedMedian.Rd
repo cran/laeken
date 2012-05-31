@@ -1,37 +1,48 @@
 \name{weightedMedian}
 \alias{weightedMedian}
 \title{Weighted median}
-\description{
-  Compute the weighted median (Eurostat definition).
-}
 \usage{
-weightedMedian(x, weights = NULL, sorted = FALSE, na.rm = FALSE)
+  weightedMedian(x, weights = NULL, sorted = FALSE,
+    na.rm = FALSE)
 }
 \arguments{
   \item{x}{a numeric vector.}
-  \item{weights}{an optional numeric vector giving the sample weights.}
-  \item{sorted}{a logical indicating whether the observations in \code{x} are 
-    already sorted.}
-  \item{na.rm}{a logical indicating whether missing values in \code{x} should 
-    be omitted.}
-}
-\details{
-  The implementation strictly follows the Eurostat definition.
+
+  \item{weights}{an optional numeric vector giving the
+  sample weights.}
+
+  \item{sorted}{a logical indicating whether the
+  observations in \code{x} are already sorted.}
+
+  \item{na.rm}{a logical indicating whether missing values
+  in \code{x} should be omitted.}
 }
 \value{
   The weighted median of values in \code{x} is returned.
 }
-\references{
-Working group on Statistics on Income and Living Conditions (2004) Common 
-cross-sectional EU indicators based on EU-SILC; the gender pay gap. 
-\emph{EU-SILC 131-rev/04}, Eurostat.
+\description{
+  Compute the weighted median (Eurostat definition).
 }
-\author{Andreas Alfons and Matthias Templ}
-\seealso{
-\code{\link{arpt}}, \code{\link{incMedian}}, \code{\link{weightedQuantile}}
+\details{
+  The implementation strictly follows the Eurostat
+  definition.
 }
 \examples{
 data(eusilc)
 weightedMedian(eusilc$eqIncome, eusilc$rb050)
 }
+\author{
+  Andreas Alfons and Matthias Templ
+}
+\references{
+  Working group on Statistics on Income and Living
+  Conditions (2004) Common cross-sectional EU indicators
+  based on EU-SILC; the gender pay gap.  \emph{EU-SILC
+  131-rev/04}, Eurostat.
+}
+\seealso{
+  \code{\link{arpt}}, \code{\link{incMedian}},
+  \code{\link{weightedQuantile}}
+}
 \keyword{survey}
+

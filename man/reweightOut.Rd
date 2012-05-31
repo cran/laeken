@@ -2,41 +2,43 @@
 \alias{reweightOut}
 \alias{reweightOut.paretoTail}
 \title{Reweight outliers in the Pareto model}
-\description{
-  Reweight observations that are flagged as outliers in a Pareto model for the 
-  upper tail of the distribution.
-}
 \usage{
-reweightOut(x, \dots)
+  reweightOut(x, ...)
 
-\method{reweightOut}{paretoTail}(x, X, w = NULL, \dots)
+  \method{reweightOut}{paretoTail} (x, X, w = NULL, ...)
 }
 \arguments{
-  \item{x}{an object of class \code{"paretoTail"} (see 
-    \code{\link{paretoTail}}).}
-  \item{X}{a matrix of binary calibration variables (see 
-    \code{\link{calibVars}}).  This is only used if \code{x} contains sample 
-    weights or if \code{w} is supplied.}
-  \item{w}{a numeric vector of sample weights. This is only used if \code{x} 
-    does not contain sample weights, i.e., if sample weights were not 
-    considered in estimating the shape parameter of the Pareto distribution.}
+  \item{x}{an object of class \code{"paretoTail"} (see
+  \code{\link{paretoTail}}).}
+
+  \item{X}{a matrix of binary calibration variables (see
+  \code{\link{calibVars}}).  This is only used if \code{x}
+  contains sample weights or if \code{w} is supplied.}
+
+  \item{w}{a numeric vector of sample weights. This is only
+  used if \code{x} does not contain sample weights, i.e.,
+  if sample weights were not considered in estimating the
+  shape parameter of the Pareto distribution.}
+
   \item{\dots}{additional arguments to be passed down.}
 }
-\details{
-  If the data contain sample weights, the weights of the outlying observations 
-  are set to \eqn{1} and the weights of the remaining observations are 
-  calibrated according to auxiliary variables.  Otherwise, weight \eqn{0} is 
-  assigned to outliers and weight \eqn{1} to other observations.
-}
 \value{
-  If the data contain sample weights, a numeric containing the recalibrated 
-  weights is returned, otherwise a numeric vector assigning weight \eqn{0} to 
-  outliers and weight \eqn{1} to other observations.
+  If the data contain sample weights, a numeric containing
+  the recalibrated weights is returned, otherwise a numeric
+  vector assigning weight \eqn{0} to outliers and weight
+  \eqn{1} to other observations.
 }
-\author{Andreas Alfons}
-\seealso{
-  \code{\link{paretoTail}}, \code{\link{shrinkOut}} , \code{\link{replaceOut}}, 
-  \code{\link{replaceTail}}
+\description{
+  Reweight observations that are flagged as outliers in a
+  Pareto model for the upper tail of the distribution.
+}
+\details{
+  If the data contain sample weights, the weights of the
+  outlying observations are set to \eqn{1} and the weights
+  of the remaining observations are calibrated according to
+  auxiliary variables.  Otherwise, weight \eqn{0} is
+  assigned to outliers and weight \eqn{1} to other
+  observations.
 }
 \examples{
 data(eusilc)
@@ -46,13 +48,21 @@ gini("eqIncome", weights = "rb050", data = eusilc)
 
 ## gini coefficient with Pareto tail modeling
 # estimate threshold
-ts <- paretoScale(eusilc$eqIncome, w = eusilc$db090, 
+ts <- paretoScale(eusilc$eqIncome, w = eusilc$db090,
     groups = eusilc$db030)
 # estimate shape parameter
-fit <- paretoTail(eusilc$eqIncome, k = ts$k, 
+fit <- paretoTail(eusilc$eqIncome, k = ts$k,
     w = eusilc$db090, groups = eusilc$db030)
 # calibration of outliers
 w <- reweightOut(fit, calibVars(eusilc$db040))
 gini(eusilc$eqIncome, w)
 }
+\author{
+  Andreas Alfons
+}
+\seealso{
+  \code{\link{paretoTail}}, \code{\link{shrinkOut}} ,
+  \code{\link{replaceOut}}, \code{\link{replaceTail}}
+}
 \keyword{manip}
+

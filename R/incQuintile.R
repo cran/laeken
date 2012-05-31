@@ -3,7 +3,52 @@
 #         Vienna University of Technology
 # ---------------------------------------
 
-# income quintile
+#' Weighted income quintile
+#' 
+#' Compute weighted income quintiles.
+#' 
+#' The implementation strictly follows the Eurostat definition.
+#' 
+#' @param inc either a numeric vector giving the (equivalized disposable)
+#' income, or (if \code{data} is not \code{NULL}) a character string, an integer
+#' or a logical vector specifying the corresponding column of \code{data}.
+#' @param weights optional; either a numeric vector giving the personal sample
+#' weights, or (if \code{data} is not \code{NULL}) a character string, an
+#' integer or a logical vector specifying the corresponding column of
+#' \code{data}.
+#' @param sort optional; either a numeric vector giving the personal IDs to be
+#' used as tie-breakers for sorting, or (if \code{data} is not \code{NULL}) a
+#' character string, an integer or a logical vector specifying the corresponding
+#' column of \code{data}.
+#' @param years optional; either a numeric vector giving the different years of
+#' the survey, or (if \code{data} is not \code{NULL}) a character string, an
+#' integer or a logical vector specifying the corresponding column of
+#' \code{data}.  If supplied, values are computed for each year.
+#' @param k a vector of integers between 0 and 5 specifying the quintiles to be
+#' computed (0 gives the minimum, 5 the maximum).
+#' @param data an optional \code{data.frame}.
+#' @param na.rm a logical indicating whether missing values should be removed.
+#' 
+#' @return A numeric vector (if \code{years} is \code{NULL}) or matrix (if
+#' \code{years} is not \code{NULL}) containing the values of the weighted income
+#' quintiles specified by \code{k} are returned.
+#' 
+#' @author Andreas Alfons
+#' 
+#' @seealso \code{\link{qsr}}, \code{\link{weightedQuantile}}
+#' 
+#' @references Working group on Statistics on Income and Living Conditions
+#' (2004) Common cross-sectional EU indicators based on EU-SILC; the gender pay
+#' gap.  \emph{EU-SILC 131-rev/04}, Eurostat.
+#' 
+#' @keywords survey
+#' 
+#' @examples
+#' data(eusilc)
+#' incQuintile("eqIncome", weights = "rb050", data = eusilc)
+#' 
+#' @export
+
 incQuintile <- function(inc, weights = NULL, sort = NULL, 
         years = NULL, k = c(1, 4), data = NULL, na.rm = FALSE) {
     ## initializations

@@ -5,6 +5,89 @@
 
 # TODO: error handling
 
+#' Utility functions for indicators on social exclusion and poverty
+#' 
+#' Test for class, print and take subsets of indicators on social exclusion and
+#' poverty.
+#' 
+#' @name utils
+#' 
+#' @param x for \code{is.xyz}, any object to be tested.  The \code{print} and
+#' \code{subset} methods are called by the generic functions if an object of the
+#' respective class is supplied.
+#' @param years an optional numeric vector giving the years to be extracted.
+#' @param strata an optional vector giving the strata of the breakdown to be
+#' extracted.
+#' @param \dots additional arguments to be passed to and from methods.
+#' 
+#' @return \code{is.indicator} returns \code{TRUE} if \code{x} inherits from
+#' class \code{"indicator"} and \code{FALSE} otherwise.
+#' 
+#' \code{is.arpr} returns \code{TRUE} if \code{x} inherits from class
+#' \code{"arpr"} and \code{FALSE} otherwise.
+#' 
+#' \code{is.qsr} returns \code{TRUE} if \code{x} inherits from class
+#' \code{"qsr"} and \code{FALSE} otherwise.
+#' 
+#' \code{is.rmpg} returns \code{TRUE} if \code{x} inherits from class
+#' \code{"rmpg"} and \code{FALSE} otherwise.
+#' 
+#' \code{is.gini} returns \code{TRUE} if \code{x} inherits from class
+#' \code{"gini"} and \code{FALSE} otherwise.
+#' 
+#' \code{is.gini} returns \code{TRUE} if \code{x} inherits from class
+#' \code{"gini"} and \code{FALSE} otherwise.
+#' 
+#' \code{print.indicator}, \code{print.arpr} and \code{print.rmpg} return
+#' \code{x} invisibly.
+#' 
+#' \code{subset.indicator}, \code{subset.arpr} and \code{subset.rmpg} return a
+#' subset of \code{x} of the same class.
+#' 
+#' @seealso \code{\link{arpr}}, \code{\link{qsr}}, \code{\link{rmpg}},
+#' \code{\link{gini}}, \code{\link{gpg}}
+#' 
+#' @keywords survey
+#' 
+#' @examples
+#' data(eusilc)
+#' 
+#' # at-risk-of-poverty rate
+#' a <- arpr("eqIncome", weights = "rb050", 
+#'     breakdown = "db040", data = eusilc)
+#' print(a)
+#' is.arpr(a)
+#' is.indicator(a)
+#' subset(a, strata = c("Lower Austria", "Vienna"))
+#' 
+#' # quintile share ratio
+#' q <- qsr("eqIncome", weights = "rb050", 
+#'     breakdown = "db040", data = eusilc)
+#' print(q)
+#' is.qsr(q)
+#' is.indicator(q)
+#' subset(q, strata = c("Lower Austria", "Vienna"))
+#' 
+#' # relative median at-risk-of-poverty gap
+#' r <- rmpg("eqIncome", weights = "rb050", 
+#'     breakdown = "db040", data = eusilc)
+#' print(r)
+#' is.rmpg(r)
+#' is.indicator(r)
+#' subset(r, strata = c("Lower Austria", "Vienna"))
+#' 
+#' # Gini coefficient
+#' g <- gini("eqIncome", weights = "rb050", 
+#'     breakdown = "db040", data = eusilc)
+#' print(g)
+#' is.gini(g)
+#' is.indicator(g)
+#' subset(g, strata = c("Lower Austria", "Vienna"))
+#' 
+
+NULL
+
+
 ## constructors
 # class "indicator"
 constructIndicator <- function(value, valueByStratum = NULL, 
@@ -59,15 +142,36 @@ constructGini <- function(...) {
 
 
 ## test for class
+
+#' @rdname utils
+#' @export
 is.indicator <- function(x) inherits(x, "indicator")
+
+#' @rdname utils
+#' @export
 is.arpr <- function(x) inherits(x, "arpr")
+
+#' @rdname utils
+#' @export
 is.qsr <- function(x) inherits(x, "qsr")
+
+#' @rdname utils
+#' @export
 is.rmpg <- function(x) inherits(x, "rmpg")
+
+#' @rdname utils
+#' @export
 is.gini <- function(x) inherits(x, "gini")
+
+#' @rdname utils
+#' @export
 is.gpg <- function(x) inherits(x, "gpg")
 
 ## print
 # class "indicator"
+#' @rdname utils
+#' @method print indicator
+#' @export
 print.indicator <- function(x, ...) {
 	cat("Value:\n")
 	print(x$value, ...)
@@ -95,6 +199,9 @@ print.indicator <- function(x, ...) {
 }
 
 # class "arpr"
+#' @rdname utils
+#' @method print arpr
+#' @export
 print.arpr <- function(x, ...) {
 	print.indicator(x, ...)
 	cat("\nThreshold:\n")
@@ -103,6 +210,9 @@ print.arpr <- function(x, ...) {
 }
 
 # class "rmpg"
+#' @rdname utils
+#' @method print rmpg
+#' @export
 print.rmpg <- function(x, ...) {
 	print.indicator(x, ...)
 	cat("\nThreshold:\n")
@@ -111,6 +221,7 @@ print.rmpg <- function(x, ...) {
 }
 
 # class "minAMSE"
+#' @S3method print minAMSE
 print.minAMSE <- function(x, ...) {
 	cat("Optimal k:\n")
 	print(x$kopt, ...)
@@ -124,6 +235,9 @@ print.minAMSE <- function(x, ...) {
 
 ## subsets of indicators
 # class "indicator"
+#' @rdname utils
+#' @method subset indicator
+#' @export
 subset.indicator <- function(x, years = NULL, strata = NULL, ...) {
 	# initializations
 	haveYears <- length(x$years) > 1
@@ -168,6 +282,9 @@ subset.indicator <- function(x, years = NULL, strata = NULL, ...) {
 }
 
 # class "arpr"
+#' @rdname utils
+#' @method subset arpr
+#' @export
 subset.arpr <- function(x, years = NULL, strata = NULL, ...) {
 	haveYear <- length(x$years) > 1
 	x <- subset.indicator(x, years, strata, ...)  # call method for superclass
@@ -180,6 +297,9 @@ subset.arpr <- function(x, years = NULL, strata = NULL, ...) {
 }
 
 # class "rmpg"
+#' @rdname utils
+#' @method subset rmpg
+#' @export
 subset.rmpg <- function(x, years = NULL, strata = NULL, ...) {
 	haveYear <- length(x$years) > 1
 	x <- subset.indicator(x, years, strata, ...)  # call method for superclass

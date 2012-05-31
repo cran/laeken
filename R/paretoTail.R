@@ -3,6 +3,119 @@
 #          Vienna University of Technology
 # ----------------------------------------
 
+#' Pareto tail modeling for income distributions
+#' 
+#' Fit a Pareto distribution to the upper tail of income data.  Since a
+#' theoretical distribution is used for the upper tail, this is a semiparametric
+#' approach.
+#' 
+#' The arguments \code{k} and \code{x0} of course correspond with each other.
+#' If \code{k} is supplied, the threshold \code{x0} is estimated with the \eqn{n
+#' - k} largest value in \code{x}, where \eqn{n} is the number of observations.
+#' On the other hand, if the threshold \code{x0} is supplied, \code{k} is given
+#' by the number of observations in \code{x} larger than \code{x0}.  Therefore,
+#' either \code{k} or \code{x0} needs to be supplied.  If both are supplied,
+#' only \code{k} is used.
+#' 
+#' The function supplied to \code{method} should take a numeric vector (the
+#' observations) as its first argument.  If \code{k} is supplied, it will be
+#' passed on (in this case, the function is required to have an argument called
+#' \code{k}).  Similarly, if the threshold \code{x0} is supplied, it will be
+#' passed on (in this case, the function is required to have an argument called
+#' \code{x0}).  As above, only \code{k} is passed on if both are supplied.  If
+#' the function specified by \code{method} can handle sample weights, the
+#' corresponding argument should be called \code{w}.  Additional arguments are
+#' passed via the \dots{} argument.
+#' 
+#' @aliases print.paretoTail
+#' 
+#' @param x a numeric vector.
+#' @param k the number of observations in the upper tail to which the Pareto
+#' distribution is fitted.
+#' @param x0 the threshold (scale parameter) above which the Pareto distribution
+#' is fitted.
+#' @param method either a function or a character string specifying the function
+#' to be used to estimate the shape parameter of the Pareto distibution, such as
+#' \code{\link{thetaPDC}} (the default).  See \dQuote{Details} for requirements
+#' for such a function and \dQuote{See also} for available functions.
+#' @param groups an optional vector or factor specifying groups of elements of
+#' \code{x} (e.g., households).  If supplied, each group of observations is
+#' expected to have the same value in \code{x} (e.g., household income).  Only
+#' the values of every first group member to appear are used for fitting the
+#' Pareto distribution.
+#' @param w an optional numeric vector giving sample weights.
+#' @param alpha numeric; values above the theoretical \eqn{1 - }\code{alpha}
+#' quantile of the fitted Pareto distribution will be flagged as outliers for
+#' further treatment with \code{\link{reweightOut}} or \code{\link{replaceOut}}.
+#' @param \dots addtional arguments to be passed to the specified method.
+#' 
+#' @returnClass paretoTail
+#' @returnItem x the supplied numeric vector.
+#' @returnItem k the number of observations in the upper tail to which the
+#' Pareto distribution has been fitted.
+#' @returnItem groups if supplied, the vector or factor specifying groups of
+#' elements.
+#' @returnItem w if supplied, the numeric vector of sample weights.
+#' @returnItem method the function used to estimate the shape parameter, or the
+#' name of the function.
+#' @returnItem x0 the scale parameter.
+#' @returnItem theta the estimated shape parameter.
+#' @returnItem tail if \code{groups} is not \code{NULL}, this gives the groups
+#' with values larger than the threshold (scale parameter), otherwise the
+#' indices of observations in the upper tail.
+#' @returnItem alpha the tuning parameter \code{alpha} used for flagging
+#' outliers.
+#' @returnItem out if \code{groups} is not \code{NULL}, this gives the groups
+#' that are flagged as outliers, otherwise the indices of the flagged
+#' observations.
+#' 
+#' @author Andreas Alfons
+#' 
+#' @seealso \code{\link{reweightOut}}, \code{\link{shrinkOut}},
+#' \code{\link{replaceOut}}, \code{\link{replaceTail}}, \code{\link{fitPareto}}
+#' 
+#' \code{\link{thetaPDC}}, \code{\link{thetaWML}}, \code{\link{thetaHill}},
+#' \code{\link{thetaISE}}, \code{\link{thetaLS}}, \code{\link{thetaMoment}},
+#' \code{\link{thetaQQ}}, \code{\link{thetaTM}}
+#' 
+#' @keywords manip
+#' 
+#' @examples
+#' data(eusilc)
+#' 
+#' 
+#' ## gini coefficient without Pareto tail modeling
+#' gini("eqIncome", weights = "rb050", data = eusilc)
+#' 
+#' 
+#' ## gini coefficient with Pareto tail modeling
+#' 
+#' # estimate threshold
+#' ts <- paretoScale(eusilc$eqIncome, w = eusilc$db090, 
+#'     groups = eusilc$db030)
+#' 
+#' # estimate shape parameter
+#' fit <- paretoTail(eusilc$eqIncome, k = ts$k, 
+#'     w = eusilc$db090, groups = eusilc$db030)
+#' 
+#' # calibration of outliers
+#' w <- reweightOut(fit, calibVars(eusilc$db040))
+#' gini(eusilc$eqIncome, w)
+#' 
+#' # winsorization of outliers
+#' eqIncome <- shrinkOut(fit)
+#' gini(eqIncome, weights = eusilc$rb050)
+#' 
+#' # replacement of outliers
+#' eqIncome <- replaceOut(fit)
+#' gini(eqIncome, weights = eusilc$rb050)
+#' 
+#' # replacement of whole tail
+#' eqIncome <- replaceTail(fit)
+#' gini(eqIncome, weights = eusilc$rb050)
+#' 
+#' @export
+
 paretoTail <- function(x, k = NULL, x0 = NULL, method = "thetaPDC", 
         groups = NULL, w = NULL, alpha = 0.01, ...) {
     ## initializations
@@ -93,8 +206,65 @@ paretoTail <- function(x, k = NULL, x0 = NULL, method = "thetaPDC",
     res
 }
 
+
+#' Replace observations under a Pareto model
+#' 
+#' Replace observations under a Pareto model for the upper tail with values
+#' drawn from the fitted distribution.
+#' 
+#' \code{replaceOut(x, \dots{})} is a simple wrapper for \code{replaceTail(x,
+#' all = FALSE, \dots{})}.
+#' 
+#' @param x an object of class \code{"paretoTail"} (see
+#' \code{\link{paretoTail}}).
+#' @param all a logical indicating whether all observations in the upper tail
+#' should be replaced or only those flagged as outliers.
+#' @param \dots additional arguments to be passed down.
+#' 
+#' @return A numeric vector consisting mostly of the original values, but with
+#' observations in the upper tail replaced with values from the fitted Pareto
+#' distribution.
+#' 
+#' @author Andreas Alfons
+#' 
+#' @seealso \code{\link{paretoTail}}, \code{\link{reweightOut}},
+#' \code{\link{shrinkOut}}
+#' 
+#' @keywords manip
+#' 
+#' @examples
+#' data(eusilc)
+#' 
+#' 
+#' ## gini coefficient without Pareto tail modeling
+#' gini("eqIncome", weights = "rb050", data = eusilc)
+#' 
+#' 
+#' ## gini coefficient with Pareto tail modeling
+#' 
+#' # estimate threshold
+#' ts <- paretoScale(eusilc$eqIncome, w = eusilc$db090, 
+#'     groups = eusilc$db030)
+#' 
+#' # estimate shape parameter
+#' fit <- paretoTail(eusilc$eqIncome, k = ts$k, 
+#'     w = eusilc$db090, groups = eusilc$db030)
+#' 
+#' # replacement of outliers
+#' eqIncome <- replaceOut(fit)
+#' gini(eqIncome, weights = eusilc$rb050)
+#' 
+#' # replacement of whole tail
+#' eqIncome <- replaceTail(fit)
+#' gini(eqIncome, weights = eusilc$rb050)
+#' 
+#' @export
+
 replaceTail <- function(x, ...) UseMethod("replaceTail")
 
+#' @rdname replaceTail
+#' @method replaceTail paretoTail
+#' @export
 replaceTail.paretoTail <- function(x, all = TRUE, ...) {
     which <- if(isTRUE(all)) x$tail else x$out
     k <- length(which)  # number of observations to be replaced
@@ -141,14 +311,69 @@ replaceTail.paretoTail <- function(x, all = TRUE, ...) {
 
 #replaceOut <- function(x) replaceTail(x, all=FALSE)
 
+#' @rdname replaceTail
+#' @export
 replaceOut <- function(x, ...) {
     localReplaceTail <- function(x, all, ...) replaceTail(x, all=FALSE, ...)
     localReplaceTail(x, ...)
 }
 
 
+#' Reweight outliers in the Pareto model
+#' 
+#' Reweight observations that are flagged as outliers in a Pareto model for the
+#' upper tail of the distribution.
+#' 
+#' If the data contain sample weights, the weights of the outlying observations
+#' are set to \eqn{1} and the weights of the remaining observations are
+#' calibrated according to auxiliary variables.  Otherwise, weight \eqn{0} is
+#' assigned to outliers and weight \eqn{1} to other observations.
+#' 
+#' @param x an object of class \code{"paretoTail"} (see
+#' \code{\link{paretoTail}}).
+#' @param X a matrix of binary calibration variables (see
+#' \code{\link{calibVars}}).  This is only used if \code{x} contains sample
+#' weights or if \code{w} is supplied.
+#' @param w a numeric vector of sample weights. This is only used if \code{x}
+#' does not contain sample weights, i.e., if sample weights were not considered
+#' in estimating the shape parameter of the Pareto distribution.
+#' @param \dots additional arguments to be passed down.
+#' 
+#' @return If the data contain sample weights, a numeric containing the
+#' recalibrated weights is returned, otherwise a numeric vector assigning weight
+#' \eqn{0} to outliers and weight \eqn{1} to other observations.
+#' 
+#' @author Andreas Alfons
+#' 
+#' @seealso \code{\link{paretoTail}}, \code{\link{shrinkOut}} ,
+#' \code{\link{replaceOut}}, \code{\link{replaceTail}}
+#' 
+#' @keywords manip
+#' 
+#' @examples
+#' data(eusilc)
+#' 
+#' ## gini coefficient without Pareto tail modeling
+#' gini("eqIncome", weights = "rb050", data = eusilc)
+#' 
+#' ## gini coefficient with Pareto tail modeling
+#' # estimate threshold
+#' ts <- paretoScale(eusilc$eqIncome, w = eusilc$db090, 
+#'     groups = eusilc$db030)
+#' # estimate shape parameter
+#' fit <- paretoTail(eusilc$eqIncome, k = ts$k, 
+#'     w = eusilc$db090, groups = eusilc$db030)
+#' # calibration of outliers
+#' w <- reweightOut(fit, calibVars(eusilc$db040))
+#' gini(eusilc$eqIncome, w)
+#' 
+#' @export
+
 reweightOut <- function(x, ...) UseMethod("reweightOut")
 
+#' @rdname reweightOut
+#' @method reweightOut paretoTail
+#' @export
 reweightOut.paretoTail <- function(x, X, w = NULL, ...) {
     # in case of sample weights, set weights of outliers to one and calibrate 
     # other observations
@@ -184,8 +409,51 @@ reweightOut.paretoTail <- function(x, X, w = NULL, ...) {
 }
 
 
+#' Shrink outliers in the Pareto model
+#' 
+#' Shrink observations that are flagged as outliers in a Pareto model for the
+#' upper tail of the distribution to the theoretical quantile used for outlier
+#' detection.
+#' 
+#' @param x an object of class \code{"paretoTail"} (see
+#' \code{\link{paretoTail}}).
+#' @param \dots additional arguments to be passed down (currently ignored as
+#' there are no additional arguments in the only method implemented).
+#' @return A numeric vector consisting mostly of the original values, but with
+#' outlying observations in the upper tail shrunken to the corresponding
+#' theoretical quantile of the fitted Pareto distribution.
+#' 
+#' @author Andreas Alfons
+#' 
+#' @seealso \code{\link{paretoTail}}, \code{\link{reweightOut}},
+#' \code{\link{replaceOut}}, \code{\link{replaceTail}}
+#' 
+#' @keywords manip
+#' 
+#' @examples
+#' data(eusilc)
+#' 
+#' ## gini coefficient without Pareto tail modeling
+#' gini("eqIncome", weights = "rb050", data = eusilc)
+#' 
+#' ## gini coefficient with Pareto tail modeling
+#' # estimate threshold
+#' ts <- paretoScale(eusilc$eqIncome, w = eusilc$db090, 
+#'     groups = eusilc$db030)
+#' # estimate shape parameter
+#' fit <- paretoTail(eusilc$eqIncome, k = ts$k, 
+#'     w = eusilc$db090, groups = eusilc$db030)
+#' # shrink outliers
+#' eqIncome <- shrinkOut(fit)
+#' gini(eqIncome, weights = eusilc$rb050)
+#' 
+#' @export
+
 shrinkOut <- function(x, ...) UseMethod("shrinkOut")
 
+#' @rdname shrinkOut
+#' @method shrinkOut paretoTail
+#' @export
 shrinkOut.paretoTail <- function(x, ...) {
     # winsorize outliers in the upper tail
     out <- x$out
@@ -201,6 +469,7 @@ shrinkOut.paretoTail <- function(x, ...) {
 
 
 ## print method for class "paretoTail"
+#' @S3method print paretoTail
 print.paretoTail <- function(x, ...) {
     cat("Threshold: ")
     cat(x$x0, ...)

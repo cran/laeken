@@ -1,27 +1,22 @@
 \name{calibVars}
 \alias{calibVars}
-\docType{data}
-\title{
-Construct a matrix of binary variables for calibration
-}
-\description{
-Construct a matrix of binary variables for calibration of sample weights 
-according to known marginal population totals.
-}
+\title{Construct a matrix of binary variables for calibration}
 \usage{
-calibVars(x)
+  calibVars(x)
 }
 \arguments{
-  \item{x}{a vector that can be interpreted as factor, or a matrix or 
-    \code{data.frame} consisting of such variables.}
+  \item{x}{a vector that can be interpreted as factor, or a
+  matrix or \code{data.frame} consisting of such
+  variables.}
 }
 \value{
-A matrix of binary variables that indicate membership to the corresponding 
-factor levels.
+  A matrix of binary variables that indicate membership to
+  the corresponding factor levels.
 }
-\author{Andreas Alfons}
-\seealso{
-\code{\link{calibWeights}}
+\description{
+  Construct a matrix of binary variables for calibration of
+  sample weights according to known marginal population
+  totals.
 }
 \examples{
 data(eusilc)
@@ -32,4 +27,11 @@ head(aux)
 aux <- calibVars(eusilc[, c("db040", "rb090")])
 head(aux)
 }
+\author{
+  Andreas Alfons
+}
+\seealso{
+  \code{\link{calibWeights}}
+}
 \keyword{survey}
+

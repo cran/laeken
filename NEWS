@@ -1,4 +1,18 @@
-Changes in laeken version 0.3.1
+Changes in laeken version 0.3.3
+
+    + New plot method for objects of class "paretoTail".
+    
+    + Package roxygen2 is now used for documentation.
+    
+    + Bugfixes in 'paretoQPlot' and 'meanExcessPlot': order of graphical 
+      parameters 'pch', 'cex', 'col' and 'bg' for the data points is now 
+      preserved.
+    
+    + Bugfix in 'meanExcessPlot': computation of weighted quantiles no longer 
+      throws error.
+
+
+Changes in laeken version 0.3.2
 
     + Package is built with flag --resave-data to avoid warning with R 2.15.0.
 

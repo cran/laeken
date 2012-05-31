@@ -6,6 +6,83 @@
 ## nonlinear integer minimization is done by brute force
 ## it is strongly recommended to set bounds 'kmax' and 'mmax'
 
+#' Weighted asymptotic mean squared error (AMSE) estimator
+#' 
+#' Estimate the scale and shape parameters of a Pareto distribution with an
+#' iterative procedure based on minimizing the weighted asymptotic mean squared
+#' error (AMSE) of the Hill estimator.
+#' 
+#' The weights used in the weighted AMSE depend on a nuisance parameter
+#' \eqn{\rho}{rho}.  Both the optimal number of observations in the tail and the
+#' nuisance parameter \eqn{\rho}{rho} are estimated iteratively using nonlinear
+#' integer minimization.  This is currently done by a brute force algorithm,
+#' hence it is stronly recommended to supply upper bounds \code{kmax} and
+#' \code{mmax}.
+#' 
+#' See the references for more details on the iterative algorithm.
+#' 
+#' @aliases print.minAMSE
+#' 
+#' @param x for \code{minAMSE}, a numeric vector.  The \code{print} method is
+#' called by the generic function if an object of class \code{"minAMSE"} is
+#' supplied.
+#' @param weight a character vector specifying the weighting scheme to be used
+#' in the procedure.  If \code{"Bernoulli"}, the weight functions as described
+#' in the \emph{Bernoulli} paper are applied.  If \code{"JASA"}, the weight
+#' functions as described in the \emph{Journal of the Americal Statistical
+#' Association} are used.
+#' @param kmin An optional integer giving the lower bound for finding the
+#' optimal number of observations in the tail.  It defaults to
+#' \eqn{[\frac{n}{100}]}{[n/100]}, where \eqn{n} denotes the number of
+#' observations in \code{x} (see the references).
+#' @param kmax An optional integer giving the upper bound for finding the
+#' optimal number of observations in the tail (see \dQuote{Details}).
+#' @param mmax An optional integer giving the upper bound for finding the
+#' optimal number of observations for computing the nuisance parameter
+#' \eqn{\rho}{rho} (see \dQuote{Details} and the references).
+#' @param tol an integer giving the desired tolerance level for finding the
+#' optimal number of observations in the tail.
+#' @param maxit a positive integer giving the maximum number of iterations.
+#' @param \dots additional arguments to be passed to
+#' \code{\link[base]{print.default}}.
+#' 
+#' @return An object of class \code{"minAMSE"} containing the following
+#' components:
+#' @returnItem kopt the optimal number of observations in the tail.
+#' @returnItem x0 the corresponding threshold.
+#' @returnItem theta the estimated shape parameter of the Pareto distribution.
+#' @returnItem MSEmin the minimal MSE.
+#' @returnItem rho the estimated nuisance parameter.
+#' @returnItem k the examined range for the number of observations in the tail.
+#' @returnItem MSE the corresponding MSEs.
+#' 
+#' @author Josef Holzer and Andreas Alfons
+#' 
+#' @seealso \code{\link{thetaHill}}
+#' 
+#' @references Beirlant, J., Vynckier, P. and Teugels, J.L. (1996) Tail index
+#' estimation, Pareto quantile plots, and regression diagnostics. \emph{Journal
+#' of the American Statistical Association}, \bold{91}(436), 1659--1667.
+#' 
+#' Beirlant, J., Vynckier, P. and Teugels, J.L. (1996) Excess functions and
+#' estimation of the extreme-value index. \emph{Bernoulli}, \bold{2}(4),
+#' 293--318.
+#' 
+#' Dupuis, D.J. and Victoria-Feser, M.-P. (2006) A robust prediction error
+#' criterion for Pareto modelling of upper tails. \emph{The Canadian Journal of
+#' Statistics}, \bold{34}(4), 639--658.
+#' 
+#' @keywords manip
+#' 
+#' @examples
+#' data(eusilc)
+#' # equivalized disposable income is equal for each household
+#' # member, therefore only one household member is taken
+#' minAMSE(eusilc$eqIncome[!duplicated(eusilc$db030)], 
+#'     kmin = 50, kmax = 150, mmax = 250)
+#' 
+#' @export
+
 minAMSE <- function(x, weight = c("Bernoulli", "JASA"), 
         kmin, kmax, mmax, tol = 0, maxit = 100) {
     ## initializations

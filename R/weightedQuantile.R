@@ -3,7 +3,40 @@
 #          Vienna University of Technology
 # ------------------------------------------
 
-# weighted quantile
+#' Weighted quantiles
+#' 
+#' Compute weighted quantiles (Eurostat definition).
+#' 
+#' The implementation strictly follows the Eurostat definition.
+#' 
+#' @param x a numeric vector.
+#' @param weights an optional numeric vector giving the sample weights.
+#' @param probs numeric vector of probabilities with values in \eqn{[0,1]}.
+#' @param sorted a logical indicating whether the observations in \code{x} are
+#' already sorted.
+#' @param na.rm a logical indicating whether missing values in \code{x} should
+#' be omitted.
+#' 
+#' @return A numeric vector containing the weighted quantiles of values in
+#' \code{x} at probabilities \code{probs} is returned.  Unlike
+#' \code{\link[stats]{quantile}}, this returns an unnamed vector.
+#' 
+#' @author Andreas Alfons and Matthias Templ
+#' 
+#' @seealso \code{\link{incQuintile}}, \code{\link{weightedMedian}}
+#' 
+#' @references Working group on Statistics on Income and Living Conditions
+#' (2004) Common cross-sectional EU indicators based on EU-SILC; the gender pay
+#' gap.  \emph{EU-SILC 131-rev/04}, Eurostat.
+#' 
+#' @keywords survey
+#' 
+#' @examples
+#' data(eusilc)
+#' weightedQuantile(eusilc$eqIncome, eusilc$rb050)
+#' 
+#' @export
+
 weightedQuantile <- function(x, weights = NULL, probs = seq(0, 1, 0.25), 
         sorted = FALSE, na.rm = FALSE) {
     # initializations

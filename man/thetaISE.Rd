@@ -1,58 +1,56 @@
 \name{thetaISE}
 \alias{thetaISE}
 \title{Integrated squared error (ISE) estimator}
-\description{
-  The integrated squared error (ISE) estimator estimates the shape parameter 
-  of a Pareto distribution based on the relative excesses of observations 
-  above a certain threshold.
-}
 \usage{
-thetaISE(x, k = NULL, x0 = NULL, w = NULL, \dots)
+  thetaISE(x, k = NULL, x0 = NULL, w = NULL, ...)
 }
 \arguments{
   \item{x}{a numeric vector.}
-  \item{k}{the number of observations in the upper tail to which the Pareto 
-    distribution is fitted.}
-  \item{x0}{the threshold (scale parameter) above which the Pareto distribution 
-    is fitted.}
-  \item{w}{an optional numeric vector giving sample weights.}
-%  \item{\dots}{additional arguments to be passed to \code{\link[stats]{nlm}} 
-%    (see \dQuote{Details}).}
-%  \item{tol}{the desired accuracy.}
-  \item{\dots}{additional arguments to be passed to 
-    \code{\link[stats]{optimize}} (see \dQuote{Details}).}
-}
-\details{
-  The arguments \code{k} and \code{x0} of course correspond with each other.  
-  If \code{k} is supplied, the threshold \code{x0} is estimated with the 
-  \eqn{n - k} largest value in \code{x}, where \eqn{n} is the number of 
-  observations.  On the other hand, if the threshold \code{x0} is supplied, 
-  \code{k} is given by the number of observations in \code{x} larger than 
-  \code{x0}.  Therefore, either \code{k} or \code{x0} needs to be supplied.  
-  If both are supplied, only \code{k} is used (mainly for back compatibility).
-  
-  The ISE estimator minimizes the integrated squared error (ISE) criterion with 
-  a complete density model.  The minimization is carried out using 
-%  \code{\link[stats]{nlm}}.  By default, the starting value is obtained 
-%  with the Hill estimator (see \code{\link{thetaHill}}).
-  \code{\link[stats]{optimize}}.
+
+  \item{k}{the number of observations in the upper tail to
+  which the Pareto distribution is fitted.}
+
+  \item{x0}{the threshold (scale parameter) above which the
+  Pareto distribution is fitted.}
+
+  \item{w}{an optional numeric vector giving sample
+  weights.}
+
+  \item{\dots}{additional arguments to be passed to
+  \code{\link[stats]{optimize}} (see \dQuote{Details}).}
 }
 \value{
   The estimated shape parameter.
 }
+\description{
+  The integrated squared error (ISE) estimator estimates
+  the shape parameter of a Pareto distribution based on the
+  relative excesses of observations above a certain
+  threshold.
+}
+\details{
+  The arguments \code{k} and \code{x0} of course correspond
+  with each other. If \code{k} is supplied, the threshold
+  \code{x0} is estimated with the \eqn{n - k} largest value
+  in \code{x}, where \eqn{n} is the number of observations.
+  On the other hand, if the threshold \code{x0} is
+  supplied, \code{k} is given by the number of observations
+  in \code{x} larger than \code{x0}.  Therefore, either
+  \code{k} or \code{x0} needs to be supplied.  If both are
+  supplied, only \code{k} is used (mainly for back
+  compatibility).
+
+  The ISE estimator minimizes the integrated squared error
+  (ISE) criterion with a complete density model.  The
+  minimization is carried out using %
+  \code{\link[stats]{nlm}}.  By default, the starting value
+  is obtained % with the Hill estimator (see
+  \code{\link{thetaHill}}). \code{\link[stats]{optimize}}.
+}
 \note{
-  The arguments \code{x0} for the threshold (scale parameter) of the Pareto 
-  distribution and \code{w} for sample weights were introduced in version 0.2.  
-}
-\author{Andreas Alfons and Josef Holzer}
-\references{
-Vandewalle, B., Beirlant, J., Christmann, A., and Hubert, M. (2007) A robust 
-estimator for the tail index of Pareto-type distributions. \emph{Computational 
-Statistics & Data Analysis}, \bold{51}(12), 6252--6268.
-}
-\seealso{
-  \code{\link{paretoTail}}, \code{\link{fitPareto}}, \code{\link{thetaPDC}}, 
-  \code{\link{thetaHill}}
+  The arguments \code{x0} for the threshold (scale
+  parameter) of the Pareto distribution and \code{w} for
+  sample weights were introduced in version 0.2.
 }
 \examples{
 data(eusilc)
@@ -69,4 +67,18 @@ thetaISE(eusilc$eqIncome, k = ts$k, w = eusilc$db090)
 # using threshold
 thetaISE(eusilc$eqIncome, x0 = ts$x0, w = eusilc$db090)
 }
+\author{
+  Andreas Alfons and Josef Holzer
+}
+\references{
+  Vandewalle, B., Beirlant, J., Christmann, A., and Hubert,
+  M. (2007) A robust estimator for the tail index of
+  Pareto-type distributions. \emph{Computational Statistics
+  & Data Analysis}, \bold{51}(12), 6252--6268.
+}
+\seealso{
+  \code{\link{paretoTail}}, \code{\link{fitPareto}},
+  \code{\link{thetaPDC}}, \code{\link{thetaHill}}
+}
 \keyword{manip}
+

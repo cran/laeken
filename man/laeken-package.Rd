@@ -12,8 +12,8 @@ Estimation of indicators on social exclusion and poverty, as well as Pareto tail
 \tabular{ll}{
 Package: \tab laeken\cr
 Type: \tab Package\cr
-Version: \tab 0.3.2\cr
-Date: \tab 2012-03-19\cr
+Version: \tab 0.3.3\cr
+Date: \tab 2012-05-31\cr
 Depends: \tab R (>= 2.10.0), boot, MASS\cr
 License: \tab GPL (>= 2)\cr
 }
@@ -37,8 +37,6 @@ gpg                     Gender pay (wage) gap.
 incMean                 Weighted mean income
 incMedian               Weighted median income
 incQuintile             Weighted income quintile
-is.indicator            Utility functions for indicators on social
-                        exclusion and poverty
 laeken-package          Estimation of indicators on social exclusion
                         and poverty
 meanExcessPlot          Mean excess plot
@@ -48,6 +46,7 @@ paretoQPlot             Pareto quantile plot
 paretoScale             Estimate the scale parameter of a Pareto
                         distribution
 paretoTail              Pareto tail modeling for income distributions
+plot.paretoTail         Diagnostic plot for the Pareto tail model
 qsr                     Quintile share ratio
 replaceTail             Replace observations under a Pareto model
 reweightOut             Reweight outliers in the Pareto model
@@ -61,6 +60,8 @@ thetaPDC                Partial density component (PDC) estimator
 thetaQQ                 QQ-estimator
 thetaTM                 Trimmed mean estimator
 thetaWML                Weighted maximum likelihood estimator
+utils                   Utility functions for indicators on social
+                        exclusion and poverty
 variance                Variance and confidence intervals of indicators
                         on social exclusion and poverty
 weightedMean            Weighted mean
@@ -78,6 +79,6 @@ Further information is available in the following vignettes:
 \author{
 Andreas Alfons, Josef Holzer and Matthias Templ
 
-Maintainer: Andreas Alfons <andreas.alfons@econ.kuleuven.be>
+Maintainer: Andreas Alfons <andreas.alfons@kuleuven.be>
 }
 \keyword{package}

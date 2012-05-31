@@ -3,6 +3,64 @@
 #          Vienna University of Technology
 # ----------------------------------------
 
+#' Trimmed mean estimator
+#' 
+#' Estimate the shape parameter of a Pareto distribution using a trimmed mean
+#' approach.
+#' 
+#' The arguments \code{k} and \code{x0} of course correspond with each other.
+#' If \code{k} is supplied, the threshold \code{x0} is estimated with the \eqn{n
+#' - k} largest value in \code{x}, where \eqn{n} is the number of observations.
+#' On the other hand, if the threshold \code{x0} is supplied, \code{k} is given
+#' by the number of observations in \code{x} larger than \code{x0}.  Therefore,
+#' either \code{k} or \code{x0} needs to be supplied.  If both are supplied,
+#' only \code{k} is used (mainly for back compatibility).
+#' 
+#' @param x a numeric vector.
+#' @param k the number of observations in the upper tail to which the Pareto
+#' distribution is fitted.
+#' @param x0 the threshold (scale parameter) above which the Pareto distribution
+#' is fitted.
+#' @param beta A numeric vector of length two giving the trimming proportions
+#' for the lower and upper end of the tail, respectively.  If a single numeric
+#' value is supplied, it is recycled.
+#' 
+#' @return The estimated shape parameter.
+#' 
+#' @note The argument \code{x0} for the threshold (scale parameter) of the
+#' Pareto distribution was introduced in version 0.2.
+#' 
+#' @author Andreas Alfons and Josef Holzer
+#' 
+#' @seealso \code{\link{paretoTail}}, \code{\link{fitPareto}}
+#' 
+#' @references Brazauskas, V. and Serfling, R. (2000) Robust estimation of tail
+#' parameters for two-parameter Pareto and exponential models via generalized
+#' quantile statistics. \emph{Extremes}, \bold{3}(3), 231--249.
+#' 
+#' Brazauskas, V. and Serfling, R. (2000) Robust and efficient estimation of the
+#' tail index of a single-parameter Pareto distribution. \emph{North American
+#' Actuarial Journal}, \bold{4}(4), 12--27.
+#' 
+#' @keywords manip
+#' 
+#' @examples
+#' data(eusilc)
+#' # equivalized disposable income is equal for each household
+#' # member, therefore only one household member is taken
+#' eusilc <- eusilc[!duplicated(eusilc$db030),]
+#' 
+#' # estimate threshold
+#' ts <- paretoScale(eusilc$eqIncome, w = eusilc$db090)
+#' 
+#' # using number of observations in tail
+#' thetaTM(eusilc$eqIncome, k = ts$k)
+#' 
+#' # using threshold
+#' thetaTM(eusilc$eqIncome, x0 = ts$x0)
+#' 
+#' @export
+
 thetaTM <- function(x, k = NULL, x0 = NULL, beta = 0.05) {
     ## initializations
     if(!is.numeric(x) || length(x) == 0) stop("'x' must be a numeric vector")
