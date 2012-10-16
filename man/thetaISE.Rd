@@ -75,6 +75,11 @@ thetaISE(eusilc$eqIncome, x0 = ts$x0, w = eusilc$db090)
   M. (2007) A robust estimator for the tail index of
   Pareto-type distributions. \emph{Computational Statistics
   & Data Analysis}, \bold{51}(12), 6252--6268.
+
+  A. Alfons, M. Templ, P. Filzmoser (2013) Robust
+  estimation of economic indicators from survey samples
+  based on Pareto tail modeling. \emph{Journal of the Royal
+  Statistical Society, Series C}, accepted for publication.
 }
 \seealso{
   \code{\link{paretoTail}}, \code{\link{fitPareto}},

@@ -86,7 +86,7 @@ exclusion and poverty according to \citet{EU-SILC04, EU-SILC09}, the aim is not
 to describe and evaluate the different approaches that have been proposed to 
 date. Instead, the aim is to present the functionality for the statistical 
 environment \proglang{R} \citep{RDev} implemented in the add-on package 
-\pkg{laeken} \citep{alfons11b}.
+\pkg{laeken} \citep{laeken}.
 
 It should be noted that the basic design of the package, as well as standard 
 point estimation of the indicators on social exclusion and poverty, is 
@@ -109,7 +109,7 @@ data \code{eusilc} consisting of $14\,827$ observations from $6\,000$
 households. Furthermore, the data were generated from Austrian EU-SILC survey 
 data from 2006 using the data simulation methodology proposed by 
 \citet{alfons11c} and implemented in the \proglang{R} package 
-\pkg{simPopulation} \citep{kraft10}. The data set \code{eusilc} is used in the 
+\pkg{simPopulation} \citep{simPopulation}. The data set \code{eusilc} is used in the 
 code examples throughout the paper.
 % -----
 <<>>=
@@ -303,7 +303,7 @@ bootstrap algorithm from Section~\ref{sec:naive}:
 
 The function call to \code{variance()} for the calibrated bootstrap is very 
 similar to its counterpart for the naive bootstrap. A matrix of auxiliary 
-calibration variables needs to be supplied via the argument \code{aux}. In 
+calibration variables needs to be supplied via the argument \code{X}. In 
 addition, the argument \code{totals} can be used to supply the corresponding 
 population totals. If the \code{totals} argument is omitted, as in the 
 following example, the population totals are computed from the sample weights 

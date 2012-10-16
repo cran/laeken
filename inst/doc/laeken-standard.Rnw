@@ -127,7 +127,7 @@ is given in the following.
 Note that especially the Gini coefficient is very well studied due to its 
 importance in many fields of research. 
 
-The add-on package \pkg{laeken} \citep{alfons11b} aims is to bring 
+The add-on package \pkg{laeken} \citep{laeken} aims is to bring 
 functionality for the estimation of indicators on social exclusion and poverty 
 to the statistical environment \proglang{R} \citep{RDev}. In the examples in 
 this vignette, standard estimates for the most important indicators are computed 
@@ -147,7 +147,7 @@ The example data set of package \pkg{laeken}, which is called \code{eusilc} and
 consists of $14\,827$ observations from $6\,000$ households, is used throughout 
 the paper. It was synthetically generated from Austrian EU-SILC survey data 
 from 2006 using the data simulation methodology proposed by \citet{alfons11c} 
-and implemented in the \proglang{R} package \pkg{simPopulation} \citep{kraft10}. 
+and implemented in the \proglang{R} package \pkg{simPopulation} \citep{simPopulation}. 
 The first three observations of the synthetic data set \code{eusilc} are 
 printed below.
 
@@ -231,12 +231,12 @@ components:
 %
 \begin{description}
   \item[\code{value}:] A numeric vector containing the point estimate(s).
-  \item[\code{valueByStratum}:] A \code{data.frame} containing the point estimates by stratum.
+  \item[\code{valueByStratum}:] A \code{data.frame} containing the point estimates by domain.
   \item[\code{varMethod}:] A character string specifying the type of variance estimation used.
   \item[\code{var}:] A numeric vector containing the variance estimate(s).
-  \item[\code{varByStratum}:] A \code{data.frame} containing the variance estimates by stratum.
+  \item[\code{varByStratum}:] A \code{data.frame} containing the variance estimates by domain.
   \item[\code{ci}:] A numeric vector or matrix containing the confidence interval(s).
-  \item[\code{ciByStratum}:] A \code{data.frame} containing the confidence intervals by stratum.
+  \item[\code{ciByStratum}:] A \code{data.frame} containing the confidence intervals by domain.
   \item[\code{alpha}:] The confidence level is given by $1 - $\code{alpha}.
   \item[\code{years}:] A numeric vector containing the different years of the survey.
   \item[\code{strata}:] A character vector containing the different strata of the breakdown.
@@ -604,7 +604,7 @@ qsr("eqIncome", weights = "rb050", breakdown = "db040", data = eusilc)
 @
 
 Nevertheless, it should be noted that the quintile share ratio is highly 
-influenced by outliers \citep[see][]{hulliger09a, alfons10f}. Since the upper 
+influenced by outliers \citep[see][]{hulliger09a, alfons10b}. Since the upper 
 tail of income distributions virtually always contains nonrepresentative 
 outliers, robust estimators of the quintile share ratio should preferably be 
 used. Thus robust semi-parametric methods based on Pareto tail modeling are 
@@ -705,7 +705,7 @@ gini("eqIncome", weights = "rb050", breakdown = "db040", data = eusilc)
 
 Since outliers have a strong influence on the Gini coefficient, robust 
 estimators are preferred to the standard estimation described above 
-\citep[see][]{alfons10f}. Vignette \code{laeken-pareto} \citep{alfons11a} 
+\citep[see][]{alfons10b}. Vignette \code{laeken-pareto} \citep{alfons11a} 
 describes how to apply the robust semi-parametric methods implemented in 
 package \pkg{laeken}.
 
@@ -762,7 +762,7 @@ estimates for several years and different subdomains with a single command.
 
 Concerning the inequality indicators quintile share ratio and Gini coefficient, 
 it is clearly visible from their definitions that the standard estimators are 
-highly influenced by outliers \citep[see also][]{hulliger09a, alfons10f}. 
+highly influenced by outliers \citep[see also][]{hulliger09a, alfons10b}. 
 Therefore, robust semi-parametric methods are implemented in \pkg{laeken} as 
 well. These are described in vignette \code{laeken-pareto} 
 \citep{alfons11a}, while variance and confidence interval estimation for the 

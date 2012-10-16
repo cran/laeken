@@ -26,11 +26,11 @@
 #' the survey, or (if \code{data} is not \code{NULL}) a character string, an
 #' integer or a logical vector specifying the corresponding column of
 #' \code{data}.  If supplied, values are computed for each year.
-#' @param breakdown optional; either a numeric vector giving different strata,
+#' @param breakdown optional; either a numeric vector giving different domains,
 #' or (if \code{data} is not \code{NULL}) a character string, an integer or a
 #' logical vector specifying the corresponding column of \code{data}.  If
-#' supplied, the values for each stratum are computed in addition to the overall
-#' value.  Note that the same (overall) threshold is used for all strata.
+#' supplied, the values for each domain are computed in addition to the overall
+#' value.  Note that the same (overall) threshold is used for all domains.
 #' @param design optional and only used if \code{var} is not \code{NULL}; either
 #' an integer vector or factor giving different strata for stratified sampling
 #' designs, or (if \code{data} is not \code{NULL}) a character string, an
@@ -54,23 +54,23 @@
 #' \code{"indicator"}) with the following components:
 #' @returnItem value a numeric vector containing the overall value(s).
 #' @returnItem valueByStratum a \code{data.frame} containing the values by
-#' stratum, or \code{NULL}.
+#' domain, or \code{NULL}.
 #' @returnItem varMethod a character string specifying the type of variance
 #' estimation used, or \code{NULL} if variance estimation was omitted.
 #' @returnItem var a numeric vector containing the variance estimate(s), or
 #' \code{NULL}.
 #' @returnItem varByStratum a \code{data.frame} containing the variance
-#' estimates by stratum, or \code{NULL}.
+#' estimates by domain, or \code{NULL}.
 #' @returnItem ci a numeric vector or matrix containing the lower and upper
 #' endpoints of the confidence interval(s), or \code{NULL}.
 #' @returnItem ciByStratum a \code{data.frame} containing the lower and upper
-#' endpoints of the confidence intervals by stratum, or \code{NULL}.
+#' endpoints of the confidence intervals by domain, or \code{NULL}.
 #' @returnItem alpha a numeric value giving the significance level used for
 #' computing the confidence interval(s) (i.e., the confidence level is \eqn{1 -
 #' }\code{alpha}), or \code{NULL}.
 #' @returnItem years a numeric vector containing the different years of the
 #' survey.
-#' @returnItem strata a character vector containing the different strata of the
+#' @returnItem strata a character vector containing the different domains of the
 #' breakdown.
 #' @returnItem p a numeric giving the percentage of the weighted median used for
 #' the at-risk-of-poverty threshold.

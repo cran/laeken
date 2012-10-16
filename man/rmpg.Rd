@@ -32,12 +32,12 @@
   year.}
 
   \item{breakdown}{optional; either a numeric vector giving
-  different strata, or (if \code{data} is not \code{NULL})
+  different domains, or (if \code{data} is not \code{NULL})
   a character string, an integer or a logical vector
   specifying the corresponding column of \code{data}.  If
-  supplied, the values for each stratum are computed in
+  supplied, the values for each domain are computed in
   addition to the overall value.  Note that the same
-  (overall) threshold is used for all strata.}
+  (overall) threshold is used for all domains.}
 
   \item{design}{optional and only used if \code{var} is not
   \code{NULL}; either an integer vector or factor giving
@@ -72,7 +72,7 @@
   value(s).}
 
   \item{valueByStratum}{a \code{data.frame} containing the
-  values by stratum, or \code{NULL}.}
+  values by domain, or \code{NULL}.}
 
   \item{varMethod}{a character string specifying the type
   of variance estimation used, or \code{NULL} if variance
@@ -82,7 +82,7 @@
   estimate(s), or \code{NULL}.}
 
   \item{varByStratum}{a \code{data.frame} containing the
-  variance estimates by stratum, or \code{NULL}.}
+  variance estimates by domain, or \code{NULL}.}
 
   \item{ci}{a numeric vector or matrix containing the lower
   and upper endpoints of the confidence interval(s), or
@@ -90,7 +90,7 @@
 
   \item{ciByStratum}{a \code{data.frame} containing the
   lower and upper endpoints of the confidence intervals by
-  stratum, or \code{NULL}.}
+  domain, or \code{NULL}.}
 
   \item{alpha}{a numeric value giving the significance
   level used for computing the confidence interval(s)
@@ -101,7 +101,7 @@
   years of the survey.}
 
   \item{strata}{a character vector containing the different
-  strata of the breakdown.}
+  domains of the breakdown.}
 
   \item{threshold}{a numeric vector containing the
   at-risk-of-poverty threshold(s).}

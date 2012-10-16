@@ -44,10 +44,10 @@
   year.}
 
   \item{breakdown}{optional; either a numeric vector giving
-  different strata, or (if \code{data} is not \code{NULL})
+  different domains, or (if \code{data} is not \code{NULL})
   a character string, an integer or a logical vector
   specifying the corresponding column of \code{data}.  If
-  supplied, the values for each stratum are computed in
+  supplied, the values for each domain are computed in
   addition to the overall value.}
 
   \item{design}{optional and only used if \code{var} is not
@@ -83,7 +83,7 @@
   value(s).}
 
   \item{valueByStratum}{a \code{data.frame} containing the
-  values by stratum, or \code{NULL}.}
+  values by domain, or \code{NULL}.}
 
   \item{varMethod}{a character string specifying the type
   of variance estimation used, or \code{NULL} if variance
@@ -93,7 +93,7 @@
   estimate(s), or \code{NULL}.}
 
   \item{varByStratum}{a \code{data.frame} containing the
-  variance estimates by stratum, or \code{NULL}.}
+  variance estimates by domain, or \code{NULL}.}
 
   \item{ci}{a numeric vector or matrix containing the lower
   and upper endpoints of the confidence interval(s), or
@@ -101,7 +101,7 @@
 
   \item{ciByStratum}{a \code{data.frame} containing the
   lower and upper endpoints of the confidence intervals by
-  stratum, or \code{NULL}.}
+  domain, or \code{NULL}.}
 
   \item{alpha}{a numeric value giving the significance
   level used for computing the confidence interv al(s)
@@ -112,7 +112,7 @@
   years of the survey.}
 
   \item{strata}{a character vector containing the different
-  strata of the breakdown.}
+  domains of the breakdown.}
 }
 \description{
   Estimate the gender pay (wage) gap.
@@ -125,51 +125,23 @@
   estimated.
 }
 \examples{
-data(eusilc)
-## clearly, children and elder people may not work in Austria:
-eusilc <- eusilc[eusilc$age > 17 & eusilc$age < 66, ]
-## full time workers:
-eusilc <- eusilc[eusilc$pl030 == 1, ]
-## employees's cash income: py010n
-eusilc <- eusilc[!is.na(eusilc$py010n), ]
+data(ses)
 
-## for estimation of the GPG, use hourly rates of people
-## who earn money and NOT just yearly income as done in
-## the following examples!
+# overall value with mean
+gpg("earningsHour", gender = "sex", weigths = "weights",
+    data = ses)
 
-median_no_breakdown <- gpg("py010n", "rb090", method = "median",
-    weights = "rb050", data = eusilc)
-mean_no_breakdown <- gpg("py010n", "rb090", method = "mean",
-    weights = "rb050", data = eusilc)
+# overall value with median
+gpg("earningsHour", gender = "sex", weigths = "weights",
+    data = ses, method = "median")
 
-variance("py010n", gender = "rb090", method = "median",
-    weights = "rb050", design = "db040", data = eusilc,
-    indicator = median_no_breakdown, bootType = "naive",
-    seed = 123)
+# values by education with mean
+gpg("earningsHour", gender = "sex", weigths = "weights",
+    breakdown = "education", data = ses)
 
-variance("py010n", gender = "rb090", method = "mean",
-    weights = "rb050", design = "db040", data = eusilc,
-    indicator = mean_no_breakdown, bootType = "naive",
-    seed = 123)
-
-
-median_breakdown_area <- gpg("py010n", "rb090",
-    method = "median", breakdown = "db040",
-    weights = "rb050", data = eusilc)
-
-variance("py010n", gender = "rb090", method = "median",
-    breakdown = "db040", weights = "rb050", design = "db040",
-    data = eusilc, indicator = median_breakdown_area,
-    bootType = "naive", seed = 123)
-
-
-mean_breakdown_area <- gpg("py010n", "rb090", method = "mean",
-    breakdown = "db040", weights = "rb050", data = eusilc)
-
-variance("py010n", gender = "rb090", method = "mean",
-    breakdown = "db040", weights = "rb050", design = "db040",
-    data = eusilc, indicator = mean_breakdown_area,
-    bootType = "naive", seed = 123)
+# values by education with median
+gpg("earningsHour", gender = "sex", weigths = "weights",
+    breakdown = "education", data = ses, method = "median")
 }
 \author{
   Matthias Templ and Alexander Haider, using code for

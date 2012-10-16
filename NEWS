@@ -1,3 +1,21 @@
+Changes in laeken version 0.4.0
+
+    + Added example data 'ses' for the Structure of Earnings Survey.
+    
+    + Added vignette 'laeken-intro'.
+    
+    + Minimal changes in 'print' method for indicators.
+    
+    + Minimal changes in help files and vignettes.
+    
+    + Removed attributes from variable 'eqIncome' in example data 'eusilc'.
+    
+    + The level names of argument 'gender' in function 'gpg' can now be any 
+      character string. Note: the first level of gender should always 
+      correspond to females.
+
+
+
 Changes in laeken version 0.3.3
 
     + New plot method for objects of class "paretoTail".
@@ -106,4 +124,4 @@ Changes in laeken version 0.1.2
 
 Changes in laeken version 0.1.1
 
-    + Bugfix in 'bootVar' in case of breakdown by year and stratum.
+    + Bugfix in 'bootVar' in case of breakdown by year and domain.

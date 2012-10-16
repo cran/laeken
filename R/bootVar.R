@@ -23,10 +23,10 @@
 #' the survey, or (if \code{data} is not \code{NULL}) a character string, an
 #' integer or a logical vector specifying the corresponding column of
 #' \code{data}.  If supplied, values are computed for each year.
-#' @param breakdown optional; either a numeric vector giving different strata,
+#' @param breakdown optional; either a numeric vector giving different domains,
 #' or (if \code{data} is not \code{NULL}) a character string, an integer or a
 #' logical vector specifying the corresponding column of \code{data}.  If
-#' supplied, the values for each stratum are computed in addition to the overall
+#' supplied, the values for each domain are computed in addition to the overall
 #' value.
 #' @param design optional; either an integer vector or factor giving different
 #' strata for stratified sampling designs, or (if \code{data} is not

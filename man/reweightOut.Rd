@@ -60,6 +60,12 @@ gini(eusilc$eqIncome, w)
 \author{
   Andreas Alfons
 }
+\references{
+  A. Alfons, M. Templ, P. Filzmoser (2013) Robust
+  estimation of economic indicators from survey samples
+  based on Pareto tail modeling. \emph{Journal of the Royal
+  Statistical Society, Series C}, accepted for publication.
+}
 \seealso{
   \code{\link{paretoTail}}, \code{\link{shrinkOut}} ,
   \code{\link{replaceOut}}, \code{\link{replaceTail}}

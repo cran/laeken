@@ -16,7 +16,7 @@
 #' \code{subset} methods are called by the generic functions if an object of the
 #' respective class is supplied.
 #' @param years an optional numeric vector giving the years to be extracted.
-#' @param strata an optional vector giving the strata of the breakdown to be
+#' @param strata an optional vector giving the domains of the breakdown to be
 #' extracted.
 #' @param \dots additional arguments to be passed to and from methods.
 #' 
@@ -184,15 +184,15 @@ print.indicator <- function(x, ...) {
 		print(x$ci, ...)
 	}
 	if(!is.null(x$valueByStratum)) {
-		cat("\nValue by stratum:\n")
+		cat("\nValue by domain:\n")
 		print(x$valueByStratum, ...)
 	}
 	if(!is.null(x$varByStratum)) {
-		cat("\nVariance by stratum:\n")
+		cat("\nVariance by domain:\n")
 		print(x$varByStratum, ...)
 	}
 	if(!is.null(x$varByStratum)) {
-		cat("\nConfidence interval by stratum:\n")
+		cat("\nConfidence interval by domain:\n")
 		print(x$ciByStratum, ...)
 	}
 	invisible(x)

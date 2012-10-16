@@ -32,10 +32,10 @@
 #' the survey, or (if \code{data} is not \code{NULL}) a character string, an
 #' integer or a logical vector specifying the corresponding column of
 #' \code{data}.  If supplied, values are computed for each year.
-#' @param breakdown optional; either a numeric vector giving different strata,
+#' @param breakdown optional; either a numeric vector giving different domains,
 #' or (if \code{data} is not \code{NULL}) a character string, an integer or a
 #' logical vector specifying the corresponding column of \code{data}.  If
-#' supplied, the values for each stratum are computed in addition to the overall
+#' supplied, the values for each domain are computed in addition to the overall
 #' value.
 #' @param design optional and only used if \code{var} is not \code{NULL}; either
 #' an integer vector or factor giving different strata for stratified sampling
@@ -57,23 +57,23 @@
 #' \code{"indicator"}) with the following components:
 #' @returnItem value a numeric vector containing the overall value(s).
 #' @returnItem valueByStratum a \code{data.frame} containing the values by
-#' stratum, or \code{NULL}.
+#' domain, or \code{NULL}.
 #' @returnItem varMethod a character string specifying the type of variance
 #' estimation used, or \code{NULL} if variance estimation was omitted.
 #' @returnItem var a numeric vector containing the variance estimate(s), or
 #' \code{NULL}.
 #' @returnItem varByStratum a \code{data.frame} containing the variance
-#' estimates by stratum, or \code{NULL}.
+#' estimates by domain, or \code{NULL}.
 #' @returnItem ci a numeric vector or matrix containing the lower and upper
 #' endpoints of the confidence interval(s), or \code{NULL}.
 #' @returnItem ciByStratum a \code{data.frame} containing the lower and upper
-#' endpoints of the confidence intervals by stratum, or \code{NULL}.
+#' endpoints of the confidence intervals by domain, or \code{NULL}.
 #' @returnItem alpha a numeric value giving the significance level used for
 #' computing the confidence interv al(s) (i.e., the confidence level is \eqn{1 -
 #' }\code{alpha}), or \code{NULL}.
 #' @returnItem years a numeric vector containing the different years of the
 #' survey.
-#' @returnItem strata a character vector containing the different strata of the
+#' @returnItem strata a character vector containing the different domains of the
 #' breakdown.
 #' 
 #' @author Matthias Templ and Alexander Haider, using code for breaking down
@@ -88,58 +88,30 @@
 #' @keywords survey
 #' 
 #' @examples
-#' data(eusilc)
-#' ## clearly, children and elder people may not work in Austria:
-#' eusilc <- eusilc[eusilc$age > 17 & eusilc$age < 66, ]
-#' ## full time workers:
-#' eusilc <- eusilc[eusilc$pl030 == 1, ]
-#' ## employees's cash income: py010n
-#' eusilc <- eusilc[!is.na(eusilc$py010n), ]
+#' data(ses)
 #' 
-#' ## for estimation of the GPG, use hourly rates of people 
-#' ## who earn money and NOT just yearly income as done in 
-#' ## the following examples!
+#' # overall value with mean
+#' gpg("earningsHour", gender = "sex", weigths = "weights", 
+#'     data = ses)
 #' 
-#' median_no_breakdown <- gpg("py010n", "rb090", method = "median", 
-#'     weights = "rb050", data = eusilc)
-#' mean_no_breakdown <- gpg("py010n", "rb090", method = "mean", 
-#'     weights = "rb050", data = eusilc)
+#' # overall value with median
+#' gpg("earningsHour", gender = "sex", weigths = "weights", 
+#'     data = ses, method = "median")
 #' 
-#' variance("py010n", gender = "rb090", method = "median", 
-#'     weights = "rb050", design = "db040", data = eusilc, 
-#'     indicator = median_no_breakdown, bootType = "naive", 
-#'     seed = 123)
+#' # values by education with mean
+#' gpg("earningsHour", gender = "sex", weigths = "weights", 
+#'     breakdown = "education", data = ses)
 #' 
-#' variance("py010n", gender = "rb090", method = "mean", 
-#'     weights = "rb050", design = "db040", data = eusilc, 
-#'     indicator = mean_no_breakdown, bootType = "naive", 
-#'     seed = 123)
-#' 
-#' 
-#' median_breakdown_area <- gpg("py010n", "rb090", 
-#'     method = "median", breakdown = "db040", 
-#'     weights = "rb050", data = eusilc)
-#' 
-#' variance("py010n", gender = "rb090", method = "median", 
-#'     breakdown = "db040", weights = "rb050", design = "db040", 
-#'     data = eusilc, indicator = median_breakdown_area, 
-#'     bootType = "naive", seed = 123)
-#' 
-#' 
-#' mean_breakdown_area <- gpg("py010n", "rb090", method = "mean", 
-#'     breakdown = "db040", weights = "rb050", data = eusilc)
-#' 
-#' variance("py010n", gender = "rb090", method = "mean", 
-#'     breakdown = "db040", weights = "rb050", design = "db040", 
-#'     data = eusilc, indicator = mean_breakdown_area, 
-#'     bootType = "naive", seed = 123)
+#' # values by education with median
+#' gpg("earningsHour", gender = "sex", weigths = "weights", 
+#'     breakdown = "education", data = ses, method = "median")
 #' 
 #' @export
 
 gpg <- function(inc, gender = NULL, method = c("mean", "median"), 
-		weights = NULL, sort = NULL, years = NULL, breakdown = NULL, 
-		design = NULL, data = NULL, var = NULL, alpha = 0.05, 
-		na.rm = FALSE, ...) {
+        weights = NULL, sort = NULL, years = NULL, breakdown = NULL, 
+        design = NULL, data = NULL, var = NULL, alpha = 0.05, 
+        na.rm = FALSE, ...) {
     ## initializations
     if(is.null(gender)) stop("'gender' must be supplied")
     byYear <- !is.null(years)
@@ -155,14 +127,18 @@ gpg <- function(inc, gender = NULL, method = c("mean", "median"),
     }
     # check vectors
     if(!is.numeric(inc)) stop("'inc' must be a numeric vector")
-#    if(method != 'mean' && method != 'median') stop("'method' must be 'mean' or 'median'")
     method <- match.arg(method)
-	if(!is.factor(gender)) stop("'gender' must be a factor.")
-    if(length(levels(gender)) != 2) stop("'gender' must have exactly two levels: male = '1', female = '2'")
+    if(!is.factor(gender)) stop("'gender' must be a factor.")
+    if(length(levels(gender)) != 2) stop("'gender' must have exactly two levels")
+    if(!all(levels(gender) == c("female", "male"))) {
+        gender <- factor(gender, labels=c("female","male"))
+        warning("The levels of gender were internally recoded - your first level has to correspond to females")
+    }
     if(!is.null(years)) {
-    	if(!is.factor(years)) stop("'years' should be a factor")
-	    nage <- length(levels(years))
-    	if(n > 12) warning(paste("Too small sample sizes may occur by using ", n," age classes")) }
+        if(!is.factor(years)) stop("'years' should be a factor")
+        nage <- length(levels(years))
+        if(n > 12) warning(paste("Too small sample sizes may occur by using ", n," age classes"))
+    }
     n <- length(inc)
     if(is.null(weights)) weights <- weights <- rep.int(1, n)
     else if(!is.numeric(weights)) stop("'weights' must be a numeric vector")

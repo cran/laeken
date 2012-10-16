@@ -65,6 +65,10 @@
 #' estimation, Pareto quantile plots, and regression diagnostics. \emph{Journal
 #' of the American Statistical Association}, \bold{91}(436), 1659--1667.
 #' 
+#' A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of economic 
+#' indicators from survey samples based on Pareto tail modeling. \emph{Journal 
+#' of the Royal Statistical Society, Series C}, accepted for publication.
+#' 
 #' @keywords hplot
 #' 
 #' @examples

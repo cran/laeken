@@ -50,8 +50,8 @@
   \item{years}{an optional numeric vector giving the years
   to be extracted.}
 
-  \item{strata}{an optional vector giving the strata of the
-  breakdown to be extracted.}
+  \item{strata}{an optional vector giving the domains of
+  the breakdown to be extracted.}
 
   \item{\dots}{additional arguments to be passed to and
   from methods.}

@@ -25,15 +25,31 @@
   number = {CS-2011-3},
   url = {http://www.statistik.tuwien.ac.at/forschung/CS/CS-2011-3complete.pdf}
 }
-@manual{alfons11b,
-  title = {\pkg{laeken}: Laeken indicators for measuring social cohesion},
+@manual{laeken,
+  title = {\pkg{laeken}: Estimation of Indicators on Social Exclusion and Poverty},
   author = {Alfons, A. and Holzer, J. and Templ, M.},
   year = {2012},
-  note = {\proglang{R} package version 0.3.3},
+  note = {\proglang{R} package version 0.4.0},
   url = {http://CRAN.R-project.org/package=laeken}
 }
+@article{alfons13,
+  title = {Robust Estimation of Economic Indicators from Survey Samples based on {Pareto} Tail Modeling},
+  author = {Alfons, A. and Templ, M. and Filzmoser, P.},
+  journal = {Journal of the Royal Statistical Society, Series C},
+  year = {2013},
+  note = {in press}
+}
+@article{templ12,
+  title = {Exploring Incomplete Data using Visualization Techniques},
+  author = {Templ, M. and Alfons, A. and Filzmoser, P.},
+  journal = {Advances in Data Analyis and Classification},
+  volume = {6},
+  number = {1},
+  pages = {29--47},
+  year = {2012}
+}
 @article{alfons11c,
-  title = {Simulation of close-to-reality population data for household surveys with application to {EU-SILC}},
+  title = {Simulation of Close-to-Reality Population Data for Household Surveys With Application to {EU-SILC}},
   author = {Alfons, A. and Kraft, S. and Templ, M. and Filzmoser, P.},
   journal = {Statistical Methods \& Applications},
   volume = {20},
@@ -41,9 +57,28 @@
   pages = {383--407},
   year = {2011}
 }
-@incollection{alfons10f,
+@article{templ11,
+  title = {Iterative Stepwise Regression Imputation using Standard and Robust Methods},
+  author = {Templ, M. and Kowarik, A. and Filzmoser, P.},
+  journal = {Computational Statistics \& Data Analysis},
+  volume = {55},
+  number = {10},
+  pages = {2793--2806},
+  year = {2011}
+}
+@article{alfons10c,
+  title = {An Object-Oriented Framework for Statistical Simulation: The \proglang{R} package \pkg{simFrame}},
+  author = {Alfons, A. and Templ, M. and Filzmoser, P.},
+  journal = {Journal of Statistical Software},
+  volume = {37},
+  number = {3},
+  pages = {1--36},
+  year = {2010},
+  url = {http://www.jstatsoft.org/v37/i03}
+}
+@incollection{alfons10b,
   author = {Alfons, A. and Templ, M. and Filzmoser, P. and Holzer, J.},
-  title = {A comparison of robust methods for {Pareto} tail modeling in the case of {Laeken} indicators},
+  title = {A Comparison of Robust Methods for {Pareto} Tail Modeling in the Case of {Laeken} Indicators},
   editor = {Borgelt, C. and Gonz\'alez-Rodr\'iguez, G. and Trutschnig, W. and Lubiano, M.A. and Gil, M.A. and Grzegorzewski, P. and Hryniewicz, O.},
   booktitle = {Combining Soft Computing and Statistical Methods in Data Analysis},
   series = {Advances in Intelligent and Soft Computing},
@@ -54,16 +89,48 @@
   address = {Heidelberg},
   note = {{ISBN} 978-3-642-14745-6}
 }
-@manual{kraft10,
-  title = {\pkg{simPopulation}: Simulation of synthetic populations for surveys based on sample data},
+@manual{simFrame,
+  title = {\pkg{simFrame}: Simulation Framework.},
+  author = {Alfons, A.},
+  year = {2012},
+  note = {\proglang{R} package version~0.5.0},
+  url = {http://CRAN.R-project.org/package=simFrame}
+}
+@manual{simPopulation,
+  title = {\pkg{simPopulation}: Simulation of Synthetic Populations for Surveys based on Sample Data},
   author = {Alfons, A. and Kraft, S.},
-  year = {2010},
-  note = {\proglang{R} package version~0.2.1},
+  year = {2012},
+  note = {\proglang{R} package version~0.4.0},
   url = {http://CRAN.R-project.org/package=simPopulation}
+}
+@manual{VIM,
+  title = {\pkg{VIM}: Visualization and Imputation of Missing Values},
+  author = {Templ, M. and Alfons, A. and Kowarik, A. and Prantner, B.},
+  year = {2012},
+  note = {\proglang{R} package version~3.0.2},
+  url = {http://CRAN.R-project.org/package=VIM}
+}
+@techreport{AMELI-D3.1,
+  author = {Bruch, C. and M\"unnich, R. and Zins, S.},
+  title = {Variance Estimation for Complex Surveys},
+  institution = {AMELI Project},
+  year = {2011},
+  type = {Deliverable},
+  number = {D3.1},
+  url = {http://ameli.surveystatistics.net}
+}
+@techreport{AMELI-D7.1,
+  author = {Hulliger, B. and Alfons, A. and Bruch, C. and Filzmoser, P. and Graf, M. and Kolb, J.-P. and Lehtonen, R. and Lussmann, D. and Meraner, A. and M\"unnich, R. and Nedyalkova, D. and Schoch, T. and Templ, M. and Valaste, M. and Veijanen, A. and Zins, S.},
+  title = {Report on the Simulation Results},
+  institution = {AMELI Project},
+  year = {2011},
+  type = {Deliverable},
+  number = {D7.1},
+  url = {http://ameli.surveystatistics.net}
 }
 @techreport{EU-SILC04,
   author = {Eurostat},
-  title = {Common cross-sectional {EU} indicators based on {EU-SILC}; the gender pay gap},
+  title = {Common Cross-Sectional {EU} Indicators based on {EU-SILC}; the Gender Pay Gap},
   institution = {Unit D-2: Living conditions and social protection, Directorate D: Single Market, Employment and Social statistics, Eurostat},
   year = {2004},
   type = {EU-SILC},
@@ -72,19 +139,34 @@
 }
 @techreport{EU-SILC09,
   author = {Eurostat},
-  title = {Algorithms to compute social inclusion indicators based on {EU-SILC} and adopted under the {Open Method of Coordination (OMC)}},
+  title = {Algorithms to Compute Social Inclusion Indicators based on {EU-SILC} and Adopted under the {Open Method of Coordination (OMC)}},
   institution = {Unit F-3: Living conditions and social protection, Directorate F: Social and information society statistics, Eurostat},
   year = {2009},
   type = {Doc.},
   number = {LC-ILC/39/09/EN-rev.1},
   address = {Luxembourg},
 }
+@techreport{EU-SILC,
+  author = {Eurostat},
+  title = {Description of Target Variables: Cross-sectional and Longitudinal},
+  institution = {Unit E-2: Living conditions, Directorate E: Social and regional statistics and geographical information system, Eurostat},
+  year = {2004},
+  type = {EU-SILC},
+  number = {065/04},
+  address = {Luxembourg},
+}
+@techreport{SES,
+  author = {Eurostat},
+  title = {Structure of Earnings Survey 2006: Eurostat's arrangements for implementing the Council Regulation 530/1999, the Commission Regulations 1916/2000 and 1738/2005},
+  institution = {Unit F-2: Labour markes statistics, Directorate F: Social statistics, Eurostat},
+  year = {2006}
+}
 @manual{RDev,
   title = {\proglang{R}: A Language and Environment for Statistical Computing},
   author = {\proglang{R} {Development Core Team}},
   organization = {\proglang{R} Foundation for Statistical Computing},
   address = {Vienna, Austria},
-  year = {2011},
+  year = {2012},
   note = {{ISBN} 3-900051-07-0},
   url = {http://www.R-project.org}
 }
@@ -93,12 +175,12 @@
   title = {Statistical Models in \proglang{S}},
   publisher = {Chapman \& Hall},
   year = {1992},
-  address = {London},
+  address = {London, UK},
   note = {{ISBN} 9780412830402},
 }
 @misc{hulliger09a,
   author = {Hulliger, B. and Schoch, T.},
-  title = {Robustification of the quintile share ratio},
+  title = {Robustification of the Quintile Share Ratio},
   year = {2009},
   howpublished = {New Techniques and Technologies for Statistics, Brussels}
 }
@@ -107,12 +189,12 @@
   title = {Statistical Size Distributions in Economics and Actuarial Sciences},
   publisher = {John Wiley \& Sons},
   year = {2003},
-  address = {Hoboken},
+  address = {Hoboken, New Jersey},
   note = {{ISBN} 0-471-15064-9}
 }
 @article{dupuis02,
   author = {Dupuis, D.J. and Morgenthaler, S.},
-  title = {Robust weighted likelihood estimators with an application to bivariate extreme value problems},
+  title = {Robust Weighted Likelihood Estimators with an Application to Bivariate Extreme Value Problems},
   journal = {The Canadian Journal of Statistics},
   year = {2002},
   volume = {30},
@@ -121,7 +203,7 @@
 }
 @article{dupuis06,
   author = {Dupuis, D.J. and Victoria-Feser, M.-P.},
-  title = {A robust prediction error criterion for {Pareto} modelling of upper tails},
+  title = {A Robust Prediction Error Criterion for {Pareto} Modelling of Upper Tails},
   journal = {The Canadian Journal of Statistics},
   year = {2006},
   volume = {34},
@@ -130,7 +212,7 @@
 }
 @article{danielsson01,
   author = {Danielsson, J. and de Haan, L. and Peng, L. and de Vries, C.G.},
-  title = {Using a bootstrap method to choose the sample fraction in tail index estimation},
+  title = {Using a Bootstrap Method to Choose the Sample Fraction in Tail Index Estimation},
   journal = {Journal of Multivariate Analysis},
   year = {2001},
   volume = {76},
@@ -139,14 +221,14 @@
 }
 @mastersthesis{holzer09,
   author = {Holzer, J.},
-  title = {Robust methods for the estimation of selected {Laeken} indicators},
+  title = {Robust Methods for the Estimation of Selected {Laeken} Indicators},
   school = {Department of Statistics and Probability Theory, Vienna University of Technology},
   address = {Vienna, Austria},
   year = {2009}
 }
 @techreport{vankerm07,
   author = {Van~Kerm, P.},
-  title = {Extreme incomes and the estimation of poverty and inequality indicators from {EU-SILC}},
+  title = {Extreme Incomes and the Estimation of Poverty and Inequality Indicators from {EU-SILC}},
   institution = {CEPS/INSTEAD},
   year = {2007},
   type = {{IRISS} Working Paper Series},
@@ -154,7 +236,7 @@
 }
 @article{beirlant96a,
   author = {Beirlant, J. and Vynckier, P. and Teugels, J.L.},
-  title = {Tail index estimation, {Pareto} quantile plots, and regression diagnostics},
+  title = {Tail Index Estimation, {Pareto} Quantile Plots, and Regression Diagnostics},
   journal = {Journal of the American Statistical Association},
   year = {1996},
   volume = {31},
@@ -163,7 +245,7 @@
 }
 @article{beirlant96b,
   author = {Beirlant, J. and Vynckier, P. and Teugels, J.L.},
-  title = {Excess functions and estimation of the extreme-value index},
+  title = {Excess Functions and Estimation of the Extreme-Value Index},
   journal = {Bernoulli},
   year = {1996},
   volume = {2},
@@ -183,7 +265,7 @@
 }
 @article{hill75,
   author = {Hill, B.M.},
-  title = {A simple general approach to inference about the tail of a distribution},
+  title = {A Simple General Approach to Inference about the Tail of a Distribution},
   journal = {The Annals of Statistics},
   year = {1975},
   volume = {3},
@@ -192,7 +274,7 @@
 }
 @article{vandewalle07,
   author = {Vandewalle, B. and Beirlant, J. and Christmann, A. and Hubert, M.},
-  title = {A robust estimator for the tail index of {Pareto}-type distributions},
+  title = {A Robust Estimator for the Tail Index of {Pareto}-type Distributions},
   journal = {Computational Statistics \& Data Analysis},
   year = {2007},
   volume = {51},
@@ -201,11 +283,22 @@
 }
 @inproceedings{terrell90,
   author = {Terrell, G.},
-  title = {Linear density estimates},
+  title = {Linear Density Estimates},
   booktitle = {Proceedings of the Statistical Computing Section},
   organization = {American Statistical Association},
   year = {1990},
   pages = {297--302}
+}
+@incollection{scott04,
+  author = {Scott, D.W.},
+  title = {Partial Mixture Estimation and Outlier Detection in Data and Regression},
+  editor = {Hubert, M. and Pison, G. and Struyf, A. and Van Aelst, S.},
+  booktitle = {Theory and Applications of Recent Robust Methods},
+  pages = {297--306},
+  publisher = {Birkh\"auser},
+  year = {2004},
+  address = {Basel},
+  note = {{ISBN} 3-7643-7060-2}
 }
 @book{davison97,
   author = {Davison, A.C. and Hinkley, D.V.},
@@ -218,13 +311,13 @@
   author = {Efron, B. and Tibshirani, R.J.},
   title = {An Introduction to the Bootstrap},
   publisher = {Chapman \& Hall},
-  address = {New York},
+  address = {New York, New York},
   year = {1993},
   note = {{ISBN} 0-412-04231-2}
 }
 @article{rao88,
   author = {Rao, J.N.K. and Wu, C.F.J.},
-  title = {Resampling inference with complex survey data},
+  title = {Resampling Inference with Complex Survey Data},
   journal = {Journal of the American Statistical Association},
   year = {1988},
   volume = {83},
@@ -233,7 +326,7 @@
 }
 @article{deville92,
   author = {Deville, J.-C. and S\"arndal, C.-E.},
-  title = {Calibration estimators in survey sampling},
+  title = {Calibration Estimators in Survey Sampling},
   journal = {Journal of the American Statistical Association},
   year = {1992},
   volume = {87},
@@ -242,7 +335,7 @@
 }
 @article{deville93,
   author = {Deville, J.-C. and S\"arndal, C.-E. and Sautory, O.},
-  title = {Generalized raking procedures in survey sampling},
+  title = {Generalized Raking Procedures in Survey Sampling},
   journal = {Journal of the American Statistical Association},
   year = {1993},
   volume = {88},
@@ -251,7 +344,7 @@
 }
 @article{horvitz52,
   author = {Horvitz, D.G. and Thompson, D.J.},
-  title = {A generalization of sampling without replacement from a finite universe},
+  title = {A Generalization of Sampling without Replacement from a Finite Universe},
   journal = {Journal of the American Statistical Association},
   year = {1952},
   volume = {47},
@@ -260,7 +353,7 @@
 }
 @article{kovacevic97,
   author = {Kova\v{c}evi\'{c}, M.S. and Binder, D.A.},
-  title = {Variance estimation for measures for income inequality and polarization -- The estimating equations approach},
+  title = {Variance Estimation for Measures for Income Inequality and Polarization -- The Estimating Equations Approach},
   journal = {Journal of Official Statistics},
   year = {1997},
   volume = {13},
@@ -269,7 +362,7 @@
 }
 @article{deville99,
   author = {Deville, J.-C.},
-  title = {Variance estimation for complex statistics and estimators: Linearization and residual techniques},
+  title = {Variance Estimation for Complex Statistics and Estimators: Linearization and Residual Techniques},
   journal = {Survey Methodology},
   year = {1999},
   volume = {25},
@@ -278,7 +371,7 @@
 }
 @inproceedings{hulliger06,
   author = {Hulliger, B. and M\"unnich, R.},
-  title = {Variance estimation for complex surveys in the presence of outliers},
+  title = {Variance Estimation for Complex Surveys in the Presence of Outliers},
   booktitle = {Proceedings of the Section on Survey Research Methods},
   organization = {American Statistical Association},
   year = {2006},
@@ -286,7 +379,7 @@
 }
 @article{osier09,
   author = {Osier, G.},
-  title = {Variance estimation for complex indicators of poverty and inequality using linearization techniques},
+  title = {Variance Estimation for Complex Indicators of Poverty and Inequality using Linearization Techniques},
   journal = {Survey Research Methods},
   year = {2009},
   volume = {3},
@@ -295,7 +388,7 @@
 }
 @article{kott01,
   author = {Kott, P.S.},
-  title = {The delete-a-group jackknife},
+  title = {The Delete-a-Group Jackknife},
   journal = {Journal of Official Statistics},
   year = {2001},
   volume = {17},
@@ -303,7 +396,7 @@
   pages = {521--526}
 }
 @misc{alfons09,
-  title = {On the influence of imputation methods on {Laeken} indicators: simulations and recommendations},
+  title = {On the Influence of Imputation Methods on {Laeken} Indicators: Simulations and Recommendations},
   author = {Alfons, A. and Templ, M. and Filzmoser, P.},
   year = {2009},
   howpublished = {UNECE Worksession on Statistical Data Editing, Neuch\^{a}tel, Switzerland}
@@ -313,7 +406,108 @@
   title = {Statistical Analysis with Missing Data},
   publisher = {John Wiley \& Sons},
   year = {2002},
-  address = {New York},
+  address = {Hoboken, New Jersey},
   edition = {2nd},
   note = {{ISBN} 0-471-18386-5}
+}
+@manual{survey,
+  author = {Lumley, T.},
+  title = {\pkg{survey}: Analysis of Complex Survey Samples},
+  year = {2012},
+  note = {\proglang{R} package version 3.28-2},
+  url = {http://CRAN.R-project.org/package=survey}
+}
+@article{lumley04,
+  author = {Lumley, T.},
+  title = {Analysis of Complex Survey Samples},
+  journal = {Journal of Statistical Software},
+  volume = {9},
+  number = {1},
+  pages = {1-19},
+  year = {2004},
+  url = {http://www.jstatsoft.org/v09/i08}
+}
+@book{lumley10,
+  author = {Lumley, T.},
+  title = {Complex Surveys: A Guide to Analysis using \proglang{R}},
+  publisher = {John Wiley \& Sons},
+  year = {2010},
+  address = {Hoboken, New Jersey},
+  note = {{ISBN} 978-0-470-28430-8}
+}
+@manual{sampling,
+  author = {Till\'e, Y. and  Matei, A.},
+  title = {\pkg{sampling}: Survey Sampling},
+  year = {2012},
+  note = {\proglang{R} package version 2.5},
+  url = {http://CRAN.R-project.org/package=sampling}
+}
+@manual{EVER,
+  author = {Zardetto, D.},
+  title = {\pkg{EVER}: Estimation of Variance by Efficient Replication},
+  year = {2012},
+  note = {\proglang{R} package version 1.2},
+  url = {http://CRAN.R-project.org/package=EVER}
+}
+@techreport{beblot03,
+  author = {Beblot, M. and Beniger, D. and Heinze, A. and Laisney, F.},
+  title = {Methodological Issues Related to the Analysis of Gender Gaps in Employment, Earnings and Career Progression},
+  institution = {Employment and Social Affairs DG, European Commission},
+  year = {2003}
+}
+@article{weinberg07,
+  author = {Weinberg, D.H.},
+  title = {Earnings by Gender: Evidence from {Census} 2000},
+  journal = {Monthly Labor Review Online},
+  year = {2007}, 
+  volume = {130},
+  number = {July/August},
+  pages = {26--34}
+}
+@article{chambers86,
+  author = {Chambers, R.L.},
+  title = {Outlier Robust Finite Population Estimation},
+  journal = {Journal of the American Statistical Association},
+  year = {1986},
+  volume = {81},
+  number = {396},
+  pages = {1063--1069}
+}
+@article{cowell07,
+  author = {Cowell, F.A. and Flachaire, E.},
+  title = {Income Distribution and Inequality Measurement: The Problem of Extreme Values},
+  journal = {Journal of Econometrics},
+  year = {2007},
+  volume = {141},
+  number = {2},
+  pages = {1044--1072}
+}
+@inproceedings{leisch02a,
+  author = {Leisch, F.},
+  title = {\pkg{Sweave}: Dynamic Generation of Statistical Reports using Literate Data Analysis},
+  booktitle = {Compstat 2002 - Proceedings in Computational Statistics},
+  year = {2002},
+  editor = {H\"ardle, W. and R\"onz, B.},
+  pages = {575--580},
+  publisher = {Physica Verlag},
+  address = {Heidelberg},
+  note = {{ISBN} 3-7908-1517-9}
+}
+@article{leisch02b,
+  author = {Leisch, F.},
+  title = {\pkg{Sweave}, Part {I}: Mixing \proglang{R} and \LaTeX},
+  journal = {\proglang{R} News},
+  year = {2002},
+  volume = {2},
+  number = {3},
+  pages = {28--31}
+}
+@article{leisch03,
+  author = {Leisch, F.},
+  title = {\pkg{Sweave}, Part {II}: Package Vignettes},
+  journal = {\proglang{R} News},
+  year = {2003},
+  volume = {3},
+  number = {2},
+  pages = {21--24}
 }

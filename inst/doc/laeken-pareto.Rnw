@@ -146,7 +146,7 @@ the indicators.
 
 Rather than evaluating these methods, the paper concentrates on showing how 
 they can be applied in the statistical environment \proglang{R} \citep{RDev} 
-with the add-on package \pkg{laeken} \citep{alfons11b}. The basic design of the 
+with the add-on package \pkg{laeken} \citep{laeken}. The basic design of the 
 package, as well as standard estimation of the social exclusion indicators is 
 discussed in detail in vignette \code{laeken-standard} \citep{templ11a}. 
 Furthermore, the general framework for variance estimation is illustrated in 
@@ -163,7 +163,7 @@ data set is called \code{eusilc} and consists of $14\,827$ observations from
 $6\,000$ households. In addition, it was synthetically generated from Austrian 
 EU-SILC survey data from 2006 using the data simulation methodology proposed by 
 \citet{alfons11c} and implemented in the \proglang{R} package 
-\pkg{simPopulation} \citep{kraft10}. More information on the example data can 
+\pkg{simPopulation} \citep{simPopulation}. More information on the example data can 
 be found in vignette \code{laeken-standard} or in the corresponding 
 \proglang{R} help page.
 
@@ -795,7 +795,7 @@ package \pkg{laeken}:
   original values is preserved.
 \end{description}
 An evaluation of the RT approach by means of a simulation study can be found in 
-\citet{alfons10f}.
+\citet{alfons10b}.
 
 Keep in mind that the largest observation in the example data \code{eusilc} was 
 replaced by a large outlier in Section~\ref{sec:Pareto}. With the following 

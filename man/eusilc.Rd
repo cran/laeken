@@ -82,6 +82,12 @@ original sample was provided by Statistics Austria.
 \references{
 Eurostat (2004) Description of target variables: Cross-sectional and 
 longitudinal. \emph{EU-SILC 065/04}, Eurostat.
+
+A. Alfons, M. Templ, P. Filzmoser (2011) Simulation of close-to-reality 
+population data for household surveys with application to EU-SILC. 
+\emph{Statistical Methods and Applications},
+vol 20 (3), 383-407. 
+
 }
 \examples{
 data(eusilc)

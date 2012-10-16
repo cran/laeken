@@ -30,10 +30,10 @@ and poverty}
   year.}
 
   \item{breakdown}{optional; either a numeric vector giving
-  different strata, or (if \code{data} is not \code{NULL})
+  different domains, or (if \code{data} is not \code{NULL})
   a character string, an integer or a logical vector
   specifying the corresponding column of \code{data}.  If
-  supplied, the values for each stratum are computed in
+  supplied, the values for each domain are computed in
   addition to the overall value.}
 
   \item{design}{optional; either an integer vector or

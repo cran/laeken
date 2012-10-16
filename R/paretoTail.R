@@ -78,6 +78,11 @@
 #' \code{\link{thetaISE}}, \code{\link{thetaLS}}, \code{\link{thetaMoment}},
 #' \code{\link{thetaQQ}}, \code{\link{thetaTM}}
 #' 
+#' @references A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of 
+#' economic indicators from survey samples based on Pareto tail modeling. 
+#' \emph{Journal of the Royal Statistical Society, Series C}, accepted for 
+#' publication.
+#' 
 #' @keywords manip
 #' 
 #' @examples
@@ -230,6 +235,11 @@ paretoTail <- function(x, k = NULL, x0 = NULL, method = "thetaPDC",
 #' @seealso \code{\link{paretoTail}}, \code{\link{reweightOut}},
 #' \code{\link{shrinkOut}}
 #' 
+#' @references A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of 
+#' economic indicators from survey samples based on Pareto tail modeling. 
+#' \emph{Journal of the Royal Statistical Society, Series C}, accepted for 
+#' publication.
+#' 
 #' @keywords manip
 #' 
 #' @examples
@@ -347,6 +357,11 @@ replaceOut <- function(x, ...) {
 #' 
 #' @seealso \code{\link{paretoTail}}, \code{\link{shrinkOut}} ,
 #' \code{\link{replaceOut}}, \code{\link{replaceTail}}
+#' 
+#' @references A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of 
+#' economic indicators from survey samples based on Pareto tail modeling. 
+#' \emph{Journal of the Royal Statistical Society, Series C}, accepted for 
+#' publication.
 #' 
 #' @keywords manip
 #' 

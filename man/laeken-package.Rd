@@ -6,14 +6,15 @@
 Estimation of indicators on social exclusion and poverty
 }
 \description{
-Estimation of indicators on social exclusion and poverty, as well as Pareto tail modeling for empirical income distributions (including graphical tools).
+Estimation of indicators on social exclusion and poverty, as well
+    as Pareto tail modeling for empirical income distributions.
 }
 \details{
 \tabular{ll}{
 Package: \tab laeken\cr
 Type: \tab Package\cr
-Version: \tab 0.3.3\cr
-Date: \tab 2012-05-31\cr
+Version: \tab 0.4.0\cr
+Date: \tab 2012-10-16\cr
 Depends: \tab R (>= 2.10.0), boot, MASS\cr
 License: \tab GPL (>= 2)\cr
 }
@@ -51,6 +52,7 @@ qsr                     Quintile share ratio
 replaceTail             Replace observations under a Pareto model
 reweightOut             Reweight outliers in the Pareto model
 rmpg                    Relative median at-risk-of-poverty gap
+ses                     Synthetic SES survey data
 shrinkOut               Shrink outliers in the Pareto model
 thetaHill               Hill estimator
 thetaISE                Integrated squared error (ISE) estimator
@@ -71,14 +73,22 @@ weightedQuantile        Weighted quantiles
 
 Further information is available in the following vignettes:
 \tabular{ll}{
+\code{laeken-intro} \tab Estimation of Social Exclusion Indicators From Complex Surveys: The R Package laeken (source, pdf)\cr
 \code{laeken-pareto} \tab Robust Pareto Tail Modeling for the Estimation of Indicators on Social Exclusion using the R Package laeken (source, pdf)\cr
 \code{laeken-standard} \tab Standard Methods for Point Estimation of Indicators on Social Exclusion and Poverty using the R Package laeken (source, pdf)\cr
 \code{laeken-variance} \tab Variance Estimation of Indicators on Social Exclusion and Poverty using the R Package laeken (source, pdf)\cr
 }
 }
 \author{
-Andreas Alfons, Josef Holzer and Matthias Templ
+Andreas Alfons [aut, cre],
+  Josef Holzer [aut],
+  Matthias Templ [aut]
 
 Maintainer: Andreas Alfons <andreas.alfons@kuleuven.be>
+}
+\references{
+A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of economic 
+indicators from survey samples based on Pareto tail modeling. \emph{Journal of 
+the Royal Statistical Society, Series C}, accepted for publication.
 }
 \keyword{package}
