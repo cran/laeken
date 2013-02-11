@@ -282,13 +282,14 @@ subset.indicator <- function(x, years = NULL, strata = NULL, ...) {
 }
 
 # class "arpr"
+# TODO: allow for subsetting by threshold percentage
 #' @rdname utils
 #' @method subset arpr
 #' @export
 subset.arpr <- function(x, years = NULL, strata = NULL, ...) {
 	haveYear <- length(x$years) > 1
 	x <- subset.indicator(x, years, strata, ...)  # call method for superclass
-	# subset threshold (if requested and available for multiple years)
+  # subset threshold (if requested and available for multiple years)
 	if(haveYear && !is.null(years)) {
 		x$threshold <- x$threshold[as.character(years)]
 	}
@@ -320,3 +321,16 @@ argNames <- function(fun, removeDots = TRUE) {
 	if(removeDots) nam <- setdiff(nam, "...")
 	nam
 }
+
+# check percentages for the ARPT
+checkP <-function(p) {
+  if(is.numeric(p)) {
+    keep <- !is.na(p) & p >= 0 & p <= 1
+    p <- p[keep]
+  } else p <- numeric()
+  if(length(p) == 0) stop("'p' must contain numeric values in [0,1]")
+  p
+}
+
+# get labels for percentages of the ARPT
+getPLabels <-function(p) paste(signif(p*100), "%", sep="")

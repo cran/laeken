@@ -1,3 +1,13 @@
+Changes in laeken version 0.4.1
+
+    + Reduced run times of examples for 'bootVar' and 'variance'.
+    
+    + Functions arpt() and arpr() can now take a vector of percentages of the 
+      weighted median to be used for the at-risk-of-poverty threshold.
+    
+    + Updated vignette 'laeken-intro'.
+
+
 Changes in laeken version 0.4.0
 
     + Added example data 'ses' for the Structure of Earnings Survey.

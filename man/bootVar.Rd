@@ -125,12 +125,13 @@ a <- arpr("eqIncome", weights = "rb050", data = eusilc)
 
 ## naive bootstrap
 bootVar("eqIncome", weights = "rb050", design = "db040",
-    data = eusilc, indicator = a, bootType = "naive", seed = 123)
+    data = eusilc, indicator = a, R = 50,
+    bootType = "naive", seed = 123)
 
 ## bootstrap with calibration
 bootVar("eqIncome", weights = "rb050", design = "db040",
-    data = eusilc, indicator = a, X = calibVars(eusilc$db040),
-    seed = 123)
+    data = eusilc, indicator = a, R = 50,
+    X = calibVars(eusilc$db040), seed = 123)
 }
 \author{
   Andreas Alfons

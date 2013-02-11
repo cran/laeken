@@ -13,8 +13,8 @@ Estimation of indicators on social exclusion and poverty, as well
 \tabular{ll}{
 Package: \tab laeken\cr
 Type: \tab Package\cr
-Version: \tab 0.4.0\cr
-Date: \tab 2012-10-16\cr
+Version: \tab 0.4.1\cr
+Date: \tab 2013-02-11\cr
 Depends: \tab R (>= 2.10.0), boot, MASS\cr
 License: \tab GPL (>= 2)\cr
 }
@@ -84,7 +84,7 @@ Andreas Alfons [aut, cre],
   Josef Holzer [aut],
   Matthias Templ [aut]
 
-Maintainer: Andreas Alfons <andreas.alfons@kuleuven.be>
+Maintainer: Andreas Alfons <alfons@ese.eur.nl>
 }
 \references{
 A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of economic 

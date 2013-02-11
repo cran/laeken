@@ -32,8 +32,8 @@
 
   \item{data}{an optional \code{data.frame}.}
 
-  \item{p}{a numeric value in \eqn{[0,1]} giving the
-  percentage of the weighted median to be used for the
+  \item{p}{a numeric vector of values in \eqn{[0,1]} giving
+  the percentages of the weighted median to be used for the
   at-risk-of-poverty threshold.}
 
   \item{na.rm}{a logical indicating whether missing values

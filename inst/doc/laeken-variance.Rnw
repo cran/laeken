@@ -44,11 +44,8 @@
 }
 \footnotetext[2]{
   \begin{tabular}[t]{l}
-%  Department of Statistics and Probability Theory, Vienna University of 
-%  Technology\\
-%  E-mail: \href{mailto:alfons@statistik.tuwien.ac.at}{alfons@statistik.tuwien.ac.at}
-  ORSTAT Research Center, Faculty of Business and Economics, KU Leuven\\
-  E-mail: \href{mailto:andreas.alfons@kuleuven.be}{andreas.alfons@kuleuven.be}
+  Erasmus School of Economics, Erasmus University Rotterdam\\
+  E-mail: \href{mailto:alfons@ese.eur.nl}{alfons@ese.eur.nl}
   \end{tabular}
 }
 

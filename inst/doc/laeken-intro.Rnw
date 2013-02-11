@@ -6,13 +6,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% almost as usual
-\author{Andreas Alfons\\ KU Leuven \And 
-        Matthias Templ\\Vienna University of Technology}
-\title{Estimation of Social Exclusion Indicators From Complex Surveys: The \proglang{R} Package \pkg{laeken}}
+\author{Andreas Alfons\\ Erasmus University Rotterdam,\\ KU Leuven \And 
+        Matthias Templ\\Vienna University of Technology,\\ Statistics Austria}
+\title{Estimation of Social Exclusion Indicators from Complex Surveys: The \proglang{R} Package \pkg{laeken}}
 
 %% for pretty printing and a nice hypersummary also set:
 \Plainauthor{Andreas Alfons, Matthias Templ} %% comma-separated
-\Plaintitle{Estimation of Social Exclusion Indicators From Complex Surveys: The R Package laeken} %% without formatting
+\Plaintitle{Estimation of Social Exclusion Indicators from Complex Surveys: The R Package laeken} %% without formatting
 \Shorttitle{\pkg{laeken}: Estimation of Social Exclusion Indicators} %% a short title (if necessary)
 
 %% an abstract and keywords
@@ -30,10 +30,10 @@ indicators are implemented in the package. A general calibrated bootstrap
 method to estimate the variance of indicators for common survey designs is 
 included as well. Furthermore, the package contains synthetically generated 
 close-to-reality data for the European Union Statistics on Income and Living 
-Conditions (EU-SILC) and the Structure of Earnings Survey (SES), which are used 
-in the code examples throughout the paper. Even though the paper is focused on 
-showing the functionality of package \pkg{laeken}, it also provides a brief 
-mathematical description of the implemented indicator methodology.
+Conditions and the Structure of Earnings Survey, which are used in the code 
+examples throughout the paper. Even though the paper is focused on showing the 
+functionality of package \pkg{laeken}, it also provides a brief mathematical 
+description of the implemented indicator methodology.
 }
 \Keywords{indicators, robust estimation, sample weights, survey methodology, \proglang{R}}
 \Plainkeywords{indicators, robust estimation, sample weights, survey methodology, R} %% without formatting
@@ -52,15 +52,17 @@ mathematical description of the implemented indicator methodology.
 %% in the following format:
 \Address{
   Andreas Alfons\\
-  Faculty of Business and Economics\\
-  KU Leuven\\
-  3000 Leuven, Belgium\\
-  E-mail: \email{andreas.alfons@kuleuven.be}\\
-  URL: \url{http://www.econ.kuleuven.be/andreas.alfons/public/}
+  Erasmus School of Economics\\
+  Erasmus University Rotterdam\\
+  Burgemeester Oudlaan 50\\
+  3062PA Rotterdam, The Netherlands\\
+  E-mail: \email{alfons@ese.eur.nl}\\
+  URL: \url{http://people.few.eur.nl/alfons/}
   \\ \\
   Matthias Templ\\
   Department of Statistics and Probability Theory\\
   Vienna University of Technology\\
+  Wiedner Hauptstra\ss e 7,\\
   1040 Vienna, Austria \\
   E-mail: \email{matthias@data-analysis.at}\\
   URL: \url{http://www.data-analysis.at}
@@ -77,7 +79,7 @@ mathematical description of the implemented indicator methodology.
 %%\VignetteDepends{laeken}
 %%\VignetteKeywords{indicators, robust estimation, sample weights, survey methodology, R}
 %%\VignettePackage{laeken}
-
+ 
 %% end of declarations %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -88,16 +90,19 @@ mathematical description of the implemented indicator methodology.
 \usepackage{engord}
 \usepackage{enumerate}
 
+\usepackage{soul}
+
 
 \begin{document}
+% \SweaveOpts{concordance=TRUE}
 
 %% include your article here, just as usual
 %% Note that you should use the \pkg{}, \proglang{} and \code{} commands.
 
 
-%% load package 'laeken'
+%% load package "laeken"
 <<echo=FALSE, results=hide>>=
-options(width=72, prompt="R> ", continue="+  ")
+options(prompt = "R> ", continue = "+  ", width = 72, useFancyQuotes = FALSE)
 library("laeken")
 @
 
@@ -143,7 +148,7 @@ The focus of this paper is on socioeconomic indicators on poverty, social
 cohesion and gender differences. In economic data, extreme outliers are a 
 common problem. Such outliers can have a disproportionally large influence on 
 the estimates of indicators and may completely distort them. If indicators are 
-corrupted by outliers, wrong decisions could be drawn by policy makers. Robust 
+corrupted by outliers, wrong conclusions could be drawn by policy makers. Robust 
 estimators that give reliable estimates even in the presence of extreme 
 outliers are therefore necessary.
 
@@ -151,28 +156,35 @@ We introduce the add-on package \pkg{laeken} \citep{laeken} for the open source
 statistical computing environment \proglang{R} \citep{RDev}. It provides 
 functionality for standard and robust estimation of indicators on social 
 exclusion and poverty from complex survey samples. The aim of the paper is to 
-present the most important functionality of the package. A more complete 
-overview of the available functionality is given in three additional package 
-vignettes on specialized topics: 
-%
-\begin{description}
-  \item[\code{laeken-standard}:] standard estimation of the indicators
-  \item[\code{laeken-pareto}:] robust estimation of the indicators via 
-  Pareto tail modeling
-  \item[\code{laeken-variance}:] variance estimation for the indicators
-\end{description}
-%
-These vignettes can be viewed from within \proglang{R} with the 
-following commands:
+present the most important functionality of the package. 
+% A more complete overview of the available functionality is given in three 
+% additional package vignettes on specialized topics: 
+% %
+% \begin{description}
+%   \item[\code{laeken-standard}:] standard estimation of the indicators.
+%   \item[\code{laeken-pareto}:] robust estimation of the indicators via 
+%   Pareto tail modeling.
+%   \item[\code{laeken-variance}:] variance estimation for the indicators.
+% \end{description}
+% %
+% These vignettes can be viewed from within \proglang{R} with the 
+% following commands:
+% <<eval=FALSE>>=
+% vignette("laeken-standard")
+% vignette("laeken-pareto")
+% vignette("laeken-variance")
+% @
+
+A more complete overview of the available functionality is given in additional 
+package vignettes on specialized topics. A list of the available vignettes can 
+be viewed from within \proglang{R} with the following command:
 <<eval=FALSE>>=
-vignette("laeken-standard")
-vignette("laeken-pareto")
-vignette("laeken-variance")
+vignette(package="laeken")
 @
 
 Even though official statistical agencies usually rely on commercial software, 
 \proglang{R} has gained some traction in the survey statistics community over 
-the years. Many add-on packages for survey methodology are now available. For 
+the years. Various add-on packages for survey methodology are now available. For 
 instance, an extensive collection of methods for the analysis of survey samples 
 is implemented in package \pkg{survey} \citep{lumley04, survey}. The 
 accompanying book by \citet{lumley10} also serves as an excellent introduction 
@@ -184,7 +196,17 @@ efficient resampling. For the common problem of nonresponse, package \pkg{VIM}
 techniques \citep[see][]{templ12}, and to impute the missing values via advanced 
 imputation methods \citep[e.g.,][]{templ11}. Even a general framework for 
 simulation studies in survey statistics is available through package 
-\pkg{simFrame} \citep{alfons10c, simFrame}.
+\pkg{simFrame} \citep{alfons10c, simFrame}. 
+
+Package \pkg{laeken} provides functionality for the estimation 
+of indicators that is not available in any of the packages listed above, 
+including a novel approach for robust estimation of indicators.  While packages 
+\pkg{survey} and \pkg{EVER} require the generation of certain objects describing 
+the survey design prior to analysis, the methods in \pkg{laeken} can be directly 
+applied to the data.  This allows \pkg{laeken} to be used more efficiently in 
+simulations, for instance with the \pkg{simFrame} framework.  Furthermore, 
+\pkg{laeken} can easily be used on samples drawn with the \pkg{sampling} 
+package or preprocessed with the \pkg{VIM} package.
 
 The rest of the paper is organized as follows. Section~\ref{sec:data} 
 introduces the data sets that are used in the examples throughout the paper. In 
@@ -208,8 +230,13 @@ Package \pkg{laeken} contains example data sets for two well-known surveys: the
 the \emph{Structure of Earnings Survey} (SES). Since original data from those 
 surveys are confidential, the example data sets are simulated using the 
 methodology described in \citet{alfons11c} and implemented in the \proglang{R} 
-package \pkg{simPopulation} \citep{simPopulation}. In any case, these data sets 
-are used in the code examples throughout the paper.
+package \pkg{simPopulation} \citep{simPopulation}. 
+Such close-to-reality data sets provide nearly the same 
+multivariate structure as the confidential original data sets and allow 
+researchers to test and compare methods. However, for policy making purposes 
+and economic interpretation, estimations need to be based on the original data.
+In any case, the simulated data sets are used in the code 
+examples throughout the paper.
 
 
 \subsection{European Union Statistics on Income and Living Conditions (EU-SILC)}
@@ -223,14 +250,17 @@ measuring risk-of-poverty and social cohesion in Europe. A subset of the
 indicators computed from EU-SILC is presented in Section~\ref{sec:laeken}.
 
 The EU-SILC example data set in \pkg{laeken} is called \code{eusilc} and 
-contains $14\,827$ observations from $6\,000$ households and 28 variables. Thus 
-only the most important variables from the survey are available. The data are 
-synthetically generated from Austrian EU-SILC survey data from 2006.  Most of 
-the variable names are rather cryptic codes, but these are the standardized 
-names used by the statistical agencies. A description of all the variables is 
-given in the \proglang{R} help page of the data set. To give an overview of 
-what the data look like, the first three observations of \code{eusilc} are 
-printed below.
+contains $14\,827$ observations from $6\,000$ households 
+on the 28 most important variables. 
+% Thus only the most important variables from the survey are available. 
+The data are synthetically generated from preprocessed 
+Austrian EU-SILC data from 2006 provided by Statistics 
+Austria.  
+% Most of the variable names are rather cryptic codes, but these are the 
+% standardized names used by the statistical agencies. 
+A description of all the variables is given in the \proglang{R} help page of 
+the data set. To give an overview of what the data look like, the first three 
+observations of \code{eusilc} are printed below.
 <<>>=
 data("eusilc")
 head(eusilc, 3)
@@ -248,15 +278,17 @@ The Structure of Earnings Survey (SES) \citep{SES} is an enterprise survey that
 aims at providing harmonized data on earnings for almost all European 
 countries. SES data not only contain information on the enterprise level, but 
 also on the individual employment level from a large sample of employees. 
-Similar surveys are conducted all over the world. In general such linked 
-employer-employee data are used to identify the determinants/differentials of 
-earnings, but also some indicators are directly derived from the hourly 
-earnings data included in the survey. The most important indicator on the basis 
-of SES data is the gender pay gap, which is described in Section~\ref{sec:GPG}.
+% Similar surveys are conducted all over the world. In general such linked 
+% employer-employee data are used to identify the determinants/differentials of 
+% earnings, but also some indicators are directly derived from the hourly 
+% earnings data included in the survey. 
+The most important indicator on the basis of SES data is the gender pay gap, 
+which is described in Section~\ref{sec:GPG}.
 
 The SES example data set in \pkg{laeken} is called \code{ses} and contains 
 information on 27 variables and  15691 employees from 500 places of work. It is 
-a subset of synthetic data that are simulated from real Austrian SES 2006 data. 
+a subset of synthetic data that are simulated from preprocessed 
+Austrian SES 2006 data provided by Statistics Austria. 
 The first three observations are shown below.
 <<eval=TRUE>>=
 data("ses")
@@ -276,13 +308,21 @@ page.
 \section{Indicators}
 \label{sec:indicators}
 
-This section gives a brief description of the most widely used indicators to 
-measure poverty, social cohesion and gender differences. Unless otherwise 
-stated, the presented definitions strictly follow \citet{EU-SILC04, EU-SILC09}, 
-where more details can be found. In addition to the mathematical definitions of 
-the indicators, quick examples for computing them with package \pkg{laeken} are 
-provided. A detailed discussion on the respective functions is given later on 
-in Section~\ref{sec:design}.
+% This section gives a brief description of the most widely used indicators to 
+% measure poverty, social cohesion and gender differences. 
+% Unless otherwise stated, the presented definitions strictly follow 
+% \citet{EU-SILC04, EU-SILC09}, where more details can be found. In addition to 
+% the mathematical definitions of the indicators, quick examples for computing 
+% them with package \pkg{laeken} are provided. A detailed discussion on the 
+% respective functions is given later on in Section~\ref{sec:design}.
+
+This section gives a brief description of the most widely used indicators on 
+poverty, social cohesion and gender differences. Unless otherwise stated, the 
+presented definitions strictly follow \citet{EU-SILC04, EU-SILC09}. While quick 
+examples for their computation are provided in this section, a detailed 
+discussion on the respective functions is given later on in 
+Section~\ref{sec:design}.
+
 
 
 % ------------------
@@ -306,9 +346,9 @@ In mathematical terms, quantiles are defined as $q_{p} := F^{-1}(p)$, where $F$
 is the distribution function on the population level and $0 \leq p \leq 1$. The 
 median as an important special case is given by $p = 0.5$. For the following 
 definitions, let $n$ be the number of observations in the sample, let 
-$\boldsymbol{x} := (x_{1}, \ldots, x_{n})'$ denote the income with 
+$\boldsymbol{x} := (x_{1}, \ldots, x_{n})^{\top}$ denote the income with 
 \mbox{$x_{1} \leq \ldots \leq x_{n}$}, and let $\boldsymbol{w} := (w_{i}, 
-\ldots, w_{n})'$ be the corresponding sample weights. Weighted quantiles for 
+\ldots, w_{n})^{\top}$ be the corresponding sample weights. Weighted quantiles for 
 the estimation of the population values are then given by
 \begin{equation} \label{eq:wq}
 \hat{q}_{p} = \hat{q}_{p} (\boldsymbol{x}, \boldsymbol{w}) := 
@@ -341,8 +381,8 @@ the first adult, 0.5 to other household members aged 14 or over, and 0.3 to
 household members aged less than 14.
 
 For the definitions of the following indicators, let $\boldsymbol{x} := (x_{1}, 
-\ldots, x_{n})'$ be the equivalized disposable income with $x_{1} \leq \ldots 
-\leq x_{n}$ and let $\boldsymbol{w} := (w_{i}, \ldots, w_{n})'$ be the 
+\ldots, x_{n})^{\top}$ be the equivalized disposable income with $x_{1} \leq \ldots 
+\leq x_{n}$ and let $\boldsymbol{w} := (w_{i}, \ldots, w_{n})^{\top}$ be the 
 corresponding sample weights, where $n$ denotes the number of observations. 
 Furthermore, define the following index sets for a certain threshold $t$:
 \begin{align}
@@ -374,14 +414,14 @@ at-risk-at-poverty threshold is estimated by
 \widehat{ARPT} = 0.6 \cdot \hat{q}_{0.5},
 \end{equation}
 where $\hat{q}_{0.5}$ is the weighted median as defined in 
-Equation~\eqref{eq:wq}. Then the at-risk-at-poverty rate can be estimated by
+Equation~\ref{eq:wq}. Then the at-risk-at-poverty rate can be estimated by
 \begin{equation}
 \widehat{ARPR} := \frac{\sum_{i \in I_{< \widehat{ARPT}}} w_{i}}{\sum_{i=1}^{n} 
 w_{i}} \cdot 100, 
 \end{equation}
 where $I_{< \widehat{ARPT}}$ is an index set of persons with an equivalized 
 disposable income below the estimated at-risk-of-poverty threshold as defined 
-in Equation~\eqref{eq:01-Ilt}.
+in Equation~\ref{eq:01-Ilt}.
 
 In package \pkg{laeken}, the function \code{arpr()} is implemented to estimate 
 the at-risk-at-poverty rate.
@@ -402,9 +442,7 @@ national weighted median equivalized disposable income. For the estimation of
 this indicator with function \code{arpr()}, the proportion of the median 
 equivalized income to be used can easily be adjusted via the argument \code{p}.
 <<>>=
-arpr("eqIncome", weights = "rb050", p = 0.4, data = eusilc)
-arpr("eqIncome", weights = "rb050", p = 0.5, data = eusilc)
-arpr("eqIncome", weights = "rb050", p = 0.7, data = eusilc)
+arpr("eqIncome", weights = "rb050", p = c(0.4, 0.5, 0.7), data = eusilc)
 @
 
 
@@ -416,9 +454,9 @@ with the highest equivalized disposable income to that received by the 20\% of
 the population with the lowest equivalized disposable income. 
 
 For a given sample, let $\hat{q}_{0.2}$ and $\hat{q}_{0.8}$ denote the weighted 
-20\% and 80\% quantiles, respectively, as defined in Equation~\eqref{eq:wq}. 
+20\% and 80\% quantiles, respectively, as defined in Equation~\ref{eq:wq}. 
 Using index sets $I_{\leq \hat{q}_{0.2}}$ and $I_{> \hat{q}_{0.8}}$ as defined 
-in Equations~\eqref{eq:01-Ileqt} and~\eqref{eq:01-Igt}, respectively, the 
+in Equations~\ref{eq:01-Ileqt} and~\ref{eq:01-Igt}, respectively, the 
 quintile share ratio is estimated by
 \begin{equation}
 \widehat{QSR} := \frac{\sum_{i \in I_{> \hat{q}_{0.8}}} w_{i} x_{i}}{\sum_{i 
@@ -440,15 +478,15 @@ expressed as a percentage of the at-risk-of-poverty threshold.
 
 For the estimation of the relative median at-risk-of-poverty gap from a sample, 
 let $\widehat{ARPT}$ be the estimated at-risk-of-poverty threshold according to 
-Equation~\eqref{eq:ARPT}, and let $I_{< \widehat{ARPT}}$ be an index set of 
+Equation~\ref{eq:ARPT}, and let $I_{< \widehat{ARPT}}$ be an index set of 
 persons with an equivalized disposable income below the 
 estimated at-risk-of-poverty threshold as defined in 
-Equation~\eqref{eq:01-Ilt}. Using this index set, define $\boldsymbol{x}_{< 
+Equation~\ref{eq:01-Ilt}. Using this index set, define $\boldsymbol{x}_{< 
 \widehat{ARPT}} := (x_{i})_{i \in I_{< \widehat{ARPT}}}$ and 
 $\boldsymbol{w}_{< \widehat{ARPT}} := (w_{i})_{i \in I_{< \widehat{ARPT}}}$. 
 Furthermore, let $\hat{q}_{0.5} (\boldsymbol{x}_{< \widehat{ARPT}}, 
 \boldsymbol{w}_{< \widehat{ARPT}})$ be the corresponding weighted median 
-according to the definition in Equation~\eqref{eq:wq}. Then the relative median 
+according to the definition in Equation~\ref{eq:wq}. Then the relative median 
 at-risk-of-poverty gap is estimated by
 \begin{equation}
 \widehat{RMPG} = \frac{\widehat{ARPT} - \hat{q}_{0.5} (\boldsymbol{x}_{< 
@@ -487,7 +525,7 @@ gini("eqIncome", weights = "rb050", data = eusilc)
 % gender pay gap
 % --------------
 
-\subsection{The Gender Pay Gap} \label{sec:GPG}
+\subsection{The gender pay gap} \label{sec:GPG}
 
 Probably the most important indicator derived from the SES data is the 
 \textit{gender pay gap} (GPG). The calculation of the gender pay gap is based 
@@ -510,10 +548,10 @@ found in, e.g., \citet{beblot03}.
 % of the gender pay gap.
 % -----
 
-For the following definitions, let $\boldsymbol{x} := (x_{1}, \ldots, x_{n})'$ 
+For the following definitions, let $\boldsymbol{x} := (x_{1}, \ldots, x_{n})^{\top}$ 
 be the hourly earnings with \mbox{$x_{1} \leq \ldots \leq x_{n}$}, where $n$ 
 is the number of observations. As in the previous subsections, 
-$\boldsymbol{w} := (w_{i}, \ldots, w_{n})'$ denotes the corresponding sample 
+$\boldsymbol{w} := (w_{i}, \ldots, w_{n})^{\top}$ denotes the corresponding sample 
 weights. Then define the index set
 \begin{align*}
 I_{M} := \{ i \in \{ 1, \ldots, n\} : 
@@ -532,13 +570,15 @@ w_i} - \frac{\sum_{i \in I_{F}} w_i x_i}{\sum_{i \in I_{F} w_i}} \right)
 The function \code{gpg()} is implemented in \pkg{laeken} to estimate the gender 
 pay gap.
 <<keep.source=FALSE, eval=TRUE>>=
-gpg("earningsHour", gender = "sex", weigths = "weights", data = ses) 
+gpg("earningsHour", gender = "sex", weigths = "weights", data = ses)
 @
 
 While \citet{EU-SILC04} proposes the weighted mean as a measure for the average 
 in the definition of the gender pay gap, the U.S. Census Bureau uses the 
-weighted median as a robust alternative \citep[see, e.g.,][]{Weinberg07}. In 
-this case, the estimate of the gender pay gap in unadjusted form changes to
+weighted median %as a robust alternative 
+to better reflect the average in skewed earnings distributions 
+\citep[see, e.g.,][]{Weinberg07}. 
+In this case, the estimate of the gender pay gap in unadjusted form changes to
 \begin{equation} 
 GPG_{(med)} = \frac{\hat{q}_{0.5}(\boldsymbol{x}_{I_{M}}) - 
 \hat{q}_{0.5}(\boldsymbol{x}_{I_{F}})}
@@ -567,11 +607,12 @@ gpg("earningsHour", gender = "sex", weigths = "weights", data = ses,
 \label{sec:design}
 
 This section discusses the basic design of package \pkg{laeken} and its core 
-functions for the estimation of indicators. First, Section~\ref{sec:class} 
-describes the functions for estimating the indicators and the class structure 
-of the returned objects. Sections~\ref{sec:sub} and~\ref{sec:subset} then show 
-how to estimate indicators for different subdomains and extract subsets of the 
-information from the resulting objects.
+functions for the estimation of indicators. 
+% First, Section~\ref{sec:class} describes the functions for estimating the 
+% indicators and the class structure of the returned objects. 
+% Sections~\ref{sec:sub} and~\ref{sec:subset} then show how to estimate 
+% indicators for different subdomains and extract subsets of the information 
+% from the resulting objects.
 
 \subsection{Indicators and class structure}
 \label{sec:class}
@@ -583,11 +624,11 @@ are implemented in the package:
 %
 \begin{description}
   \item[\code{arpr()}] for the at-risk-of-poverty rate, as well as the 
-  dispersion around the at-risk-of-poverty threshold
-  \item[\code{qsr()}] for the quintile share ratio
-  \item[\code{rmpg()}] for the relative median at-risk-of-poverty gap
-  \item[\code{gini()}] for the gini coefficient
-  \item[\code{gpg()}] for the gender pay gap
+  dispersion around the at-risk-of-poverty threshold.
+  \item[\code{qsr()}] for the quintile share ratio.
+  \item[\code{rmpg()}] for the relative median at-risk-of-poverty gap.
+  \item[\code{gini()}] for the gini coefficient.
+  \item[\code{gpg()}] for the gender pay gap.
 \end{description}
 %
 All these functions have a very similar interface and allow to compute point 
@@ -606,25 +647,27 @@ gini(eusilc$eqIncome, weights = eusilc$rb050)
 For a full list of arguments, the reader is referred to the \proglang{R} help 
 page of the corresponding function.
 
-At this point, it is important to note that the implementation of package 
-\pkg{laeken} follows an object-oriented design using \proglang{S3} classes 
-\citep{chambers92}. Thus each of the above functions returns an object of a 
-certain class for the respective indicator. All those classes thereby inherit 
-from the class \code{"indicator"}.
+% At this point, it is important to note that the implementation of package 
+% \pkg{laeken} follows an object-oriented design using \proglang{S3} classes 
+% \citep{chambers92}. 
+Package \pkg{laeken} follows an object-oriented design using \proglang{S3} classes \citep{chambers92}. 
+Thus each of the above functions returns an object 
+of a certain class for the respective indicator. All those classes thereby 
+inherit from the class \code{"indicator"}.
 
 Among other information, the basic class \code{"indicator"} contains the 
 following components:
 %
 \begin{description}
-  \item[\code{value}:] the point estimate
+  \item[\code{value}:] the point estimate.
   \item[\code{valueByStratum}:] a data frame containing the point estimates for 
-  each domain
-  \item[\code{var}:] the variance estimate
+  each domain.
+  \item[\code{var}:] the variance estimate.
   \item[\code{varByStratum}:] a data frame containing the variance estimates 
-  for each domain
-  \item[\code{ci}:] the confidence interval
+  for each domain.
+  \item[\code{ci}:] the confidence interval.
   \item[\code{ciByStratum}:] a data frame containing the confidence intervals 
-  for each domain
+  for each domain.
 \end{description}
 %
 All indicators inherit the components of class \code{"indicator"}, as well as 
@@ -639,29 +682,29 @@ following classes are implemented in package \pkg{laeken}:
   \item Class \code{"arpr"} with the following additional components:
   \begin{description}
     \item[\code{p}:] the percentage of the weighted median used for the 
-    at-risk-of-poverty threshold
-    \item[\code{threshold}:] the at-risk-of-poverty threshold
+    at-risk-of-poverty threshold.
+    \item[\code{threshold}:] the at-risk-of-poverty threshold.
   \end{description}
-  \item Class \code{"qsr"} with no additional components
+  \item Class \code{"qsr"} with no additional components.
   \item Class \code{"rmpg"} with the following additional components:
   \begin{description}
-    \item[\code{threshold}:] the at-risk-of-poverty threshold
+    \item[\code{threshold}:] the at-risk-of-poverty threshold.
   \end{description}
-  \item Class \code{"gini"} with no additional components
-  \item Class \code{"gpg"} with no additional components
+  \item Class \code{"gini"} with no additional components.
+  \item Class \code{"gpg"} with no additional components.
 \end{itemize}
 %
 Furthermore, functions to test whether an object is a member of the basic class 
 or one of the subclasses are available.  The function to test for the basic 
-class is called is called \code{is.indicator()}. Similarly, the functions to 
-test for the subclasses are called \code{is.foo()}, where foo is the name of 
-the corresponding class (e.g., \code{is.arpr()}).
-<<>>=
-a <- arpr("eqIncome", weights = "rb050", data = eusilc)
-is.arpr(a)
-is.indicator(a)
-class(a)
-@
+class is called \code{is.indicator()}. Similarly, the functions to test for the 
+subclasses are called \code{is.foo()}, where \code{foo} is the name of the 
+corresponding class (e.g., \code{is.arpr()}).
+% <<>>=
+% a <- arpr("eqIncome", weights = "rb050", data = eusilc)
+% is.arpr(a)
+% is.indicator(a)
+% class(a)
+% @
 
 
 \subsection{Estimating the indicators in subdomains}
@@ -676,60 +719,74 @@ at-risk-of-poverty rate and relative median at-risk-of-poverty gap, the same
 overall at-risk-of-poverty threshold is used for all subdomains 
 \citep[see][]{EU-SILC04, EU-SILC09}.
 
-In a first example, the overall estimate for the at-risk-of-poverty rate is 
-computed together with more regional estimates.
-<<keep.source=FALSE>>=
-arpr("eqIncome", weights = "rb050", breakdown = "db040", data = eusilc) 
-@
-With the following lines of code, a breakdown variable with all possible 
-combinations of age categories and gender is defined and added to the data set, 
-before it is used to compute estimates in the corresponding domains.
-<<keep.source=FALSE>>=
-ageCat <- cut(eusilc$age, c(-1, 16, 25, 50, 65, Inf), right=FALSE)
-eusilc$breakdown <- paste(ageCat, eusilc$rb090, sep=":")
-arpr("eqIncome", weights = "rb050", breakdown = "breakdown", data = eusilc)     
-@
-Clearly, the latter results are even more heterogeneous than the former with 
-the breakdown into regions.
+% In a first example, the overall estimate for the at-risk-of-poverty rate is 
+% computed together with more regional estimates.
+% In the following example, the overall estimate for the at-risk-of-poverty rate 
+% is computed together with more regional estimates.
+% <<keep.source=FALSE>>=
+% arpr("eqIncome", weights = "rb050", breakdown = "db040", data = eusilc)
+% @
+% With the following lines of code, a breakdown variable with all possible 
+% combinations of age categories and gender is defined and added to the data set, 
+% before it is used to compute estimates in the corresponding domains.
+% <<keep.source=FALSE>>=
+% ageCat <- cut(eusilc$age, c(-1, 16, 25, 50, 65, Inf), right=FALSE)
+% eusilc$breakdown <- paste(ageCat, eusilc$rb090, sep=":")
+% arpr("eqIncome", weights = "rb050", breakdown = "breakdown", data = eusilc)
+% @
+% Clearly, the latter results are even more heterogeneous than the former with 
+% the breakdown into regions.
+% 
+% Now we compute the gender pay gap with breakdown according to education. First, 
+% we use the weighted mean as an estimate for the average hourly earnings.
+% <<keep.source=FALSE, eval=TRUE>>=
+% gpg("earningsHour", gender = "sex", weigths = "weights", 
+%     breakdown = "education", data = ses) 
+% @
+% Note that the weighted mean is heavily influenced by skewness and outliers. In 
+% order to more accurately reflect the average in such skewed distributions, the 
+% weighted median should be used instead \citep[even though that is not the 
+% standard definition according to][]{EU-SILC04}.
+% <<keep.source=FALSE, eval=TRUE>>=
+% gpg("earningsHour", gender = "sex", weigths = "weights", 
+%     breakdown = "education", data = ses, method = "median") 
+% @
+% The differences in the both the overall estimates and the estimates for 
+% different education levels indicate that the results based on the arithmetic 
+% means are possibly distorted due to skewness and outliers. To further 
+% investigate the significance of those differences, the respective variances and 
+% confidence intervals should be estimated with the methods presented in 
+% Section~\ref{sec:var}.
 
-Now we compute the gender pay gap with breakdown according to education. First, 
-we use the weighted mean as an estimate for the average hourly earnings.
-<<keep.source=FALSE, eval=TRUE>>=
-gpg("earningsHour", gender = "sex", weigths = "weights", 
-    breakdown = "education", data = ses) 
+In the following example, the overall estimate for the at-risk-of-poverty rate 
+is computed together with more regional estimates.
+<<keep.source=FALSE>>=
+a <- arpr("eqIncome", weights = "rb050", breakdown = "db040", data = eusilc)
+a
 @
-Note that the weighted mean is heavily influenced by skewness and outliers. In 
-order to more accurately reflect the average in such skewed distributions, the 
-weighted median should be used instead \citep[even though that is not the 
-standard definition according to][]{EU-SILC04}.
-<<keep.source=FALSE, eval=TRUE>>=
-gpg("earningsHour", gender = "sex", weigths = "weights", 
-    breakdown = "education", data = ses, method = "median") 
-@
-The differences in the both the overall estimates and the estimates for 
-different education levels indicate that the results based on the arithmetic 
-means are possibly distorted due to skewness and outliers. To further 
-investigate the significance of those differences, the respective variances and 
-confidence intervals should be estimated with the methods presented in 
-Section~\ref{sec:var}.
 
 
 \subsection[Extracting information using the subset() method]{Extracting 
 information using the \code{subset()} method}
 \label{sec:subset}
 
-If estimates of an indicator have been computed for several subdomains, it may 
-sometimes be desired to extract the results for some domains of particular 
-interest. For this purpose, let us revisit the first example from the previous 
-subsection, where we compute the at-risk-of-poverty rate for regional 
-subdomains.
-<<keep.source=FALSE>>=
-a <- arpr("eqIncome", weights = "rb050", breakdown = "db040", data = eusilc)
-@
-In package \pkg{laeken}, extracting a subset from such an indicator can be done 
-with the corresponding \code{subset()} method. For example, the following 
-command extracts the estimates of the at-risk-of-poverty rate for the regions 
-Lower Austria and Vienna from the object computed above.
+% If estimates of an indicator have been computed for several subdomains, it may 
+% sometimes be desired to extract the results for some domains of particular 
+% interest. 
+% For this purpose, let us revisit the first example from the previous 
+% subsection, where we compute the at-risk-of-poverty rate for regional 
+% subdomains.
+% <<keep.source=FALSE>>=
+% a <- arpr("eqIncome", weights = "rb050", breakdown = "db040", data = eusilc)
+% @
+% In package \pkg{laeken}, extracting a subset from such an indicator can be done 
+% with the corresponding \code{subset()} method. 
+If estimates of an indicator have been computed for several 
+subdomains, extracting a subset of the results for some domains of particular 
+interest can be done with the corresponding \code{subset()} method.
+For example, the following command extracts the estimates of the 
+at-risk-of-poverty rate for the regions Lower Austria and Vienna from the 
+object computed above.
 <<>>=
 subset(a, strata = c("Lower Austria", "Vienna"))
 @
@@ -745,38 +802,47 @@ It is thereby worth pointing out that not every indicator needs its own
 \section{Robust estimation}
 \label{sec:rob}
 
-From a robustness point of view, the standard estimators for many of the social 
-exclusion indicators are problematic when outliers are present in the data. In 
-particular the income inequality indicators quintile share ratio (QSR) and Gini 
-coefficient suffer from a lack of robustness. Point estimates can be highly 
-influenced and variance estimates can be inflated, as demonstrated in a 
-practical application by \citet{alfons13}.
+%From a robustness point of view, the standard estimators for many of the social 
+%exclusion indicators are problematic when outliers are present in the data. In 
+%particular the income inequality indicators quintile share ratio (QSR) and Gini 
+%coefficient suffer from a lack of robustness. Point estimates can be highly 
+%influenced and variance estimates can be inflated, as demonstrated in a 
+%practical application by \citet{alfons13}.
+%
+%In economic data, the distributions of variables such as income typically have 
+%heavy tails, as well as even more extreme outliers deviating from the rest of 
+%the tail. Following \citet{chambers86}, the observations in the heavy tails can 
+%be seen as \emph{representative} and the extreme values as 
+%\emph{nonrepresentative} outliers. As the term suggests, representative 
+%outliers carry relevant information regarding the population distribution and 
+%need to be included in the estimation of quantities of interest.
+%Nonrepresentative outliers, on the other hand, have to be excluded from 
+%estimation or downweighted, since they are either incorrectly recorded or can 
+%be considered unique in the population in some sense. Note that in the latter 
+%case, nonrepresentative outliers very well belong to the true population 
+%distribution. \citet{cowell07} hence coined the term \emph{high-leverage} 
+%observations for such data points. 
+%
+%As a remedy to this problem, heavy tails can be modeled by a Pareto 
+%distribution \citep[e.g.][]{kleiber03}, which combined with robust parameter 
+%estimation allows to identify extreme outliers. The idea behind Pareto tail 
+%modeling in the context of survey samples is that the upper tail of the 
+%population values follow a Pareto distribution. Even though the Pareto 
+%distribution is well studied in the literature, sample weights from finite 
+%population sampling are typically not considered in the estimation of its 
+%parameters. Therefore, \citet{alfons13} recently adapted promising methods to 
+%incorporate sample weights into the estimation process. These methods are 
+%reviewed in the remainder of this section and their computation with package 
+%\pkg{laeken} is demonstrated.
 
-In economic data, the distributions of variables such as income typically have 
-heavy tails, as well as even more extreme outliers deviating from the rest of 
-the tail. Following \citet{chambers86}, the observations in the heavy tails can 
-be seen as \emph{representative} and the extreme values as 
-\emph{nonrepresentative} outliers. As the term suggests, representative 
-outliers carry relevant information regarding the population distribution and 
-need to be included in the estimation of quantities of interest.
-Nonrepresentative outliers, on the other hand, have to be excluded from 
-estimation or downweighted, since they are either incorrectly recorded or can 
-be considered unique in the population in some sense. Note that in the latter 
-case, nonrepresentative outliers very well belong to the true population 
-distribution. \citet{cowell07} hence coined the term \emph{high-leverage} 
-observations for such data points. 
-
-As a remedy to this problem, heavy tails can be modeled by a Pareto 
-distribution \citep[e.g.][]{kleiber03}, which combined with robust parameter 
-estimation allows to identify extreme outliers. The idea behind Pareto tail 
-modeling in the context of survey samples is that the upper tail of the 
-population values follow a Pareto distribution. Even though the Pareto 
-distribution is well studied in the literature, sample weights from finite 
-population sampling are typically not considered in the estimation of its 
-parameters. Therefore, \citet{alfons13} recently adapted promising methods to 
-incorporate sample weights into the estimation process. These methods are 
-reviewed in the remainder of this section and their computation with package 
-\pkg{laeken} is demonstrated.
+In economic data, variables such as income are typically heavy-tailed and may 
+contain outliers. To identify extreme outliers, we model heavy tails with a 
+Pareto distribution. In the survey setting, the upper tail of the population 
+values are assumed to follow a Pareto distribution. The \pkg{laeken} package 
+includes recently developed methods of \citet{alfons13} that allow sampling 
+weights to be incorporated into the Pareto model estimation. In the remainder 
+of the section, we briefly outline the methodology and demonstrate how it can 
+be implemented with the \pkg{laeken} package.
 
 
 \subsection{Pareto distribution} \label{sec:Pareto}
@@ -807,9 +873,9 @@ G(x_{0}) + (1 - G(x_{0})) F_{\theta}(x),  &  \quad \text{if } x > x_{0},
 \right.
 \end{equation}
 where $G$ is an unknown distribution function \citep{dupuis06}. For a given 
-survey sample, let $\boldsymbol{x} = (x_{1}, \ldots, x_{n})'$ be the observed 
+survey sample, let $\boldsymbol{x} = (x_{1}, \ldots, x_{n})^{\top}$ be the observed 
 values of the variable of interest with $x_{1} \leq \ldots \leq x_{n}$ and 
-$\boldsymbol{w} := (w_{i}, \ldots, w_{n})'$ the corresponding sample weights, 
+$\boldsymbol{w} := (w_{i}, \ldots, w_{n})^{\top}$ the corresponding sample weights, 
 where $n$ denotes the total number of observations. In addition, let $k$ denote 
 the number of observations to be used for tail modeling. Note that the 
 estimation of $x_{0}$ and $k$ directly correspond with each other. If $k$ is 
@@ -856,8 +922,8 @@ observed values are therefore plotted against the quantities
 \frac{n}{n+1} \right), \qquad i = 1, \ldots, n.
 \end{equation}
 When all sample weights are equal, the correction factor $n/(n+1)$ ensures that 
-\eqref{eq:quantiles} reduces to the theoretical quantiles taken on the $n$ 
-inner gridpoints from $n+1$ equally sized subsets of the interval $[0,1]$ 
+\ref{eq:quantiles} reduces to the theoretical quantiles taken on the $n$ 
+inner grid points from $n+1$ equally sized subsets of the interval $[0,1]$ 
 \citep[see][for details]{alfons13}.
 
 \begin{figure}[t!]
@@ -911,7 +977,7 @@ given by
 \hat{x}_{0} := \min(\max(2.5\bar{x}, \hat{q}_{0.98}), \hat{q}_{0.97}),
 \end{equation}
 where $\bar{x}$ is the weighted mean, and $\hat{q}_{0.98}$ and $\hat{q}_{0.97}$ 
-are weighted quantiles as defined in Equation~\eqref{eq:wq}. It is important to 
+are weighted quantiles as defined in Equation~\ref{eq:wq}. It is important to 
 note that this formula is designed specifically for the equivalized disposable 
 income in EU-SILC data and can withstand a small number of nonrepresentative 
 outliers.
@@ -927,19 +993,19 @@ The estimated threshold is again returned as an object of class
 \code{"paretoScale"}.
 
 
-\subsubsection{Other methods for finding the threshold}
-
-Many procedures for finding the threshold in the Pareto model have been 
-introduced in the literature.  For instance, \citet*{beirlant96b, beirlant96a} 
-developed an analytical procedure for finding the optimal number of 
-observations in the tail for the maximum likelihood estimator of the shape 
-parameter by minimizing the asymptotic mean squared error (AMSE). This 
-procedure is available in \pkg{laeken} through function \code{minAMSE()}, but 
-is not further discussed here since it is not robust. \citet{dupuis06}, on the 
-other hand, proposed a robust prediction error criterion for choosing the 
-optimal number of observations in the tail and the shape parameter 
-simultaneously. Nevertheless, our implementation of this robust criterion is 
-unstable and is therefore not included in \pkg{laeken}.
+% \subsubsection{Other methods for finding the threshold}
+% 
+% Many procedures for finding the threshold in the Pareto model have been 
+% introduced in the literature.  For instance, \citet*{beirlant96b, beirlant96a} 
+% developed an analytical procedure for finding the optimal number of 
+% observations in the tail for the maximum likelihood estimator of the shape 
+% parameter by minimizing the asymptotic mean squared error (AMSE). This 
+% procedure is available in \pkg{laeken} through function \code{minAMSE()}, but 
+% is not further discussed here since it is not robust. \citet{dupuis06}, on the 
+% other hand, proposed a robust prediction error criterion for choosing the 
+% optimal number of observations in the tail and the shape parameter 
+% simultaneously. Nevertheless, our implementation of this robust criterion is 
+% unstable and is therefore not included in \pkg{laeken}.
 
 
 \subsection{Estimation of the shape parameter}
@@ -949,9 +1015,9 @@ Once the threshold for the Pareto model is determined, the shape parameter
 $\theta$ can be estimated via the \emph{points over threshold} method, i.e., by 
 fitting the distribution to the $k$ data points that are larger than the 
 threshold. Since our aim is to identify extreme outliers that deviate from the 
-Pareto model, the shape parameter needs to be estimated in a robust way. Two 
-promising estimators are discussed in the following. Both were adjusted for 
-sample weights by \citet{alfons13}.
+Pareto model, the shape parameter needs to be estimated in a robust way. 
+% Two promising estimators are discussed in the following. Both were adjusted for 
+% sample weights by \citet{alfons13}.
 
 
 \subsubsection{Integrated squared error estimator}
@@ -1028,12 +1094,12 @@ thetaPDC(eusilcH$eqIncome, x0 = ts$x0, w = eusilcH$db090)
 @
 
 
-\subsubsection{Other estimators for the shape parameter}
-Many other estimators for the shape parameter are implemented in package 
-\pkg{laeken}, e.g., the maximum likelihood estimator \citep{hill75} or the more 
-robust weighted maximum likelihood estimator \citep{dupuis02}. However, those 
-estimators are either not robust or have not (yet) been adapted for sample 
-weights and are therefore not further discussed in this paper.
+% \subsubsection{Other estimators for the shape parameter}
+% Many other estimators for the shape parameter are implemented in package 
+% \pkg{laeken}, e.g., the maximum likelihood estimator \citep{hill75} or the more 
+% robust weighted maximum likelihood estimator \citep{dupuis02}. However, those 
+% estimators are either not robust or have not (yet) been adapted for sample 
+% weights and are therefore not further discussed in this paper.
 
 
 \subsection{Robust estimation of the indicators via Pareto tail modeling}
@@ -1054,15 +1120,15 @@ suitable choices for this tuning parameter. Then the following approaches are
 implemented in \pkg{laeken} to reduce the influence of the outliers:
 %
 \begin{description}
-  \item[Calibration of nonrepresentative outliers (CN)] As nonrepresentative 
+  \item[Calibration of nonrepresentative outliers (CN):] As nonrepresentative 
   outliers are considered to be somewhat unique to the population data, the 
   sample weights of the corresponding observations are set to 1. The weights of 
   the remaining observations are adjusted accordingly by calibration 
   \citep[see, e.g.,][]{deville93}.
-  \item[Replacement of nonrepresentative outliers (RN)] The outliers are 
+  \item[Replacement of nonrepresentative outliers (RN):] The outliers are 
   replaced by values drawn from the fitted distribution $F_{\hat{\theta}}$, 
   thereby preserving the order of the original values.
-  \item[Shrinkage of nonrepresentative outliers (SN)]  The outliers are 
+  \item[Shrinkage of nonrepresentative outliers (SN):]  The outliers are 
   shrunken to the theoretical quantile $F_{\hat{\theta}}^{-1}(1-\alpha)$ used 
   for outlier detection.
 \end{description}
@@ -1160,52 +1226,62 @@ one outlying household, illustrating the need for the robust methods.
 
 \section{Variance estimation}
 \label{sec:var}
+%
+%When computing point estimates of indicators from samples, variance estimates 
+%and confidence intervals should be computed as well in order to account for 
+%variability due to sampling. Additional variability coming from, e.g., editing 
+%or imputation may need to be considered as well, but this is not further 
+%discussed in this paper.
+%
+%The most common indicators for measuring poverty, social cohesion and gender 
+%inequality %listed in Section~\ref{sec:indicators}
+%are nonlinear, nonsmooth estimators. Measuring the accuracy of such estimators 
+%via standard errors and confidence intervals requires to apply appropriate 
+%variance estimation methods such as linearization or resampling. Resampling 
+%methods can thereby be applied in a more general manner since their computation 
+%is the same for any estimator. Linearization formulas, on the other hand, need 
+%to be derived for each estimator individually. 
+%
+%Concerning resampling methods, it is well known that bootstrap methods in 
+%general provide better estimates for nonsmooth estimators than other other 
+%techniques such as jackknifing or balanced repeated replication 
+%\citep[e.g.,][]{AMELI-D3.1}. Nevertheless, the bootstrap may result in biased 
+%estimates when the sample weights are not properly considered. Keep in mind 
+%that resampling methods should mimic the true sampling design in each 
+%replication. Strictly speaking, the bootstrap is therefore suitable for 
+%stratified cluster sampling designs, which are commonly used in EU-SILC and 
+%many other surveys. From a practical point of view, however, the naive 
+%bootstrap is quite fast to compute and provides reasonable estimates whenever 
+%there is not much variation in the sample weights, which is for example 
+%typically the case for EU-SILC data. If there is larger variation among the 
+%sample weights, a calibrated bootstrap should be applied.
+%
+%Naive and calibrated bootstrap methods are implemented in package \pkg{laeken} 
+%and are described in Sections~\ref{sec:naive} and~\ref{sec:calib}, 
+%respectively. As discussed above, it should be noted that very complex sampling 
+%designs may require more complex variance estimation procedures. In 
+%\proglang{R}, further variance estimation techniques for complex survey samples 
+%are available in other packages. For instance, package \pkg{EVER} \citep{EVER} 
+%provides functionality for the delete-a-group jackknife. Other methods such as 
+%balanced repeated replication are implemented in package \pkg{survey} 
+%\citep{lumley04, survey}. The incorporation of those packages for additional 
+%variance estimation procedures is therefore considered for future work.
 
-When computing point estimates of indicators from samples, variance estimates 
-and confidence intervals should be computed as well in order to account for 
-variability due to sampling. Additional variability coming from, e.g., editing 
-or imputation may need to be considered as well, but this is not further 
-discussed in this paper.
-
-The most common indicators for measuring poverty, social cohesion and gender 
-inequality %listed in Section~\ref{sec:indicators}
-are nonlinear, nonsmooth estimators. Measuring the accuracy of such estimators 
-via standard errors and confidence intervals requires to apply appropriate 
-variance estimation methods such as linearization or resampling. Resampling 
-methods can thereby be applied in a more general manner since their computation 
-is the same for any estimator. Linearization formulas, on the other hand, need 
-to be derived for each estimator individually. 
-
-Concerning resampling methods, it is well known that bootstrap methods in 
-general provide better estimates for nonsmooth estimators than other other 
-techniques such as jackknifing or balanced repeated replication 
-\citep[e.g.,][]{AMELI-D3.1}. Nevertheless, the bootstrap may result in biased 
-estimates when the sample weights are not properly considered. Keep in mind 
-that resampling methods should mimic the true sampling design in each 
-replication. Strictly speaking, the bootstrap is therefore suitable for 
-stratified cluster sampling designs, which are commonly used in EU-SILC and 
-many other surveys. From a practical point of view, however, the naive 
-bootstrap is quite fast to compute and provides reasonable estimates whenever 
-there is not much variation in the sample weights, which is for example 
-typically the case for EU-SILC data. If there is larger variation among the 
-sample weights, a calibrated bootstrap should be applied.
-
-Naive and calibrated bootstrap methods are implemented in package \pkg{laeken} 
-and are described in Sections~\ref{sec:naive} and~\ref{sec:calib}, 
-respectively. As discussed above, it should be noted that very complex sampling 
-designs may require more complex variance estimation procedures. In 
-\proglang{R}, further variance estimation techniques for complex survey samples 
-are available in other packages. For instance, package \pkg{EVER} \citep{EVER} 
-provides functionality for the delete-a-group jackknife. Other methods such as 
-balanced repeated replication are implemented in package \pkg{survey} 
-\citep{lumley04, survey}. The incorporation of those packages for additional 
-variance estimation procedures is therefore considered for future work.
+The \pkg{laeken} package uses bootstrap techniques for estimating the variance
+of complex survey indicators. Bootstrap methods in general provide better 
+estimates for nonsmooth estimators than other other resampling techniques such 
+as jackknifing or balanced repeated replication \citep[e.g.,][]{AMELI-D3.1}.
+The naive bootstrap in \pkg{laeken} is quite fast to compute and provides
+reasonable estimates whenever there is not much variation in the sample weights, 
+which is for example typically the case for EU-SILC data. If there is larger 
+variation among the sample weights, a calibrated bootstrap should be applied. 
+We describe both approaches and their implementation in the following sections.
 
 
 \subsection{Naive bootstrap} \label{sec:naive}
 
 Let $\tau$ denote a certain indicator of interest and let $\boldsymbol{X} := 
-(\bold{x}_{1}, \ldots, \bold{x}_{n})'$ be a survey sample with $n$ 
+(\bold{x}_{1}, \ldots, \bold{x}_{n})^{\top}$ be a survey sample with $n$ 
 observations. Then the \emph{naive bootstrap} algorithm for 
 estimating the variance and confidence interval of an estimate 
 $\hat{\tau}(\boldsymbol{X})$ of the indicator can be summarized as follows:
@@ -1229,13 +1305,13 @@ $\hat{\tau}(\boldsymbol{X})$ of the indicator can be summarized as follows:
   \begin{description}
     \item[Percentile method:] $\left[ \hat{\tau}_{((R+1) 
     \frac{\alpha}{2})}^{*}, \hat{\tau}_{((R+1)(1-\frac{\alpha}{2}))}^{*} 
-    \right]$, as suggested by \cite{efron93}
+    \right]$, as suggested by \cite{efron93}.
     \item[Normal approximation:] $\hat{\tau} \pm z_{1-\frac{\alpha}{2}} \cdot 
     \hat{V}(\hat{\tau})^{1/2}$ with $z_{1-\frac{\alpha}{2}} = \Phi^{-1}(1 - 
-    \frac{\alpha}{2})$
+    \frac{\alpha}{2})$.
     \item[Basic bootstrap method:] $\left[ 2\hat{\tau} - 
     \hat{\tau}_{((R+1)(1-\frac{\alpha}{2}))}^{*}, 2\hat{\tau} - 
-    \hat{\tau}_{((R+1)\frac{\alpha}{2})}^{*} \right]$
+    \hat{\tau}_{((R+1)\frac{\alpha}{2})}^{*} \right]$.
   \end{description}
   For the percentile and the basic bootstrap method, $\hat{\tau}_{(1)}^{*} 
   \leq \ldots \leq \hat{\tau}_{(R)}^{*}$ denote the order statistics of the 
@@ -1243,7 +1319,7 @@ $\hat{\tau}(\boldsymbol{X})$ of the indicator can be summarized as follows:
 \end{enumerate}
 
 With package \pkg{laeken}, variance estimates and confidence intervals can 
-easily be included in the estimation of an indicator, it is only necessary to 
+easily be included in the estimation of an indicator. It is only necessary to 
 specify a few more arguments in the call to the function computing the 
 indicator. The argument \code{var} is available to specify the type of variance 
 estimation, although only the bootstrap is currently implemented. Furthermore, 
@@ -1263,62 +1339,88 @@ specifying the type of bootstrap estimator, and \code{ciType} for specifying
 the type of confidence interval. For reproducibility, the seed of the random 
 number generator can be set via the argument \code{seed}.
 
+% An important feature of package \pkg{laeken} is that indicators can be 
+% estimated for different subdomains with a single command, which still holds for 
+% variance and confidence interval estimation. Using the \code{breakdown} 
+% argument, the example below produces estimates for each gender in addition to 
+% the overall values.
+% <<keep.source=FALSE>>=
+% arpr("eqIncome", weights = "rb050", breakdown = "rb090", design = "db040", 
+%      data = eusilc, var = "bootstrap", bootType = "naive", seed = 123)
+% @
+
 An important feature of package \pkg{laeken} is that indicators can be 
 estimated for different subdomains with a single command, which still holds for 
-variance and confidence interval estimation. Using the \code{breakdown} 
-argument, the example below produces estimates for each gender in addition to 
-the overall values.
-<<keep.source=FALSE>>=
-arpr("eqIncome", weights = "rb050", breakdown = "rb090", design = "db040", 
-     data = eusilc, var = "bootstrap", bootType = "naive", seed = 123)
-@
+variance and confidence interval estimation. 
+As for point estimation, only the \code{breakdown} argument 
+needs to be specified (cf. the example in Section~\ref{sec:sub}).
 
 
 \subsection{Calibrated bootstrap} \label{sec:calib}
 
-In the practice of survey sampling, the initial sample weights from the 
-sampling design are often adjusted by calibration, for instance to account for 
-non-response or to ensure that certain known population totals can be precisely 
-estimated from the survey sample. To give a simplified example, if the 
-population sizes for different age groups are known, the sample weights may be 
-calibrated such that the sums of the sample weights for all observations within 
-the respective age groups equal the known true values. However, drawing a 
+% In the practice of survey sampling, the initial sample weights from the 
+% sampling design are often adjusted by calibration, for instance to account for 
+% non-response or to ensure that certain known population totals can be precisely 
+% estimated from the survey sample. To give a simplified example, if the 
+% population sizes for different age groups are known, the sample weights may be 
+% calibrated such that the sums of the sample weights for all observations within 
+% the respective age groups equal the known true values. However, drawing a 
+% bootstrap sample then has the effect that the sample weights in the bootstrap 
+% sample no longer sum up to the correct values. As a remedy, the sample weights 
+% of each bootstrap sample should be recalibrated. Detailed information on 
+% calibration methods can be found in, e.g., \citet{deville92, deville93}.
+% 
+% The naive bootstrap does not include the recalibration of bootstrap samples and 
+% therefore is, strictly speaking, not suitable for many practical applications. 
+% Nevertheless, the naive bootstrap still works well in many situations even 
+% though a bias may be introduced. Hence it is frequently used in practice due to 
+% its faster computation compared with the calibrated version.
+% 
+% For better accuracy at a higher computational cost, the \emph{calibrated 
+% bootstrap} algorithm is obtained by adding the following step between Steps~1 
+% and~2 of the naive bootstrap algorithm from the previous section:
+
+
+In practice, the initial sample weights from the sampling design are often 
+adjusted by calibration, for instance to account for non-response or to ensure 
+that the sums of the sample weights for all observations within certain 
+subgroups equal the respective known population sizes. However, drawing a 
 bootstrap sample then has the effect that the sample weights in the bootstrap 
 sample no longer sum up to the correct values. As a remedy, the sample weights 
-of each bootstrap sample should be recalibrated. Detailed information on 
-calibration methods can be found in, e.g., \citet{deville92, deville93}.
-
-The naive bootstrap does not include the recalibration of bootstrap samples and 
-therefore is, strictly speaking, not suitable for many practical applications. 
-Nevertheless, the naive bootstrap still works well in many situations even 
-though a bias may be introduced. Hence it is frequently used in practice due to 
-its faster computation compared with the calibrated version.
-
-For better accuracy at a higher computational cost, the \emph{calibrated 
-bootstrap} algorithm is obtained by adding the following step between Steps~1 
-and~2 of the naive bootstrap algorithm from the previous section:
+of each bootstrap sample should be recalibrated. For better accuracy at a 
+higher computational cost, the \emph{calibrated bootstrap} algorithm extends 
+the naive bootstrap algorithm from the previous section by adding the 
+following step between Steps~1 and~2:
 \begin{itemize}
   \item[1b.] Calibrate the sample weights for each bootstrap sample 
-  $\boldsymbol{X}_{r}^{*}$, $r = 1, \ldots, R$.
+  $\boldsymbol{X}_{r}^{*}$, $r = 1, \ldots, R$ \citep[see, e.g.,][for 
+  details on calibration]{deville92, deville93}.
 \end{itemize}
+
 
 Using \pkg{laeken}, the function call for including variance and confidence 
 intervals via the calibrated bootstrap is very similar to its counterpart 
 for the naive bootstrap. A matrix of auxiliary calibration variables needs to 
 be supplied via the argument \code{X}. The function \code{calibVars()} can 
 thereby by used to transform a factor into a matrix of binary variables. In the 
-examples below, information on region and gender is used for calibration. 
+%examples 
+example below, information on region and gender is used for calibration. 
 Furthermore, the argument \code{totals} can be used to supply the corresponding 
 population totals. If the \code{totals} argument is omitted, the population 
 totals are computed from the sample weights of the original sample. This 
 follows the assumption that those weights are already calibrated on the 
 supplied auxiliary variables.
+% <<keep.source=FALSE>>=
+% aux <- cbind(calibVars(eusilc$db040), calibVars(eusilc$rb090))
+% arpr("eqIncome", weights = "rb050", design = "db040", data = eusilc, 
+%      var = "bootstrap", X = aux, seed = 123)
+% arpr("eqIncome", weights = "rb050", breakdown = "rb090", design = "db040", 
+%      data = eusilc, var = "bootstrap", X = aux, seed = 123)
+% @
 <<keep.source=FALSE>>=
 aux <- cbind(calibVars(eusilc$db040), calibVars(eusilc$rb090))
 arpr("eqIncome", weights = "rb050", design = "db040", data = eusilc, 
      var = "bootstrap", X = aux, seed = 123)
-arpr("eqIncome", weights = "rb050", breakdown = "rb090", design = "db040", 
-     data = eusilc, var = "bootstrap", X = aux, seed = 123)
 @
 
 
@@ -1345,21 +1447,30 @@ of the data and has the advantage that it can be applied to any indicator. A
 diagnostic plot thereby allows to check whether the Pareto tail model is 
 appropriate for the data at hand.
 
+Concerning variance estimation, further techniques for complex survey samples 
+are available in \proglang{R} through other packages. For instance, package 
+\pkg{EVER} \citep{EVER} provides functionality for the delete-a-group jackknife. 
+Other methods such as balanced repeated replication are implemented in package 
+\pkg{survey} \citep{lumley04, survey}. The incorporation of those packages for 
+additional variance estimation procedures is therefore considered for future 
+work.
+
 
 % ---------------------
 % computational details
 % ---------------------
 
-%\section*{Computational details}
-%All computations in this paper were performed using \pkg{Sweave} 
-%\citep{leisch02a} with the following \proglang{R} session:
-%<<echo=FALSE, results=tex>>=
-%toLatex(sessionInfo(), locale=FALSE)
-%@
-%The most recent version of package \pkg{laeken} is always available from CRAN 
-%(the Comprehensive \proglang{R} Archive Network, 
-%\url{http://CRAN.R-project.org}), and (an up-to-date version of) this paper is 
-%also included as a package vignette.
+% \section*{Computational details}
+% All computations in this paper were performed using \pkg{Sweave} 
+% \citep{leisch02a} with the following \proglang{R} session:
+% <<echo=FALSE, results=tex>>=
+% toLatex(sessionInfo(), locale=FALSE)
+% @
+% %
+% The most recent version of package \pkg{laeken} is always available from CRAN 
+% (the Comprehensive \proglang{R} Archive Network, 
+% \url{http://CRAN.R-project.org}), and (an up-to-date version of) this paper is 
+% also included as a package vignette.
 
 
 % ---------------

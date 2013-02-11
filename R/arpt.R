@@ -26,8 +26,8 @@
 #' integer or a logical vector specifying the corresponding column of
 #' \code{data}.  If supplied, values are computed for each year.
 #' @param data an optional \code{data.frame}.
-#' @param p a numeric value in \eqn{[0,1]} giving the percentage of the weighted
-#' median to be used for the at-risk-of-poverty threshold.
+#' @param p a numeric vector of values in \eqn{[0,1]} giving the percentages of 
+#' the weighted median to be used for the at-risk-of-poverty threshold.
 #' @param na.rm a logical indicating whether missing values should be removed.
 #' 
 #' @return A numeric vector containing the value(s) of the at-risk-of-poverty
@@ -51,11 +51,20 @@
 #' @export
 
 arpt <- function(inc, weights = NULL, sort = NULL, 
-        years = NULL, data = NULL, p = 0.6, na.rm = FALSE) {
-    # check 'p' (other arguments are checked in 'incMedian')
-    if(!is.numeric(p) || length(p) == 0 || p[1] < 0 || p[1] > 1) {
-        stop("'p' must be a numeric value in [0,1]")
-    } else p <- p[1]
-    # compute at-risk-of-poverty threshold
-    p * incMedian(inc, weights, sort, years, data, na.rm=na.rm)
+                 years = NULL, data = NULL, p = 0.6, na.rm = FALSE) {
+  # check 'p' (other arguments are checked in 'incMedian')
+#   if(!is.numeric(p) || length(p) == 0 || p[1] < 0 || p[1] > 1) {
+#     stop("'p' must be a numeric value in [0,1]")
+#   } else p <- p[1]
+  p <- checkP(p)
+  byP <- length(p) > 1
+  if(byP) {
+    if(!is.null(years)) {
+      stop("breakdown into years not implemented ",
+           "for different threshold levels")
+    }
+    names(p) <- getPLabels(p)  # ensure that result has correct names
+  }
+  # compute at-risk-of-poverty threshold
+  p * incMedian(inc, weights, sort, years, data, na.rm=na.rm)
 }
