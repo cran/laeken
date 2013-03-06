@@ -32,6 +32,10 @@
 #' strata for stratified sampling designs, or (if \code{data} is not
 #' \code{NULL}) a character string, an integer or a logical vector specifying
 #' the corresponding column of \code{data}.
+#' @param cluster optional; either an integer vector or factor giving different
+#' clusters for cluster sampling designs, or (if \code{data} is not
+#' \code{NULL}) a character string, an integer or a logical vector specifying
+#' the corresponding column of \code{data}.
 #' @param data an optional \code{data.frame}.
 #' @param indicator an object inheriting from the class \code{"indicator"} that
 #' contains the point estimates of the indicator (see \code{\link{arpr}},
@@ -46,8 +50,10 @@
 #' @param gender either a numeric vector giving the gender, or (if \code{data}
 #' is not \code{NULL}) a character string, an integer or a logical vector
 #' specifying the corresponding column of \code{data}.
-#' @param method mean or median. If weights are provided, the weighted mean or
-#' weighted median is estimated.
+#' @param method a character string specifying the method to be used (only for 
+#' \code{\link{gpg}}).  Possible values are \code{"mean"} for the mean, and 
+#' \code{"median"} for the median.  If weights are provided, the weighted mean 
+#' or weighted median is estimated.
 #' @param \dots additional arguments to be passed to \code{\link{bootVar}}.
 #' 
 #' @return An object of the same class as \code{indicator} is returned.  See
@@ -78,13 +84,15 @@
 #' @export
 
 variance <- function(inc, weights = NULL, years = NULL, breakdown = NULL, 
-		design = NULL, data = NULL, indicator, alpha = 0.05, 
-		na.rm = FALSE, type = "bootstrap", gender = NULL, method = 'mean', ...) {
-	# initializations
-	type <- match.arg(type)
-	# call function corresponding to 'type'
-	switch(type,
-			bootstrap = bootVar(inc, weights, years, breakdown, design, 
-					data, indicator, alpha=alpha, na.rm=na.rm, gender=gender, method=method, ...))
+                     design = NULL, cluster = NULL, data = NULL, indicator, 
+                     alpha = 0.05, na.rm = FALSE, type = "bootstrap", 
+                     gender = NULL, method = NULL, ...) {
+  # initializations
+  type <- match.arg(type)
+  # call function corresponding to 'type'
+  switch(type,
+         bootstrap = bootVar(inc, weights, years, breakdown, design, cluster, 
+                             data, indicator, alpha=alpha, na.rm=na.rm, 
+                             gender=gender, method=method, ...))
 }
 

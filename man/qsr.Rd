@@ -3,8 +3,9 @@
 \title{Quintile share ratio}
 \usage{
   qsr(inc, weights = NULL, sort = NULL, years = NULL,
-    breakdown = NULL, design = NULL, data = NULL,
-    var = NULL, alpha = 0.05, na.rm = FALSE, ...)
+    breakdown = NULL, design = NULL, cluster = NULL,
+    data = NULL, var = NULL, alpha = 0.05, na.rm = FALSE,
+    ...)
 }
 \arguments{
   \item{inc}{either a numeric vector giving the equivalized
@@ -44,6 +45,13 @@
   \code{data} is not \code{NULL}) a character string, an
   integer or a logical vector specifying the corresponding
   column of \code{data}.}
+
+  \item{cluster}{optional and only used if \code{var} is
+  not \code{NULL}; either an integer vector or factor
+  giving different clusters for cluster sampling designs,
+  or (if \code{data} is not \code{NULL}) a character
+  string, an integer or a logical vector specifying the
+  corresponding column of \code{data}.}
 
   \item{data}{an optional \code{data.frame}.}
 

@@ -1,8 +1,19 @@
+Changes in laeken version 0.4.2
+
+    + Bootstrap variance estimation now contains an argument 'cluster', which 
+      allows for resampling clusters of observations rather than individuals.
+    
+    + Bugfix in 'gpg': arguments 'gender' and 'method' are now passed to 
+      'variance'.
+    
+    + Updated vignette 'laeken-intro'.
+
+
 Changes in laeken version 0.4.1
 
     + Reduced run times of examples for 'bootVar' and 'variance'.
     
-    + Functions arpt() and arpr() can now take a vector of percentages of the 
+    + Functions 'arpt' and 'arpr' can now take a vector of percentages of the 
       weighted median to be used for the at-risk-of-poverty threshold.
     
     + Updated vignette 'laeken-intro'.

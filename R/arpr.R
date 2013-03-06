@@ -36,6 +36,11 @@
 #' designs, or (if \code{data} is not \code{NULL}) a character string, an
 #' integer or a logical vector specifying the corresponding column of
 #' \code{data}.
+#' @param cluster optional and only used if \code{var} is not \code{NULL}; 
+#' either an integer vector or factor giving different clusters for cluster 
+#' sampling designs, or (if \code{data} is not \code{NULL}) a character string, 
+#' an integer or a logical vector specifying the corresponding column of 
+#' \code{data}.
 #' @param data an optional \code{data.frame}.
 #' @param p a numeric vector of values in \eqn{[0,1]} giving the percentages of 
 #' the weighted median to be used for the at-risk-of-poverty threshold (see
@@ -100,8 +105,9 @@
 #' @export
 
 arpr <- function(inc, weights = NULL, sort = NULL, years = NULL, 
-                 breakdown = NULL, design = NULL, data = NULL, p = 0.6, 
-                 var = NULL, alpha = 0.05, na.rm = FALSE, ...) {
+                 breakdown = NULL, design = NULL, cluster = NULL, 
+                 data = NULL, p = 0.6, var = NULL, alpha = 0.05, 
+                 na.rm = FALSE, ...) {
   ## initializations
   byYear <- !is.null(years)
   byStratum <- !is.null(breakdown)
@@ -114,7 +120,10 @@ arpr <- function(inc, weights = NULL, sort = NULL, years = NULL,
     if(!is.null(sort)) sort <- data[, sort]
     if(byYear) years <- data[, years]
     if(byStratum) breakdown <- data[, breakdown]
-    if(!is.null(var) && !is.null(design)) design <- data[, design]
+    if(!is.null(var)) {
+      if(!is.null(design)) design <- data[, design]
+      if(!is.null(cluster)) cluster <- data[, cluster]
+    }
   }
   # check vectors
   if(!is.numeric(inc)) stop("'inc' must be a numeric vector")
@@ -200,7 +209,7 @@ arpr <- function(inc, weights = NULL, sort = NULL, years = NULL,
                        years=ys, strata=rs, p=p, threshold=ts)
   # variance estimation (if requested)
   if(!is.null(var)) {
-    res <- variance(inc, weights, years, breakdown, design, 
+    res <- variance(inc, weights, years, breakdown, design, cluster, 
                     indicator=res, alpha=alpha, na.rm=na.rm, type=var, ...)
   }
   # return results

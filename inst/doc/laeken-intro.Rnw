@@ -118,8 +118,7 @@ library("laeken")
 
 Estimation of indicators is one of the main tasks in survey statistics.  
 They are usually estimated from complex surveys with many thousands of
-observations, conducted in a harmonized manner over many countries. 
-
+observations, conducted in a harmonized manner over many countries.  
 Indicators are designed to reflect major developments in society, for example 
 with respect to poverty, social cohesion or gender inequality, in order to 
 quantify and monitor progress towards policy objectives. Moreover, by 
@@ -260,10 +259,10 @@ Austria.
 % standardized names used by the statistical agencies. 
 A description of all the variables is given in the \proglang{R} help page of 
 the data set. To give an overview of what the data look like, the first three 
-observations of \code{eusilc} are printed below.
+observations of the first ten variables of \code{eusilc} are printed below.
 <<>>=
 data("eusilc")
-head(eusilc, 3)
+head(eusilc[, 1:10], 3)
 @
 For this paper, the variable \code{eqIncome} (equivalized disposable income) is 
 of main interest. Other variables are in some cases used to break down the data 
@@ -289,10 +288,10 @@ The SES example data set in \pkg{laeken} is called \code{ses} and contains
 information on 27 variables and  15691 employees from 500 places of work. It is 
 a subset of synthetic data that are simulated from preprocessed 
 Austrian SES 2006 data provided by Statistics Austria. 
-The first three observations are shown below.
+The first three observations of the first seven variables are shown below.
 <<eval=TRUE>>=
 data("ses")
-head(ses, 3)
+head(ses[, 1:7], 3)
 @
 In this paper, the SES data is used to illustrate the estimation of the gender 
 pay gap. Hence the most important variables for our purposes are 
@@ -1328,16 +1327,17 @@ via the argument \code{alpha} (the default is to use \code{alpha=0.05} for
 95\% confidence intervals). Additional arguments are then passed to the 
 underlying function for variance estimation.
 <<keep.source=FALSE>>=
-arpr("eqIncome", weights = "rb050", design = "db040", data = eusilc, 
-     var = "bootstrap", bootType = "naive", seed = 123)
+arpr("eqIncome", weights = "rb050", design = "db040", cluster = "db030", 
+     data = eusilc, var = "bootstrap", bootType = "naive", seed = 123)
 @
 For the bootstrap, the function \code{bootVar()} is called internally for 
 variance and confidence interval estimation. Important arguments are 
-\code{design} for specifying the strata in the sampling design, \code{R} 
-for supplying the number of bootstrap replicates, \code{bootType} for 
-specifying the type of bootstrap estimator, and \code{ciType} for specifying 
-the type of confidence interval. For reproducibility, the seed of the random 
-number generator can be set via the argument \code{seed}.
+\code{design} and \code{cluster} for specifying the strata and clusters in the 
+sampling design, \code{R} for supplying the number of bootstrap replicates, 
+\code{bootType} for specifying the type of bootstrap estimator, and 
+\code{ciType} for specifying the type of confidence interval. For 
+reproducibility, the seed of the random number generator can be set via the 
+argument \code{seed}.
 
 % An important feature of package \pkg{laeken} is that indicators can be 
 % estimated for different subdomains with a single command, which still holds for 
@@ -1346,7 +1346,8 @@ number generator can be set via the argument \code{seed}.
 % the overall values.
 % <<keep.source=FALSE>>=
 % arpr("eqIncome", weights = "rb050", breakdown = "rb090", design = "db040", 
-%      data = eusilc, var = "bootstrap", bootType = "naive", seed = 123)
+%      cluster = "db030", data = eusilc, var = "bootstrap", bootType = "naive", 
+%      seed = 123)
 % @
 
 An important feature of package \pkg{laeken} is that indicators can be 
@@ -1412,15 +1413,16 @@ follows the assumption that those weights are already calibrated on the
 supplied auxiliary variables.
 % <<keep.source=FALSE>>=
 % aux <- cbind(calibVars(eusilc$db040), calibVars(eusilc$rb090))
-% arpr("eqIncome", weights = "rb050", design = "db040", data = eusilc, 
-%      var = "bootstrap", X = aux, seed = 123)
-% arpr("eqIncome", weights = "rb050", breakdown = "rb090", design = "db040", 
+% arpr("eqIncome", weights = "rb050", design = "db040", cluster = "db030", 
 %      data = eusilc, var = "bootstrap", X = aux, seed = 123)
+% arpr("eqIncome", weights = "rb050", breakdown = "rb090", design = "db040", 
+%      cluster = "db030", data = eusilc, var = "bootstrap", X = aux, 
+%      seed = 123)
 % @
 <<keep.source=FALSE>>=
 aux <- cbind(calibVars(eusilc$db040), calibVars(eusilc$rb090))
-arpr("eqIncome", weights = "rb050", design = "db040", data = eusilc, 
-     var = "bootstrap", X = aux, seed = 123)
+arpr("eqIncome", weights = "rb050", design = "db040", cluster = "db030", 
+     data = eusilc, var = "bootstrap", X = aux, seed = 123)
 @
 
 

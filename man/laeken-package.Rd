@@ -13,8 +13,8 @@ Estimation of indicators on social exclusion and poverty, as well
 \tabular{ll}{
 Package: \tab laeken\cr
 Type: \tab Package\cr
-Version: \tab 0.4.1\cr
-Date: \tab 2013-02-11\cr
+Version: \tab 0.4.2\cr
+Date: \tab 2013-03-06\cr
 Depends: \tab R (>= 2.10.0), boot, MASS\cr
 License: \tab GPL (>= 2)\cr
 }

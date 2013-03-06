@@ -4,10 +4,9 @@
 poverty}
 \usage{
   variance(inc, weights = NULL, years = NULL,
-    breakdown = NULL, design = NULL, data = NULL,
-    indicator, alpha = 0.05, na.rm = FALSE,
-    type = "bootstrap", gender = NULL, method = "mean",
-    ...)
+    breakdown = NULL, design = NULL, cluster = NULL,
+    data = NULL, indicator, alpha = 0.05, na.rm = FALSE,
+    type = "bootstrap", gender = NULL, method = NULL, ...)
 }
 \arguments{
   \item{inc}{either a numeric vector giving the equivalized
@@ -41,6 +40,12 @@ poverty}
   character string, an integer or a logical vector
   specifying the corresponding column of \code{data}.}
 
+  \item{cluster}{optional; either an integer vector or
+  factor giving different clusters for cluster sampling
+  designs, or (if \code{data} is not \code{NULL}) a
+  character string, an integer or a logical vector
+  specifying the corresponding column of \code{data}.}
+
   \item{data}{an optional \code{data.frame}.}
 
   \item{indicator}{an object inheriting from the class
@@ -67,8 +72,11 @@ poverty}
   string, an integer or a logical vector specifying the
   corresponding column of \code{data}.}
 
-  \item{method}{mean or median. If weights are provided,
-  the weighted mean or weighted median is estimated.}
+  \item{method}{a character string specifying the method to
+  be used (only for \code{\link{gpg}}).  Possible values
+  are \code{"mean"} for the mean, and \code{"median"} for
+  the median.  If weights are provided, the weighted mean
+  or weighted median is estimated.}
 
   \item{\dots}{additional arguments to be passed to
   \code{\link{bootVar}}.}

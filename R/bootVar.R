@@ -33,6 +33,10 @@
 #' \code{NULL}) a character string, an integer or a logical vector specifying
 #' the corresponding column of \code{data}.  If supplied, this is used as
 #' \code{strata} argument in the call to \code{\link[boot]{boot}}.
+#' @param cluster optional; either an integer vector or factor giving different
+#' clusters for cluster sampling designs, or (if \code{data} is not
+#' \code{NULL}) a character string, an integer or a logical vector specifying
+#' the corresponding column of \code{data}.
 #' @param data an optional \code{data.frame}.
 #' @param indicator an object inheriting from the class \code{"indicator"} that
 #' contains the point estimates of the indicator (see \code{\link{arpr}},
@@ -64,8 +68,10 @@
 #' @param gender either a numeric vector giving the gender, or (if \code{data}
 #' is not \code{NULL}) a character string, an integer or a logical vector
 #' specifying the corresponding column of \code{data}.
-#' @param method mean or median. If weights are provided, the weighted mean or
-#' weighted median is estimated.
+#' @param method a character string specifying the method to be used (only for 
+#' \code{\link{gpg}}).  Possible values are \code{"mean"} for the mean, and 
+#' \code{"median"} for the median.  If weights are provided, the weighted mean 
+#' or weighted median is estimated.
 #' @param \dots if \code{bootType} is \code{"calibrate"}, additional arguments
 #' to be passed to \code{\link{calibWeights}}.
 #' 
@@ -100,12 +106,13 @@
 #' @export 
 #' @import boot
 
-bootVar <- function(inc, weights = NULL, years = NULL, 
-                    breakdown = NULL, design = NULL, data = NULL, indicator, 
+bootVar <- function(inc, weights = NULL, years = NULL, breakdown = NULL, 
+                    design = NULL, cluster = NULL, data = NULL, indicator, 
                     R = 100, bootType = c("calibrate", "naive"), X, 
                     totals = NULL, ciType = c("perc", "norm", "basic"),
                     # type "stud" and "bca" are currently not allowed
-                    alpha = 0.05, seed = NULL, na.rm = FALSE, gender = NULL, method = 'mean', ...) {
+                    alpha = 0.05, seed = NULL, na.rm = FALSE, gender = NULL, 
+                    method = NULL, ...) {
   UseMethod("bootVar", indicator)
 }
 
@@ -113,11 +120,14 @@ bootVar <- function(inc, weights = NULL, years = NULL,
 ## class "indicator"
 #' @S3method bootVar indicator
 bootVar.indicator <- function(inc, weights = NULL, years = NULL, 
-                              breakdown = NULL, design = NULL, data = NULL, indicator, 
-                              R = 100, bootType = c("calibrate", "naive"), X, 
-                              totals = NULL, ciType = c("perc", "norm", "basic"),
+                              breakdown = NULL, design = NULL, cluster = NULL, 
+                              data = NULL, indicator, R = 100, 
+                              bootType = c("calibrate", "naive"), X, 
+                              totals = NULL, 
+                              ciType = c("perc", "norm", "basic"),
                               # type "stud" and "bca" are currently not allowed
-                              alpha = 0.05, seed = NULL, na.rm = FALSE, gender = NULL, method = 'mean', ...) {
+                              alpha = 0.05, seed = NULL, na.rm = FALSE, 
+                              gender = NULL, method = NULL, ...) {
   ## initializations
   # check whether weights have been supplied
   haveWeights <- !is.null(weights)    
@@ -133,6 +143,7 @@ bootVar.indicator <- function(inc, weights = NULL, years = NULL,
   byStratum <- !is.null(rs)
   if(byStratum && is.null(breakdown)) stop("'breakdown' must be supplied")
   haveDesign <- !is.null(design)
+  haveCluster <- !is.null(cluster)
   # if a data.frame has been supplied, extract the respective vectors
   if(!is.null(data)) {
     inc <- data[, inc]
@@ -141,6 +152,7 @@ bootVar.indicator <- function(inc, weights = NULL, years = NULL,
     if(byYear) years <- data[, years]
     if(byStratum) breakdown <- data[, breakdown]
     if(haveDesign) design <- data[, design]
+    if(haveCluster) cluster <- data[, cluster]
   }
   # check whether the vectors have the correct type
   if(!is.numeric(inc)) stop("'inc' must be a numeric vector")
@@ -160,6 +172,9 @@ bootVar.indicator <- function(inc, weights = NULL, years = NULL,
   if(haveDesign && !is.integer(design) && !is.factor(design)) {
     stop("'design' must be an integer vector or factor")
   }
+  if(haveCluster && !is.integer(cluster) && !is.factor(cluster)) {
+    stop("'cluster' must be an integer vector or factor")
+  }
   if(is.null(data)) {  # check vector lengths
     if(haveWeights && length(weights) != n) {
       stop("'weights' must have length ", n)
@@ -172,6 +187,9 @@ bootVar.indicator <- function(inc, weights = NULL, years = NULL,
     }
     if(haveDesign && length(design) != n) {
       stop("'design' must have length ", n)
+    }
+    if(haveCluster && length(cluster) != n) {
+      stop("'cluster' must have length ", n)
     }
   }
   if(!haveDesign) design <- rep.int(1, n)
@@ -212,11 +230,12 @@ bootVar.indicator <- function(inc, weights = NULL, years = NULL,
   
   ## preparations
   data <- data.frame(inc=inc)
-  data$gender <- gender
   data$weight <- weights
   data$year <- years
   data$stratum <- breakdown
-  data$method <- method
+  data$cluster <- cluster
+  data$gender <- gender
+  data$method <- method  # this is a bit of an ugly hack
   if(inherits(indicator, "arpr")) {
     p <- indicator$p  # percentage of median used for threshold
   } else p <- NULL
@@ -237,8 +256,8 @@ bootVar.indicator <- function(inc, weights = NULL, years = NULL,
     funByYear <- getFunByYear(byStratum, calibrate, bootFun)
     if(byStratum) {
       # ---------- breakdown by stratum ----------
-      tmp <- lapply(ys, funByYear, data, R, design, p, X, 
-                    totals, ys, rs, alpha, ciType, na.rm, ...)
+      tmp <- lapply(ys, funByYear, data, R, design, cluster, p, X, totals, 
+                    ys, rs, alpha, ciType, na.rm, ...)
       var <- do.call(c, lapply(tmp, function(x) x[[1]]))
       names(var) <- ys
       varByStratum <- do.call(rbind, lapply(tmp, function(x) x[[2]]))
@@ -254,16 +273,16 @@ bootVar.indicator <- function(inc, weights = NULL, years = NULL,
       ciByStratum <- ciByStratum[order(ciByStratum$order), -5]
     } else {
       # ---------- no breakdown by stratum ----------
-      tmp <- sapply(ys, funByYear, data, R, design, p, X, 
-                    totals, ys, rs, alpha, ciType, na.rm, ...)
+      tmp <- sapply(ys, funByYear, data, R, design, cluster, p, X, totals, 
+                    ys, rs, alpha, ciType, na.rm, ...)
       colnames(tmp) <- ys
       var <- tmp[1,]
       ci <- t(tmp[2:3,])
     }
   } else {
     # ---------- no breakdown by year or threshold ----------
-    b <- boot(data, bootFun, R, strata=design, p=p, aux=X, 
-              totals=totals, rs=rs, na.rm=na.rm, ...)
+    b <- clusterBoot(data, bootFun, R, strata=design, cluster=cluster, p=p, 
+                     aux=X, totals=totals, rs=rs, na.rm=na.rm, ...)
     if(byStratum) {
       # ---------- breakdown by stratum ----------
       var <- apply(b$t, 2, var)
@@ -325,6 +344,22 @@ bootVar.indicator <- function(inc, weights = NULL, years = NULL,
   indicator$alpha <- alpha
   indicator$seed <- seed
   return(indicator)
+}
+
+
+## function to perform clustered bootstrap sampling
+
+clusterBoot <- function(data, statistic, ..., cluster = NULL) {
+  if(is.null(cluster)) boot(data, statistic, ...)
+  else {
+    fun <- function(cluster, i, ..., .data, .statistic) {
+      # retrieve sampled individuals
+      i <- do.call(c, split(1:nrow(.data), .data$cluster)[i])
+      # call the original statistic for the sample of individuals
+      .statistic(.data, i, ...)
+    }
+    boot(cluster, fun, ..., .data=data, .statistic=statistic)
+  }
 }
 
 
@@ -455,14 +490,16 @@ getFunByYear <- function(byStratum, calibrate, fun) {
   if(byStratum) {
     if(calibrate) {
       # ---------- breakdown by stratum, calibration ----------
-      function(y, x, R, design, p, aux, totals, ys, rs, alpha, ciType, na.rm, ...) {
+      function(y, x, R, design, cluster, p, aux, totals, ys, rs, 
+               alpha, ciType, na.rm, ...) {
         i <- x$year == y
         x <- x[i, , drop=FALSE]
         aux <- aux[i, , drop=FALSE]
         design <- design[i]
+        cluster <- cluster[i]
         totals <- totals[ys == y,]
-        b <- boot(x, fun, R, strata=design, p=p, aux=aux, 
-                  totals=totals, rs=rs, na.rm=na.rm, ...)
+        b <- clusterBoot(x, fun, R, strata=design, cluster=cluster, p=p, 
+                         aux=aux, totals=totals, rs=rs, na.rm=na.rm, ...)
         var <- apply(b$t, 2, var)
         varByStratum <- data.frame(year=y, stratum=rs, var=var[-1])
         var <- var[1]
@@ -480,12 +517,14 @@ getFunByYear <- function(byStratum, calibrate, fun) {
       }
     } else {
       # ---------- breakdown by stratum, no calibration ----------
-      function(y, x, R, design, p, aux, totals, ys, rs, alpha, ciType, na.rm, ...) {
+      function(y, x, R, design, cluster, p, aux, totals, ys, rs, 
+               alpha, ciType, na.rm, ...) {
         i <- x$year == y
         x <- x[i, , drop=FALSE]
         design <- design[i]
-        b <- boot(x, fun, R, strata=design, p=p, aux=aux, 
-                  totals=totals, rs=rs, na.rm=na.rm, ...)
+        cluster <- cluster[i]
+        b <- clusterBoot(x, fun, R, strata=design, cluster=cluster, p=p, 
+                         aux=aux, totals=totals, rs=rs, na.rm=na.rm, ...)
         var <- apply(b$t, 2, var)
         varByStratum <- data.frame(year=y, stratum=rs, var=var[-1])
         var <- var[1]
@@ -505,14 +544,16 @@ getFunByYear <- function(byStratum, calibrate, fun) {
   } else {
     if(calibrate) {
       # ---------- no breakdown by stratum, calibration ----------
-      function(y, x, R, design, p, aux, totals, ys, rs, alpha, ciType, na.rm, ...) {
+      function(y, x, R, design, cluster, p, aux, totals, ys, rs, 
+               alpha, ciType, na.rm, ...) {
         i <- x$year == y
         x <- x[i, , drop=FALSE]
         aux <- aux[i, , drop=FALSE]
         design <- design[i]
+        cluster <- cluster[i]
         totals <- totals[ys == y,]
-        b <- boot(x, fun, R, strata=design, p=p, aux=aux, 
-                  totals=totals, rs=rs, na.rm=na.rm, ...)
+        b <- clusterBoot(x, fun, R, strata=design, cluster=cluster, p=p, 
+                         aux=aux, totals=totals, rs=rs, na.rm=na.rm, ...)
         var <- var(b$t[, 1])
         ci <- boot.ci(b, conf=1-alpha, type=ciType)
         ci <- switch(ciType, perc=ci$percent[4:5], norm=ci$normal[2:3], 
@@ -522,12 +563,14 @@ getFunByYear <- function(byStratum, calibrate, fun) {
       }
     } else {
       # ---------- no breakdown by stratum, no calibration ----------
-      function(y, x, R, design, p, aux, totals, ys, rs, alpha, ciType, na.rm, ...) {
+      function(y, x, R, design, cluster, p, aux, totals, ys, rs, 
+               alpha, ciType, na.rm, ...) {
         i <- x$year == y
         x <- x[i, , drop=FALSE]
         design <- design[i]
-        b <- boot(x, fun, R, strata=design, p=p, aux=aux, 
-                  totals=totals, rs=rs, na.rm=na.rm, ...)
+        cluster <- cluster[i]
+        b <- clusterBoot(x, fun, R, strata=design, cluster=cluster, p=p, 
+                         aux=aux, totals=totals, rs=rs, na.rm=na.rm, ...)
         var <- var(b$t[, 1])
         ci <- boot.ci(b, conf=1-alpha, type=ciType)
         ci <- switch(ciType, perc=ci$percent[4:5], norm=ci$normal[2:3], 
