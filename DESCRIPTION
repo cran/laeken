@@ -1,8 +1,8 @@
 Package: laeken
 Type: Package
 Title: Estimation of indicators on social exclusion and poverty
-Version: 0.4.2
-Date: 2013-03-06
+Version: 0.4.3
+Date: 2013-03-07
 Depends: R (>= 2.10.0), boot, MASS
 Description: Estimation of indicators on social exclusion and poverty,
         as well as Pareto tail modeling for empirical income
@@ -19,10 +19,10 @@ Collate: 'arpr.R' 'arpt.R' 'bootVar.R' 'calibVars.R' 'calibWeights.R'
         'thetaPDC.R' 'thetaQQ.R' 'thetaTM.R' 'thetaWML.R' 'utils.R'
         'variance.R' 'weightedMean.R' 'weightedMedian.R'
         'weightedQuantile.R'
-Packaged: 2013-03-06 12:52:12 UTC; andreas
+Packaged: 2013-03-07 08:45:19 UTC; andreas
 Author: Andreas Alfons [aut, cre], Josef Holzer [aut], Matthias Templ
         [aut]
 Maintainer: Andreas Alfons <alfons@ese.eur.nl>
 NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2013-03-06 15:19:22
+Date/Publication: 2013-03-07 11:43:47

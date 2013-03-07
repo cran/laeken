@@ -1,3 +1,9 @@
+Changes in laeken version 0.4.3
+
+    + Bugfix in 'bootVar' when resampling clusters of observations rather than 
+      individuals.
+
+
 Changes in laeken version 0.4.2
 
     + Bootstrap variance estimation now contains an argument 'cluster', which 

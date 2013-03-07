@@ -1328,7 +1328,7 @@ via the argument \code{alpha} (the default is to use \code{alpha=0.05} for
 underlying function for variance estimation.
 <<keep.source=FALSE>>=
 arpr("eqIncome", weights = "rb050", design = "db040", cluster = "db030", 
-     data = eusilc, var = "bootstrap", bootType = "naive", seed = 123)
+     data = eusilc, var = "bootstrap", bootType = "naive", seed = 1234)
 @
 For the bootstrap, the function \code{bootVar()} is called internally for 
 variance and confidence interval estimation. Important arguments are 
@@ -1347,7 +1347,7 @@ argument \code{seed}.
 % <<keep.source=FALSE>>=
 % arpr("eqIncome", weights = "rb050", breakdown = "rb090", design = "db040", 
 %      cluster = "db030", data = eusilc, var = "bootstrap", bootType = "naive", 
-%      seed = 123)
+%      seed = 1234)
 % @
 
 An important feature of package \pkg{laeken} is that indicators can be 
@@ -1414,15 +1414,15 @@ supplied auxiliary variables.
 % <<keep.source=FALSE>>=
 % aux <- cbind(calibVars(eusilc$db040), calibVars(eusilc$rb090))
 % arpr("eqIncome", weights = "rb050", design = "db040", cluster = "db030", 
-%      data = eusilc, var = "bootstrap", X = aux, seed = 123)
+%      data = eusilc, var = "bootstrap", X = aux, seed = 1234)
 % arpr("eqIncome", weights = "rb050", breakdown = "rb090", design = "db040", 
 %      cluster = "db030", data = eusilc, var = "bootstrap", X = aux, 
-%      seed = 123)
+%      seed = 1234)
 % @
 <<keep.source=FALSE>>=
 aux <- cbind(calibVars(eusilc$db040), calibVars(eusilc$rb090))
 arpr("eqIncome", weights = "rb050", design = "db040", cluster = "db030", 
-     data = eusilc, var = "bootstrap", X = aux, seed = 123)
+     data = eusilc, var = "bootstrap", X = aux, seed = 1234)
 @
 
 

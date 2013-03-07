@@ -349,8 +349,8 @@ bootVar.indicator <- function(inc, weights = NULL, years = NULL,
 
 ## function to perform clustered bootstrap sampling
 
-clusterBoot <- function(data, statistic, ..., cluster = NULL) {
-  if(is.null(cluster)) boot(data, statistic, ...)
+clusterBoot <- function(data, statistic, ..., strata, cluster = NULL) {
+  if(is.null(cluster)) boot(data, statistic, ..., strata=strata)
   else {
     fun <- function(cluster, i, ..., .data, .statistic) {
       # retrieve sampled individuals
@@ -358,7 +358,9 @@ clusterBoot <- function(data, statistic, ..., cluster = NULL) {
       # call the original statistic for the sample of individuals
       .statistic(.data, i, ...)
     }
-    boot(cluster, fun, ..., .data=data, .statistic=statistic)
+    keep <- !duplicated(cluster)
+    boot(cluster[keep], fun, ..., strata=strata[keep], 
+         .data=data, .statistic=statistic)
   }
 }
 
