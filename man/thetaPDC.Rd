@@ -79,7 +79,7 @@ thetaPDC(eusilc$eqIncome, x0 = ts$x0, w = eusilc$db090)
   A. Alfons, M. Templ, P. Filzmoser (2013) Robust
   estimation of economic indicators from survey samples
   based on Pareto tail modeling. \emph{Journal of the Royal
-  Statistical Society, Series C}, accepted for publication.
+  Statistical Society, Series C}, \bold{62}(2), 271--286.
 }
 \seealso{
   \code{\link{paretoTail}}, \code{\link{fitPareto}},

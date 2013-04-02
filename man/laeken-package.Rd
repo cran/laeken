@@ -13,8 +13,8 @@ Estimation of indicators on social exclusion and poverty, as well
 \tabular{ll}{
 Package: \tab laeken\cr
 Type: \tab Package\cr
-Version: \tab 0.4.3\cr
-Date: \tab 2013-03-07\cr
+Version: \tab 0.4.4\cr
+Date: \tab 2013-04-02\cr
 Depends: \tab R (>= 2.10.0), boot, MASS\cr
 License: \tab GPL (>= 2)\cr
 }
@@ -89,6 +89,6 @@ Maintainer: Andreas Alfons <alfons@ese.eur.nl>
 \references{
 A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of economic 
 indicators from survey samples based on Pareto tail modeling. \emph{Journal of 
-the Royal Statistical Society, Series C}, accepted for publication.
+the Royal Statistical Society, Series C}, \bold{62}(2), 271--286.
 }
 \keyword{package}

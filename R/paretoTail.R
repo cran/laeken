@@ -80,8 +80,8 @@
 #' 
 #' @references A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of 
 #' economic indicators from survey samples based on Pareto tail modeling. 
-#' \emph{Journal of the Royal Statistical Society, Series C}, accepted for 
-#' publication.
+#' \emph{Journal of the Royal Statistical Society, Series C}, \bold{62}(2), 
+#' 271--286.
 #' 
 #' @keywords manip
 #' 
@@ -237,8 +237,8 @@ paretoTail <- function(x, k = NULL, x0 = NULL, method = "thetaPDC",
 #' 
 #' @references A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of 
 #' economic indicators from survey samples based on Pareto tail modeling. 
-#' \emph{Journal of the Royal Statistical Society, Series C}, accepted for 
-#' publication.
+#' \emph{Journal of the Royal Statistical Society, Series C}, \bold{62}(2), 
+#' 271--286.
 #' 
 #' @keywords manip
 #' 
@@ -360,8 +360,8 @@ replaceOut <- function(x, ...) {
 #' 
 #' @references A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of 
 #' economic indicators from survey samples based on Pareto tail modeling. 
-#' \emph{Journal of the Royal Statistical Society, Series C}, accepted for 
-#' publication.
+#' \emph{Journal of the Royal Statistical Society, Series C}, \bold{62}(2), 
+#' 271--286.
 #' 
 #' @keywords manip
 #' 

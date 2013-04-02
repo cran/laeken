@@ -108,7 +108,7 @@ paretoQPlot(eusilc$eqIncome)
   A. Alfons, M. Templ, P. Filzmoser (2013) Robust
   estimation of economic indicators from survey samples
   based on Pareto tail modeling. \emph{Journal of the Royal
-  Statistical Society, Series C}, accepted for publication.
+  Statistical Society, Series C}, \bold{62}(2), 271--286.
 }
 \seealso{
   \code{\link{paretoScale}}, \code{\link{paretoTail}},
