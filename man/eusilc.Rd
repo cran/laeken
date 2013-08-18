@@ -80,14 +80,17 @@ This is a synthetic data set based on Austrian EU-SILC data from 2006.  The
 original sample was provided by Statistics Austria.
 }
 \references{
-Eurostat (2004) Description of target variables: Cross-sectional and 
-longitudinal. \emph{EU-SILC 065/04}, Eurostat.
+A. Alfons and M. Templ (2013) Estimation of Social Exclusion Indicators from 
+Complex Surveys: The \R Package \pkg{laeken}.  \emph{Journal of Statistical 
+Software}, \bold{54}(15), 1--25.  URL \url{http://www.jstatsoft.org/v54/i15/}
 
 A. Alfons, M. Templ, P. Filzmoser (2011) Simulation of close-to-reality 
 population data for household surveys with application to EU-SILC. 
 \emph{Statistical Methods and Applications},
 vol 20 (3), 383-407. 
 
+Eurostat (2004) Description of target variables: Cross-sectional and 
+longitudinal. \emph{EU-SILC 065/04}, Eurostat.
 }
 \examples{
 data(eusilc)

@@ -61,13 +61,19 @@
 #' \code{\link{minAMSE}}, \code{\link{meanExcessPlot}}, 
 #' \code{\link[graphics]{identify}}
 #' 
-#' @references Beirlant, J., Vynckier, P. and Teugels, J.L. (1996) Tail index
-#' estimation, Pareto quantile plots, and regression diagnostics. \emph{Journal
-#' of the American Statistical Association}, \bold{91}(436), 1659--1667.
+#' @references 
+#' A. Alfons and M. Templ (2013) Estimation of Social Exclusion Indicators 
+#' from Complex Surveys: The \R Package \pkg{laeken}.  \emph{Journal of 
+#' Statistical Software}, \bold{54}(15), 1--25.  URL 
+#' \url{http://www.jstatsoft.org/v54/i15/}
 #' 
 #' A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of economic 
 #' indicators from survey samples based on Pareto tail modeling. \emph{Journal 
 #' of the Royal Statistical Society, Series C}, \bold{62}(2), 271--286.
+#' 
+#' Beirlant, J., Vynckier, P. and Teugels, J.L. (1996) Tail index estimation, 
+#' Pareto quantile plots, and regression diagnostics. \emph{Journal of the 
+#' American Statistical Association}, \bold{91}(436), 1659--1667.
 #' 
 #' @keywords hplot
 #' 

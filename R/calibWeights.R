@@ -69,6 +69,7 @@
 #' summary(weights)
 #' 
 #' @export
+#' @import MASS
 
 calibWeights <- function(X, d, totals, q = NULL, 
         method = c("raking", "linear", "logit"), 

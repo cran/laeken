@@ -78,10 +78,15 @@
 #' \code{\link{thetaISE}}, \code{\link{thetaLS}}, \code{\link{thetaMoment}},
 #' \code{\link{thetaQQ}}, \code{\link{thetaTM}}
 #' 
-#' @references A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of 
-#' economic indicators from survey samples based on Pareto tail modeling. 
-#' \emph{Journal of the Royal Statistical Society, Series C}, \bold{62}(2), 
-#' 271--286.
+#' @references 
+#' A. Alfons and M. Templ (2013) Estimation of Social Exclusion Indicators 
+#' from Complex Surveys: The \R Package \pkg{laeken}.  \emph{Journal of 
+#' Statistical Software}, \bold{54}(15), 1--25.  URL 
+#' \url{http://www.jstatsoft.org/v54/i15/}
+#' 
+#' A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of economic 
+#' indicators from survey samples based on Pareto tail modeling. \emph{Journal 
+#' of the Royal Statistical Society, Series C}, \bold{62}(2), 271--286.
 #' 
 #' @keywords manip
 #' 
@@ -235,10 +240,15 @@ paretoTail <- function(x, k = NULL, x0 = NULL, method = "thetaPDC",
 #' @seealso \code{\link{paretoTail}}, \code{\link{reweightOut}},
 #' \code{\link{shrinkOut}}
 #' 
-#' @references A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of 
-#' economic indicators from survey samples based on Pareto tail modeling. 
-#' \emph{Journal of the Royal Statistical Society, Series C}, \bold{62}(2), 
-#' 271--286.
+#' @references 
+#' A. Alfons and M. Templ (2013) Estimation of Social Exclusion Indicators 
+#' from Complex Surveys: The \R Package \pkg{laeken}.  \emph{Journal of 
+#' Statistical Software}, \bold{54}(15), 1--25.  URL 
+#' \url{http://www.jstatsoft.org/v54/i15/}
+#' 
+#' A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of economic 
+#' indicators from survey samples based on Pareto tail modeling. \emph{Journal 
+#' of the Royal Statistical Society, Series C}, \bold{62}(2), 271--286.
 #' 
 #' @keywords manip
 #' 
@@ -358,10 +368,15 @@ replaceOut <- function(x, ...) {
 #' @seealso \code{\link{paretoTail}}, \code{\link{shrinkOut}} ,
 #' \code{\link{replaceOut}}, \code{\link{replaceTail}}
 #' 
-#' @references A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of 
-#' economic indicators from survey samples based on Pareto tail modeling. 
-#' \emph{Journal of the Royal Statistical Society, Series C}, \bold{62}(2), 
-#' 271--286.
+#' @references 
+#' A. Alfons and M. Templ (2013) Estimation of Social Exclusion Indicators 
+#' from Complex Surveys: The \R Package \pkg{laeken}.  \emph{Journal of 
+#' Statistical Software}, \bold{54}(15), 1--25.  URL 
+#' \url{http://www.jstatsoft.org/v54/i15/}
+#' 
+#' A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of economic 
+#' indicators from survey samples based on Pareto tail modeling. \emph{Journal 
+#' of the Royal Statistical Society, Series C}, \bold{62}(2), 271--286.
 #' 
 #' @keywords manip
 #' 
@@ -442,6 +457,12 @@ reweightOut.paretoTail <- function(x, X, w = NULL, ...) {
 #' 
 #' @seealso \code{\link{paretoTail}}, \code{\link{reweightOut}},
 #' \code{\link{replaceOut}}, \code{\link{replaceTail}}
+#' 
+#' @references 
+#' A. Alfons and M. Templ (2013) Estimation of Social Exclusion Indicators 
+#' from Complex Surveys: The \R Package \pkg{laeken}.  \emph{Journal of 
+#' Statistical Software}, \bold{54}(15), 1--25.  URL 
+#' \url{http://www.jstatsoft.org/v54/i15/}
 #' 
 #' @keywords manip
 #' 

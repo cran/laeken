@@ -48,8 +48,14 @@
 #' @seealso \code{\link{minAMSE}}, \code{\link{paretoQPlot}},
 #' \code{\link{meanExcessPlot}}
 #' 
-#' @references Van Kerm, P. (2007) Extreme incomes and the estimation of poverty
-#' and inequality indicators from EU-SILC. IRISS Working Paper Series 2007-01,
+#' @references 
+#' A. Alfons and M. Templ (2013) Estimation of Social Exclusion Indicators 
+#' from Complex Surveys: The \R Package \pkg{laeken}.  \emph{Journal of 
+#' Statistical Software}, \bold{54}(15), 1--25.  URL 
+#' \url{http://www.jstatsoft.org/v54/i15/}
+#' 
+#' Van Kerm, P. (2007) Extreme incomes and the estimation of poverty and 
+#' inequality indicators from EU-SILC. IRISS Working Paper Series 2007-01,
 #' CEPS/INSTEAD.
 #' 
 #' @keywords manip

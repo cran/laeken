@@ -147,6 +147,10 @@ simulated from the original Austrian SES data.
 This is a synthetic data set based on Austrian SES data from 2006. 
 }
 \references{
+A. Alfons and M. Templ (2013) Estimation of Social Exclusion Indicators from 
+Complex Surveys: The \R Package \pkg{laeken}.  \emph{Journal of Statistical 
+Software}, \bold{54}(15), 1--25.  URL \url{http://www.jstatsoft.org/v54/i15/}
+
 T. Geissberger (2009) Verdienststrukturerhebung 2006, Struktur und Verteilung 
 der Verdienste in Oesterreich, Statistik Austria, ISBN 978-3-902587-97-8.
 

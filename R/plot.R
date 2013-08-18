@@ -31,6 +31,12 @@
 #' 
 #' @seealso \code{\link{paretoTail}}, \code{\link{paretoQPlot}}
 #' 
+#' @references 
+#' A. Alfons and M. Templ (2013) Estimation of Social Exclusion Indicators 
+#' from Complex Surveys: The \R Package \pkg{laeken}.  \emph{Journal of 
+#' Statistical Software}, \bold{54}(15), 1--25.  URL 
+#' \url{http://www.jstatsoft.org/v54/i15/}
+#' 
 #' @keywords hplot
 #' 
 #' @examples

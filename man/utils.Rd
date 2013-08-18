@@ -122,6 +122,13 @@ is.gini(g)
 is.indicator(g)
 subset(g, strata = c("Lower Austria", "Vienna"))
 }
+\references{
+  A. Alfons and M. Templ (2013) Estimation of Social
+  Exclusion Indicators from Complex Surveys: The \R Package
+  \pkg{laeken}.  \emph{Journal of Statistical Software},
+  \bold{54}(15), 1--25.  URL
+  \url{http://www.jstatsoft.org/v54/i15/}
+}
 \seealso{
   \code{\link{arpr}}, \code{\link{qsr}},
   \code{\link{rmpg}}, \code{\link{gini}}, \code{\link{gpg}}
