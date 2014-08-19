@@ -4,11 +4,11 @@
 # ----------------------------------------
 
 #' Pareto tail modeling for income distributions
-#' 
+#'
 #' Fit a Pareto distribution to the upper tail of income data.  Since a
 #' theoretical distribution is used for the upper tail, this is a semiparametric
 #' approach.
-#' 
+#'
 #' The arguments \code{k} and \code{x0} of course correspond with each other.
 #' If \code{k} is supplied, the threshold \code{x0} is estimated with the \eqn{n
 #' - k} largest value in \code{x}, where \eqn{n} is the number of observations.
@@ -16,7 +16,7 @@
 #' by the number of observations in \code{x} larger than \code{x0}.  Therefore,
 #' either \code{k} or \code{x0} needs to be supplied.  If both are supplied,
 #' only \code{k} is used.
-#' 
+#'
 #' The function supplied to \code{method} should take a numeric vector (the
 #' observations) as its first argument.  If \code{k} is supplied, it will be
 #' passed on (in this case, the function is required to have an argument called
@@ -26,9 +26,9 @@
 #' the function specified by \code{method} can handle sample weights, the
 #' corresponding argument should be called \code{w}.  Additional arguments are
 #' passed via the \dots{} argument.
-#' 
+#'
 #' @aliases print.paretoTail
-#' 
+#'
 #' @param x a numeric vector.
 #' @param k the number of observations in the upper tail to which the Pareto
 #' distribution is fitted.
@@ -48,7 +48,7 @@
 #' quantile of the fitted Pareto distribution will be flagged as outliers for
 #' further treatment with \code{\link{reweightOut}} or \code{\link{replaceOut}}.
 #' @param \dots addtional arguments to be passed to the specified method.
-#' 
+#'
 #' @returnClass paretoTail
 #' @returnItem x the supplied numeric vector.
 #' @returnItem k the number of observations in the upper tail to which the
@@ -68,65 +68,65 @@
 #' @returnItem out if \code{groups} is not \code{NULL}, this gives the groups
 #' that are flagged as outliers, otherwise the indices of the flagged
 #' observations.
-#' 
+#'
 #' @author Andreas Alfons
-#' 
+#'
 #' @seealso \code{\link{reweightOut}}, \code{\link{shrinkOut}},
 #' \code{\link{replaceOut}}, \code{\link{replaceTail}}, \code{\link{fitPareto}}
-#' 
+#'
 #' \code{\link{thetaPDC}}, \code{\link{thetaWML}}, \code{\link{thetaHill}},
 #' \code{\link{thetaISE}}, \code{\link{thetaLS}}, \code{\link{thetaMoment}},
 #' \code{\link{thetaQQ}}, \code{\link{thetaTM}}
-#' 
-#' @references 
-#' A. Alfons and M. Templ (2013) Estimation of Social Exclusion Indicators 
-#' from Complex Surveys: The \R Package \pkg{laeken}.  \emph{Journal of 
-#' Statistical Software}, \bold{54}(15), 1--25.  URL 
+#'
+#' @references
+#' A. Alfons and M. Templ (2013) Estimation of Social Exclusion Indicators
+#' from Complex Surveys: The \R Package \pkg{laeken}.  \emph{Journal of
+#' Statistical Software}, \bold{54}(15), 1--25.  URL
 #' \url{http://www.jstatsoft.org/v54/i15/}
-#' 
-#' A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of economic 
-#' indicators from survey samples based on Pareto tail modeling. \emph{Journal 
+#'
+#' A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of economic
+#' indicators from survey samples based on Pareto tail modeling. \emph{Journal
 #' of the Royal Statistical Society, Series C}, \bold{62}(2), 271--286.
-#' 
+#'
 #' @keywords manip
-#' 
+#'
 #' @examples
 #' data(eusilc)
-#' 
-#' 
+#'
+#'
 #' ## gini coefficient without Pareto tail modeling
 #' gini("eqIncome", weights = "rb050", data = eusilc)
-#' 
-#' 
+#'
+#'
 #' ## gini coefficient with Pareto tail modeling
-#' 
+#'
 #' # estimate threshold
-#' ts <- paretoScale(eusilc$eqIncome, w = eusilc$db090, 
+#' ts <- paretoScale(eusilc$eqIncome, w = eusilc$db090,
 #'     groups = eusilc$db030)
-#' 
+#'
 #' # estimate shape parameter
-#' fit <- paretoTail(eusilc$eqIncome, k = ts$k, 
+#' fit <- paretoTail(eusilc$eqIncome, k = ts$k,
 #'     w = eusilc$db090, groups = eusilc$db030)
-#' 
+#'
 #' # calibration of outliers
 #' w <- reweightOut(fit, calibVars(eusilc$db040))
 #' gini(eusilc$eqIncome, w)
-#' 
+#'
 #' # winsorization of outliers
 #' eqIncome <- shrinkOut(fit)
 #' gini(eqIncome, weights = eusilc$rb050)
-#' 
+#'
 #' # replacement of outliers
 #' eqIncome <- replaceOut(fit)
 #' gini(eqIncome, weights = eusilc$rb050)
-#' 
+#'
 #' # replacement of whole tail
 #' eqIncome <- replaceTail(fit)
 #' gini(eqIncome, weights = eusilc$rb050)
-#' 
+#'
 #' @export
 
-paretoTail <- function(x, k = NULL, x0 = NULL, method = "thetaPDC", 
+paretoTail <- function(x, k = NULL, x0 = NULL, method = "thetaPDC",
         groups = NULL, w = NULL, alpha = 0.01, ...) {
     ## initializations
     if(!is.numeric(x) || length(x) == 0) stop("'x' must be a numeric vector")
@@ -208,9 +208,9 @@ paretoTail <- function(x, k = NULL, x0 = NULL, method = "thetaPDC",
         out <- unname(which(x > q))
         out <- out[order(x[out])]
     }
-    
+
     ## return object
-    res <- list(x=x, k=k, groups=groups, w=w, method=method, 
+    res <- list(x=x, k=k, groups=groups, w=w, method=method,
         x0=x0, theta=theta, tail=tail, alpha=alpha, out=out)
     class(res) <- "paretoTail"
     res
@@ -218,66 +218,66 @@ paretoTail <- function(x, k = NULL, x0 = NULL, method = "thetaPDC",
 
 
 #' Replace observations under a Pareto model
-#' 
+#'
 #' Replace observations under a Pareto model for the upper tail with values
 #' drawn from the fitted distribution.
-#' 
+#'
 #' \code{replaceOut(x, \dots{})} is a simple wrapper for \code{replaceTail(x,
 #' all = FALSE, \dots{})}.
-#' 
+#'
 #' @param x an object of class \code{"paretoTail"} (see
 #' \code{\link{paretoTail}}).
 #' @param all a logical indicating whether all observations in the upper tail
 #' should be replaced or only those flagged as outliers.
 #' @param \dots additional arguments to be passed down.
-#' 
+#'
 #' @return A numeric vector consisting mostly of the original values, but with
 #' observations in the upper tail replaced with values from the fitted Pareto
 #' distribution.
-#' 
+#'
 #' @author Andreas Alfons
-#' 
+#'
 #' @seealso \code{\link{paretoTail}}, \code{\link{reweightOut}},
 #' \code{\link{shrinkOut}}
-#' 
-#' @references 
-#' A. Alfons and M. Templ (2013) Estimation of Social Exclusion Indicators 
-#' from Complex Surveys: The \R Package \pkg{laeken}.  \emph{Journal of 
-#' Statistical Software}, \bold{54}(15), 1--25.  URL 
+#'
+#' @references
+#' A. Alfons and M. Templ (2013) Estimation of Social Exclusion Indicators
+#' from Complex Surveys: The \R Package \pkg{laeken}.  \emph{Journal of
+#' Statistical Software}, \bold{54}(15), 1--25.  URL
 #' \url{http://www.jstatsoft.org/v54/i15/}
-#' 
-#' A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of economic 
-#' indicators from survey samples based on Pareto tail modeling. \emph{Journal 
+#'
+#' A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of economic
+#' indicators from survey samples based on Pareto tail modeling. \emph{Journal
 #' of the Royal Statistical Society, Series C}, \bold{62}(2), 271--286.
-#' 
+#'
 #' @keywords manip
-#' 
+#'
 #' @examples
 #' data(eusilc)
-#' 
-#' 
+#'
+#'
 #' ## gini coefficient without Pareto tail modeling
 #' gini("eqIncome", weights = "rb050", data = eusilc)
-#' 
-#' 
+#'
+#'
 #' ## gini coefficient with Pareto tail modeling
-#' 
+#'
 #' # estimate threshold
-#' ts <- paretoScale(eusilc$eqIncome, w = eusilc$db090, 
+#' ts <- paretoScale(eusilc$eqIncome, w = eusilc$db090,
 #'     groups = eusilc$db030)
-#' 
+#'
 #' # estimate shape parameter
-#' fit <- paretoTail(eusilc$eqIncome, k = ts$k, 
+#' fit <- paretoTail(eusilc$eqIncome, k = ts$k,
 #'     w = eusilc$db090, groups = eusilc$db030)
-#' 
+#'
 #' # replacement of outliers
 #' eqIncome <- replaceOut(fit)
 #' gini(eqIncome, weights = eusilc$rb050)
-#' 
+#'
 #' # replacement of whole tail
 #' eqIncome <- replaceTail(fit)
 #' gini(eqIncome, weights = eusilc$rb050)
-#' 
+#'
 #' @export
 
 replaceTail <- function(x, ...) UseMethod("replaceTail")
@@ -340,15 +340,15 @@ replaceOut <- function(x, ...) {
 
 
 #' Reweight outliers in the Pareto model
-#' 
+#'
 #' Reweight observations that are flagged as outliers in a Pareto model for the
 #' upper tail of the distribution.
-#' 
+#'
 #' If the data contain sample weights, the weights of the outlying observations
 #' are set to \eqn{1} and the weights of the remaining observations are
 #' calibrated according to auxiliary variables.  Otherwise, weight \eqn{0} is
 #' assigned to outliers and weight \eqn{1} to other observations.
-#' 
+#'
 #' @param x an object of class \code{"paretoTail"} (see
 #' \code{\link{paretoTail}}).
 #' @param X a matrix of binary calibration variables (see
@@ -358,45 +358,45 @@ replaceOut <- function(x, ...) {
 #' does not contain sample weights, i.e., if sample weights were not considered
 #' in estimating the shape parameter of the Pareto distribution.
 #' @param \dots additional arguments to be passed down.
-#' 
+#'
 #' @return If the data contain sample weights, a numeric containing the
 #' recalibrated weights is returned, otherwise a numeric vector assigning weight
 #' \eqn{0} to outliers and weight \eqn{1} to other observations.
-#' 
+#'
 #' @author Andreas Alfons
-#' 
+#'
 #' @seealso \code{\link{paretoTail}}, \code{\link{shrinkOut}} ,
 #' \code{\link{replaceOut}}, \code{\link{replaceTail}}
-#' 
-#' @references 
-#' A. Alfons and M. Templ (2013) Estimation of Social Exclusion Indicators 
-#' from Complex Surveys: The \R Package \pkg{laeken}.  \emph{Journal of 
-#' Statistical Software}, \bold{54}(15), 1--25.  URL 
+#'
+#' @references
+#' A. Alfons and M. Templ (2013) Estimation of Social Exclusion Indicators
+#' from Complex Surveys: The \R Package \pkg{laeken}.  \emph{Journal of
+#' Statistical Software}, \bold{54}(15), 1--25.  URL
 #' \url{http://www.jstatsoft.org/v54/i15/}
-#' 
-#' A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of economic 
-#' indicators from survey samples based on Pareto tail modeling. \emph{Journal 
+#'
+#' A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of economic
+#' indicators from survey samples based on Pareto tail modeling. \emph{Journal
 #' of the Royal Statistical Society, Series C}, \bold{62}(2), 271--286.
-#' 
+#'
 #' @keywords manip
-#' 
+#'
 #' @examples
 #' data(eusilc)
-#' 
+#'
 #' ## gini coefficient without Pareto tail modeling
 #' gini("eqIncome", weights = "rb050", data = eusilc)
-#' 
+#'
 #' ## gini coefficient with Pareto tail modeling
 #' # estimate threshold
-#' ts <- paretoScale(eusilc$eqIncome, w = eusilc$db090, 
+#' ts <- paretoScale(eusilc$eqIncome, w = eusilc$db090,
 #'     groups = eusilc$db030)
 #' # estimate shape parameter
-#' fit <- paretoTail(eusilc$eqIncome, k = ts$k, 
+#' fit <- paretoTail(eusilc$eqIncome, k = ts$k,
 #'     w = eusilc$db090, groups = eusilc$db030)
 #' # calibration of outliers
 #' w <- reweightOut(fit, calibVars(eusilc$db040))
 #' gini(eusilc$eqIncome, w)
-#' 
+#'
 #' @export
 
 reweightOut <- function(x, ...) UseMethod("reweightOut")
@@ -405,9 +405,9 @@ reweightOut <- function(x, ...) UseMethod("reweightOut")
 #' @method reweightOut paretoTail
 #' @export
 reweightOut.paretoTail <- function(x, X, w = NULL, ...) {
-    # in case of sample weights, set weights of outliers to one and calibrate 
+    # in case of sample weights, set weights of outliers to one and calibrate
     # other observations
-    # otherwise, set weights of outliers to zero and weights of other 
+    # otherwise, set weights of outliers to zero and weights of other
     # observations to one
     out <- x$out
     n <- length(x$x)  # number of observations
@@ -440,11 +440,11 @@ reweightOut.paretoTail <- function(x, X, w = NULL, ...) {
 
 
 #' Shrink outliers in the Pareto model
-#' 
+#'
 #' Shrink observations that are flagged as outliers in a Pareto model for the
 #' upper tail of the distribution to the theoretical quantile used for outlier
 #' detection.
-#' 
+#'
 #' @param x an object of class \code{"paretoTail"} (see
 #' \code{\link{paretoTail}}).
 #' @param \dots additional arguments to be passed down (currently ignored as
@@ -452,37 +452,37 @@ reweightOut.paretoTail <- function(x, X, w = NULL, ...) {
 #' @return A numeric vector consisting mostly of the original values, but with
 #' outlying observations in the upper tail shrunken to the corresponding
 #' theoretical quantile of the fitted Pareto distribution.
-#' 
+#'
 #' @author Andreas Alfons
-#' 
+#'
 #' @seealso \code{\link{paretoTail}}, \code{\link{reweightOut}},
 #' \code{\link{replaceOut}}, \code{\link{replaceTail}}
-#' 
-#' @references 
-#' A. Alfons and M. Templ (2013) Estimation of Social Exclusion Indicators 
-#' from Complex Surveys: The \R Package \pkg{laeken}.  \emph{Journal of 
-#' Statistical Software}, \bold{54}(15), 1--25.  URL 
+#'
+#' @references
+#' A. Alfons and M. Templ (2013) Estimation of Social Exclusion Indicators
+#' from Complex Surveys: The \R Package \pkg{laeken}.  \emph{Journal of
+#' Statistical Software}, \bold{54}(15), 1--25.  URL
 #' \url{http://www.jstatsoft.org/v54/i15/}
-#' 
+#'
 #' @keywords manip
-#' 
+#'
 #' @examples
 #' data(eusilc)
-#' 
+#'
 #' ## gini coefficient without Pareto tail modeling
 #' gini("eqIncome", weights = "rb050", data = eusilc)
-#' 
+#'
 #' ## gini coefficient with Pareto tail modeling
 #' # estimate threshold
-#' ts <- paretoScale(eusilc$eqIncome, w = eusilc$db090, 
+#' ts <- paretoScale(eusilc$eqIncome, w = eusilc$db090,
 #'     groups = eusilc$db030)
 #' # estimate shape parameter
-#' fit <- paretoTail(eusilc$eqIncome, k = ts$k, 
+#' fit <- paretoTail(eusilc$eqIncome, k = ts$k,
 #'     w = eusilc$db090, groups = eusilc$db030)
 #' # shrink outliers
 #' eqIncome <- shrinkOut(fit)
 #' gini(eqIncome, weights = eusilc$rb050)
-#' 
+#'
 #' @export
 
 shrinkOut <- function(x, ...) UseMethod("shrinkOut")
@@ -505,7 +505,7 @@ shrinkOut.paretoTail <- function(x, ...) {
 
 
 ## print method for class "paretoTail"
-#' @S3method print paretoTail
+#' @export
 print.paretoTail <- function(x, ...) {
     cat("Threshold: ")
     cat(x$x0, ...)

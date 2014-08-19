@@ -13,8 +13,8 @@ Estimation of indicators on social exclusion and poverty, as well
 \tabular{ll}{
 Package: \tab laeken\cr
 Type: \tab Package\cr
-Version: \tab 0.4.5\cr
-Date: \tab 2013-08-18\cr
+Version: \tab 0.4.6\cr
+Date: \tab 2014-08-19\cr
 Depends: \tab R (>= 2.10.0), boot, MASS\cr
 License: \tab GPL (>= 2)\cr
 }
@@ -48,6 +48,7 @@ paretoScale             Estimate the scale parameter of a Pareto
                         distribution
 paretoTail              Pareto tail modeling for income distributions
 plot.paretoTail         Diagnostic plot for the Pareto tail model
+prop                    Proportion of an alternative distribution
 qsr                     Quintile share ratio
 replaceTail             Replace observations under a Pareto model
 reweightOut             Reweight outliers in the Pareto model
@@ -87,12 +88,12 @@ Andreas Alfons [aut, cre],
 Maintainer: Andreas Alfons <alfons@ese.eur.nl>
 }
 \references{
-A. Alfons and M. Templ (2013) Estimation of Social Exclusion Indicators from 
-Complex Surveys: The \R Package \pkg{laeken}.  \emph{Journal of Statistical 
+A. Alfons and M. Templ (2013) Estimation of Social Exclusion Indicators from
+Complex Surveys: The \R Package \pkg{laeken}.  \emph{Journal of Statistical
 Software}, \bold{54}(15), 1--25.  URL \url{http://www.jstatsoft.org/v54/i15/}
 
-A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of economic 
-indicators from survey samples based on Pareto tail modeling. \emph{Journal of 
+A. Alfons, M. Templ, P. Filzmoser (2013) Robust estimation of economic
+indicators from survey samples based on Pareto tail modeling. \emph{Journal of
 the Royal Statistical Society, Series C}, \bold{62}(2), 271--286.
 }
 \keyword{package}

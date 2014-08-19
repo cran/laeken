@@ -6,12 +6,12 @@
 # TODO: error handling
 
 #' Utility functions for indicators on social exclusion and poverty
-#' 
+#'
 #' Test for class, print and take subsets of indicators on social exclusion and
 #' poverty.
-#' 
+#'
 #' @name utils
-#' 
+#'
 #' @param x for \code{is.xyz}, any object to be tested.  The \code{print} and
 #' \code{subset} methods are called by the generic functions if an object of the
 #' respective class is supplied.
@@ -19,89 +19,89 @@
 #' @param strata an optional vector giving the domains of the breakdown to be
 #' extracted.
 #' @param \dots additional arguments to be passed to and from methods.
-#' 
+#'
 #' @return \code{is.indicator} returns \code{TRUE} if \code{x} inherits from
 #' class \code{"indicator"} and \code{FALSE} otherwise.
-#' 
+#'
 #' \code{is.arpr} returns \code{TRUE} if \code{x} inherits from class
 #' \code{"arpr"} and \code{FALSE} otherwise.
-#' 
+#'
 #' \code{is.qsr} returns \code{TRUE} if \code{x} inherits from class
 #' \code{"qsr"} and \code{FALSE} otherwise.
-#' 
+#'
 #' \code{is.rmpg} returns \code{TRUE} if \code{x} inherits from class
 #' \code{"rmpg"} and \code{FALSE} otherwise.
-#' 
+#'
 #' \code{is.gini} returns \code{TRUE} if \code{x} inherits from class
 #' \code{"gini"} and \code{FALSE} otherwise.
-#' 
+#'
 #' \code{is.gini} returns \code{TRUE} if \code{x} inherits from class
 #' \code{"gini"} and \code{FALSE} otherwise.
-#' 
+#'
 #' \code{print.indicator}, \code{print.arpr} and \code{print.rmpg} return
 #' \code{x} invisibly.
-#' 
+#'
 #' \code{subset.indicator}, \code{subset.arpr} and \code{subset.rmpg} return a
 #' subset of \code{x} of the same class.
-#' 
+#'
 #' @seealso \code{\link{arpr}}, \code{\link{qsr}}, \code{\link{rmpg}},
 #' \code{\link{gini}}, \code{\link{gpg}}
-#' 
-#' @references 
-#' A. Alfons and M. Templ (2013) Estimation of Social Exclusion Indicators 
-#' from Complex Surveys: The \R Package \pkg{laeken}.  \emph{Journal of 
-#' Statistical Software}, \bold{54}(15), 1--25.  URL 
+#'
+#' @references
+#' A. Alfons and M. Templ (2013) Estimation of Social Exclusion Indicators
+#' from Complex Surveys: The \R Package \pkg{laeken}.  \emph{Journal of
+#' Statistical Software}, \bold{54}(15), 1--25.  URL
 #' \url{http://www.jstatsoft.org/v54/i15/}
-#' 
+#'
 #' @keywords survey
-#' 
+#'
 #' @examples
 #' data(eusilc)
-#' 
+#'
 #' # at-risk-of-poverty rate
-#' a <- arpr("eqIncome", weights = "rb050", 
+#' a <- arpr("eqIncome", weights = "rb050",
 #'     breakdown = "db040", data = eusilc)
 #' print(a)
 #' is.arpr(a)
 #' is.indicator(a)
 #' subset(a, strata = c("Lower Austria", "Vienna"))
-#' 
+#'
 #' # quintile share ratio
-#' q <- qsr("eqIncome", weights = "rb050", 
+#' q <- qsr("eqIncome", weights = "rb050",
 #'     breakdown = "db040", data = eusilc)
 #' print(q)
 #' is.qsr(q)
 #' is.indicator(q)
 #' subset(q, strata = c("Lower Austria", "Vienna"))
-#' 
+#'
 #' # relative median at-risk-of-poverty gap
-#' r <- rmpg("eqIncome", weights = "rb050", 
+#' r <- rmpg("eqIncome", weights = "rb050",
 #'     breakdown = "db040", data = eusilc)
 #' print(r)
 #' is.rmpg(r)
 #' is.indicator(r)
 #' subset(r, strata = c("Lower Austria", "Vienna"))
-#' 
+#'
 #' # Gini coefficient
-#' g <- gini("eqIncome", weights = "rb050", 
+#' g <- gini("eqIncome", weights = "rb050",
 #'     breakdown = "db040", data = eusilc)
 #' print(g)
 #' is.gini(g)
 #' is.indicator(g)
 #' subset(g, strata = c("Lower Austria", "Vienna"))
-#' 
+#'
 
 NULL
 
 
 ## constructors
 # class "indicator"
-constructIndicator <- function(value, valueByStratum = NULL, 
-		varMethod = NULL, var = NULL, varByStratum = NULL, ci = NULL, 
+constructIndicator <- function(value, valueByStratum = NULL,
+		varMethod = NULL, var = NULL, varByStratum = NULL, ci = NULL,
 		ciByStratum = NULL, alpha = NULL, years = NULL, strata = NULL) {
 	# construct and assign class
-	x <- list(value=value, valueByStratum=valueByStratum, varMethod=varMethod, 
-			var=var, varByStratum=varByStratum, ci=ci, ciByStratum=ciByStratum, 
+	x <- list(value=value, valueByStratum=valueByStratum, varMethod=varMethod,
+			var=var, varByStratum=varByStratum, ci=ci, ciByStratum=ciByStratum,
 			alpha=alpha, years=years, strata=strata)
 	class(x) <- "indicator"
 	# return object
@@ -146,6 +146,13 @@ constructGini <- function(...) {
 	return(x)                       # return result
 }
 
+# class "prop"
+constructProp <- function(...) {
+  x <- constructIndicator(...)    # call constructor of superclass
+  class(x) <- c("prop", class(x))  # assign class
+  return(x)                       # return result
+}
+
 
 ## test for class
 
@@ -168,6 +175,10 @@ is.rmpg <- function(x) inherits(x, "rmpg")
 #' @rdname utils
 #' @export
 is.gini <- function(x) inherits(x, "gini")
+
+#' @rdname utils
+#' @export
+is.prop <- function(x) inherits(x, "prop")
 
 #' @rdname utils
 #' @export
@@ -227,7 +238,7 @@ print.rmpg <- function(x, ...) {
 }
 
 # class "minAMSE"
-#' @S3method print minAMSE
+#' @export
 print.minAMSE <- function(x, ...) {
 	cat("Optimal k:\n")
 	print(x$kopt, ...)
@@ -267,7 +278,7 @@ subset.indicator <- function(x, years = NULL, strata = NULL, ...) {
 			x$ci <- x$ci[ys, , drop=FALSE]
 		}
 		x$years <- years  #set new years
-	}   
+	}
 	# extract strata from overall values (if available and requested)
 	if(subsetStrata || (haveStrata && subsetYears)) {
 		n <- nrow(x$valueByStratum)
