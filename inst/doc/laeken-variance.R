@@ -1,4 +1,5 @@
 ### R code from vignette source 'laeken-variance.Rnw'
+### Encoding: UTF-8
 
 ###################################################
 ### code chunk number 1: laeken-variance.Rnw:54-55

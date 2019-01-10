@@ -52,26 +52,26 @@
 #'
 #' @return A list of class \code{"prop"} (which inherits from the class
 #' \code{"indicator"}) with the following components:
-#' @returnItem value a numeric vector containing the overall value(s).
-#' @returnItem valueByStratum a \code{data.frame} containing the values by
-#' domain, or \code{NULL}.
-#' @returnItem varMethod a character string specifying the type of variance
-#' estimation used, or \code{NULL} if variance estimation was omitted.
-#' @returnItem var a numeric vector containing the variance estimate(s), or
-#' \code{NULL}.
-#' @returnItem varByStratum a \code{data.frame} containing the variance
-#' estimates by domain, or \code{NULL}.
-#' @returnItem ci a numeric vector or matrix containing the lower and upper
-#' endpoints of the confidence interval(s), or \code{NULL}.
-#' @returnItem ciByStratum a \code{data.frame} containing the lower and upper
-#' endpoints of the confidence intervals by domain, or \code{NULL}.
-#' @returnItem alpha a numeric value giving the significance level used for
+#' \item{value}{a numeric vector containing the overall value(s).}
+#' \item{valueByStratum}{a \code{data.frame} containing the values by
+#' domain, or \code{NULL}.}
+#' \item{varMethod}{a character string specifying the type of variance
+#' estimation used, or \code{NULL} if variance estimation was omitted.}
+#' \item{var}{a numeric vector containing the variance estimate(s), or
+#' \code{NULL}.}
+#' \item{varByStratum}{a \code{data.frame} containing the variance
+#' estimates by domain, or \code{NULL}.}
+#' \item{ci}{a numeric vector or matrix containing the lower and upper
+#' endpoints of the confidence interval(s), or \code{NULL}.}
+#' \item{ciByStratum}{a \code{data.frame} containing the lower and upper
+#' endpoints of the confidence intervals by domain, or \code{NULL}.}
+#' \item{alpha}{a numeric value giving the significance level used for
 #' computing the confidence interval(s) (i.e., the confidence level is \eqn{1 -
-#' }\code{alpha}), or \code{NULL}.
-#' @returnItem years a numeric vector containing the different years of the
-#' survey.
-#' @returnItem strata a character vector containing the different domains of the
-#' breakdown.
+#' }\code{alpha}), or \code{NULL}.}
+#' \item{years}{a numeric vector containing the different years of the
+#' survey.}
+#' \item{strata}{a character vector containing the different domains of the
+#' breakdown.}
 #'
 #' @author Matthias Templ, using code for breaking down
 #' estimation by Andreas Alfons
@@ -97,9 +97,45 @@
 #' prop("rb090", weights = "rb050", data = eusilc)
 #'
 #' # values by region
-#' prop("rb090", weights = "rb050",
-#'     breakdown = "db040", data = eusilc)
+#' p1 <- prop("rb090", weights = "rb050",
+#'     breakdown = "db040",  cluster = "db030",
+#'     data = eusilc)
 #'
+#' p1
+#'
+#' \dontrun{
+#' variance("rb090", weights = "rb050",
+#'     breakdown = "db040", data = eusilc, indicator=p1,
+#'     cluster="db030", X = calibVars(eusilc$db040))
+#' }
+#'
+#'
+#' eusilc$agecut <- cut(eusilc$age, 2)
+#' p1 <- prop("agecut", weights = "rb050",
+#'            breakdown = "db040",
+#'            cluster="db030", data = eusilc)
+#' p1
+#'
+#' \dontrun{
+#' variance("agecut", weights = "rb050",
+#'          breakdown = "db040", data = eusilc, indicator=p1,
+#'          X = calibVars(eusilc$db040), cluster="db030")
+#' }
+#'
+#'
+#' eusilc$eqIncomeCat <- factor(ifelse(eusilc$eqIncome < quantile(eusilc$eqIncome,0.2), "one", "two"))
+#' p1 <- prop("eqIncomeCat", weights = "rb050",
+#'            breakdown = "db040", data = eusilc, cluster="db030")
+#' p1
+#'
+#' \dontrun{
+#' variance("eqIncomeCat", weights = "rb050",
+#'          breakdown = "db040", data = eusilc, indicator=p1,
+#'          X = calibVars(eusilc$db040), cluster="db030")
+#' }
+#'
+#'
+#' @importFrom stats aggregate
 #' @export
 
 prop <- function(bin, weights = NULL, sort = NULL, years = NULL,
@@ -185,7 +221,8 @@ prop <- function(bin, weights = NULL, sort = NULL, years = NULL,
                        years=ys, strata=rs)
   # variance estimation (if requested)
   if(!is.null(var)) {
-    bin <- as.numeric(as.integer(bin) - 1)
+#    bin <- ifelse(as.numeric(as.integer(bin)), 0,1)
+    bin <- as.numeric(as.integer(bin))
     res <- variance(bin, weights, years, breakdown, design, cluster,
                     indicator=res, alpha=alpha, na.rm=na.rm, type=var, ...)
   }
@@ -210,5 +247,5 @@ propCoeff <- function(x, weights = NULL, sort = NULL, na.rm = FALSE) {
   ## calculations
   ## bin to numeric
   x <- as.integer(x)
-  weightedMean(x-1, weights)
+  1-weightedMean(x-1, weights)
 }

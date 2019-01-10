@@ -1,4 +1,5 @@
 ### R code from vignette source 'laeken-pareto.Rnw'
+### Encoding: UTF-8
 
 ###################################################
 ### code chunk number 1: laeken-pareto.Rnw:77-78
