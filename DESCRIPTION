@@ -1,8 +1,8 @@
 Package: laeken
 Type: Package
 Title: Estimation of Indicators on Social Exclusion and Poverty
-Version: 0.5.0
-Date: 2019-01-10
+Version: 0.5.1
+Date: 2020-02-05
 Depends: R (>= 3.2.0)
 Imports: boot, MASS
 Description: Estimation of indicators on social exclusion and poverty, as well
@@ -20,6 +20,6 @@ Maintainer: Andreas Alfons <alfons@ese.eur.nl>
 Encoding: UTF-8
 RoxygenNote: 6.1.1
 NeedsCompilation: no
-Packaged: 2019-01-10 13:54:42 UTC; andreas
+Packaged: 2020-02-05 08:17:58 UTC; andreas
 Repository: CRAN
-Date/Publication: 2019-01-10 16:00:03 UTC
+Date/Publication: 2020-02-05 14:40:15 UTC

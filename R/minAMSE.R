@@ -21,8 +21,6 @@
 #'
 #' See the references for more details on the iterative algorithm.
 #'
-#' @aliases print.minAMSE
-#'
 #' @param x for \code{minAMSE}, a numeric vector.  The \code{print} method is
 #' called by the generic function if an object of class \code{"minAMSE"} is
 #' supplied.
@@ -78,7 +76,7 @@
 #' # equivalized disposable income is equal for each household
 #' # member, therefore only one household member is taken
 #' minAMSE(eusilc$eqIncome[!duplicated(eusilc$db030)],
-#'     kmin = 50, kmax = 150, mmax = 250)
+#'     kmin = 60, kmax = 150, mmax = 250)
 #'
 #' @export
 
